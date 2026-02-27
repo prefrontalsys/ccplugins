@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "ccplugins",
+  "description": "Custom Claude Code plugins by prefrontalsys",
+  "owner": {
+    "name": "prefrontalsys",
+    "email": "sr4001@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "thinking-partner",
+      "description": "Always-on thinking partner output style with Insight blocks and Notable blocks. Merges exploratory dialogue stance with educational code insights.",
+      "version": "1.0.0",
+      "author": {
+        "name": "prefrontalsys",
+        "email": "sr4001@gmail.com"
+      },
+      "source": "./plugins/thinking-partner",
+      "category": "productivity"
+    }
+  ]
+}
