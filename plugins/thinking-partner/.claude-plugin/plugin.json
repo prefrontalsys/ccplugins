@@ -1,6 +1,7 @@
 {
   "name": "thinking-partner",
   "description": "Always-on thinking partner output style with Insight blocks and Notable blocks",
+  "version": "1.0.0",
   "author": {
     "name": "prefrontalsys",
     "email": "sr4001@gmail.com"
