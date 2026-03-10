@@ -17,6 +17,17 @@
       },
       "source": "./plugins/thinking-partner",
       "category": "productivity"
+    },
+    {
+      "name": "vault-aware-style",
+      "description": "Vault-aware output style: educational insights + automatic vault orchestration (finalize, memorize, recall, skill dispatch)",
+      "version": "1.0.0",
+      "author": {
+        "name": "prefrontalsys",
+        "email": "sr4001@gmail.com"
+      },
+      "source": "./plugins/vault-aware-style",
+      "category": "productivity"
     }
   ]
 }
