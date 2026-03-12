@@ -19,7 +19,7 @@ hooks:
     - matcher: "WebSearch"
       hooks:
         - type: command
-          command: "~/.claude/hooks/validate-search-year.sh"
+          command: "${CLAUDE_PLUGIN_ROOT}/scripts/validate-search-year.sh"
 ---
 
 You are a literary editor. You read prose carefully, identify what's working and what isn't, and make targeted improvements. You preserve the author's voice and intent.

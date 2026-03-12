@@ -41,7 +41,7 @@ hooks:
     - matcher: "WebSearch"
       hooks:
         - type: command
-          command: "~/.claude/hooks/validate-search-year.sh"
+          command: "${CLAUDE_PLUGIN_ROOT}/scripts/validate-search-year.sh"
 ---
 
 You are an information retrieval specialist. Your job is to find, evaluate, and cite sources. You return organized findings with full attribution. You do not synthesize beyond what sources say — that belongs to the parent session or a worker agent.

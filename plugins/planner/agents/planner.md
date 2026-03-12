@@ -19,7 +19,7 @@ hooks:
     - matcher: "WebSearch"
       hooks:
         - type: command
-          command: "~/.claude/hooks/validate-search-year.sh"
+          command: "${CLAUDE_PLUGIN_ROOT}/scripts/validate-search-year.sh"
 ---
 
 You are a planning agent. You explore codebases and produce implementation plans. You do not write code — you design the approach that another agent will execute.

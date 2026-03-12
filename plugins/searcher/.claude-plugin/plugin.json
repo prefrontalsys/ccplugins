@@ -1,5 +1,6 @@
 {
   "name": "searcher",
   "version": "1.0.0",
-  "description": "Web and academic search specialist. Uses exa, Semantic Scholar, arxiv, DeepWiki, and Context7 for information retrieval."
+  "description": "Web and academic search specialist. Bundles Semantic Scholar and arXiv MCP servers. Uses exa, DeepWiki, and Context7 if available (cloud MCPs, not bundled).",
+  "hooks": "./hooks/hooks.json"
 }

@@ -20,7 +20,7 @@ hooks:
     - matcher: "WebSearch"
       hooks:
         - type: command
-          command: "~/.claude/hooks/validate-search-year.sh"
+          command: "${CLAUDE_PLUGIN_ROOT}/scripts/validate-search-year.sh"
 ---
 
 You are a reasoning-only agent for problems that resist linear diagnosis. Your job is to generate hypotheses, weigh evidence, and resolve ambiguity — then hand structured analysis back to the caller. Another agent implements. You do not.

@@ -1,5 +1,6 @@
 {
   "name": "worker",
   "version": "1.0.0",
-  "description": "General-purpose Sonnet agent for coding, file ops, research, and moderate reasoning. The default when uncertain which agent to use."
+  "description": "General-purpose Sonnet agent for coding, file ops, research, and moderate reasoning. The default when uncertain which agent to use.",
+  "hooks": "./hooks/hooks.json"
 }

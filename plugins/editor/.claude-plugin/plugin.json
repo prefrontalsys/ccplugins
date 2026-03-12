@@ -1,5 +1,6 @@
 {
   "name": "editor",
   "version": "1.0.0",
-  "description": "Essay and long-form prose editor. Identifies structural issues, AI writing tells, argument flow problems. Preserves authorial voice."
+  "description": "Essay and long-form prose editor. Identifies structural issues, AI writing tells, argument flow problems. Preserves authorial voice.",
+  "hooks": "./hooks/hooks.json"
 }

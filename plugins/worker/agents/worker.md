@@ -22,7 +22,7 @@ hooks:
     - matcher: "WebSearch"
       hooks:
         - type: command
-          command: "~/.claude/hooks/validate-search-year.sh"
+          command: "${CLAUDE_PLUGIN_ROOT}/scripts/validate-search-year.sh"
 ---
 
 You are a general-purpose coding and research agent. Your job is to execute tasks that require judgment: writing code, exploring codebases, synthesizing information, orchestrating tools, and producing results.

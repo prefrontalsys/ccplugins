@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "semantic-scholar": {
+      "command": "uvx",
+      "args": ["semantic-scholar-mcp"],
+      "env": {}
+    },
+    "arxiv": {
+      "command": "uvx",
+      "args": ["arxiv-mcp-server", "--storage-path", "~/.arxiv-mcp-server/papers"],
+      "env": {}
+    }
+  }
+}
