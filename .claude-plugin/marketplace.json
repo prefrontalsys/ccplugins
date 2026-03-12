@@ -116,6 +116,17 @@
       },
       "source": "./plugins/worker",
       "category": "development"
+    },
+    {
+      "name": "prose-style",
+      "description": "Prose-first output style: longform writing, interlocutor mode, paragraph-first output, casual-authoritative voice (Ars Technica + Aeon).",
+      "version": "1.0.0",
+      "author": {
+        "name": "prefrontalsys",
+        "email": "sr4001@gmail.com"
+      },
+      "source": "./plugins/prose-style",
+      "category": "productivity"
     }
   ]
 }
