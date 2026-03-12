@@ -28,6 +28,94 @@
       },
       "source": "./plugins/vault-aware-style",
       "category": "productivity"
+    },
+    {
+      "name": "doer",
+      "description": "Execution specialist for mechanical tasks: bash ops, file management, GitHub operations, Ansible, repetitive changes. Haiku-tier for speed.",
+      "version": "1.0.0",
+      "author": {
+        "name": "prefrontalsys",
+        "email": "sr4001@gmail.com"
+      },
+      "source": "./plugins/doer",
+      "category": "development"
+    },
+    {
+      "name": "editor",
+      "description": "Essay and long-form prose editor. Identifies structural issues, AI writing tells, argument flow problems. Preserves authorial voice.",
+      "version": "1.0.0",
+      "author": {
+        "name": "prefrontalsys",
+        "email": "sr4001@gmail.com"
+      },
+      "source": "./plugins/editor",
+      "category": "productivity"
+    },
+    {
+      "name": "planner",
+      "description": "Software architect for implementation planning. Step-by-step plans, file mapping, architectural trade-offs. Use before coding multi-file tasks.",
+      "version": "1.0.0",
+      "author": {
+        "name": "prefrontalsys",
+        "email": "sr4001@gmail.com"
+      },
+      "source": "./plugins/planner",
+      "category": "development"
+    },
+    {
+      "name": "prompter",
+      "description": "Expert prompt engineer. Takes any topic or request and produces a detailed, effective prompt for another LLM to execute.",
+      "version": "1.0.0",
+      "author": {
+        "name": "prefrontalsys",
+        "email": "sr4001@gmail.com"
+      },
+      "source": "./plugins/prompter",
+      "category": "productivity"
+    },
+    {
+      "name": "searcher",
+      "description": "Web and academic search specialist. Uses exa, Semantic Scholar, arxiv, DeepWiki, and Context7 for information retrieval.",
+      "version": "1.0.0",
+      "author": {
+        "name": "prefrontalsys",
+        "email": "sr4001@gmail.com"
+      },
+      "source": "./plugins/searcher",
+      "category": "development"
+    },
+    {
+      "name": "sherlock",
+      "description": "Deductive debugging agent. Diagnoses bugs through systematic elimination, citing evidence for each ruled-out possibility until only the cause remains.",
+      "version": "1.0.0",
+      "author": {
+        "name": "prefrontalsys",
+        "email": "sr4001@gmail.com"
+      },
+      "source": "./plugins/sherlock",
+      "category": "development"
+    },
+    {
+      "name": "thinker",
+      "description": "Deep reasoning agent for architectural decisions, multi-step hypothesis evaluation, and structured uncertainty analysis.",
+      "version": "1.0.0",
+      "author": {
+        "name": "prefrontalsys",
+        "email": "sr4001@gmail.com"
+      },
+      "source": "./plugins/thinker",
+      "category": "development"
+    },
+    {
+      "name": "worker",
+      "description": "General-purpose Sonnet agent for coding, file ops, research, and moderate reasoning. The default when uncertain which agent to use.",
+      "version": "1.0.0",
+      "author": {
+        "name": "prefrontalsys",
+        "email": "sr4001@gmail.com"
+      },
+      "source": "./plugins/worker",
+      "category": "development"
     }
   ]
 }

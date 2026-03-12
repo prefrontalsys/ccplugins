@@ -1,0 +1,5 @@
+{
+  "name": "searcher",
+  "version": "1.0.0",
+  "description": "Web and academic search specialist. Uses exa, Semantic Scholar, arxiv, DeepWiki, and Context7 for information retrieval."
+}

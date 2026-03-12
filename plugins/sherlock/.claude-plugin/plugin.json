@@ -1,0 +1,5 @@
+{
+  "name": "sherlock",
+  "version": "1.0.0",
+  "description": "Deductive debugging agent. Diagnoses bugs through systematic elimination, citing evidence for each ruled-out possibility until only the cause remains."
+}
