@@ -15,7 +15,11 @@
         "name": "prefrontalsys",
         "email": "sr4001@gmail.com"
       },
-      "source": "../holden/plugin",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/prefrontalsys/holden.git",
+        "path": "plugin"
+      },
       "category": "productivity"
     },
     {
