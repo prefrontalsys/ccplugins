@@ -1,6 +1,0 @@
-{
-  "name": "planner",
-  "version": "1.0.0",
-  "description": "Software architect for implementation planning. Step-by-step plans, file mapping, architectural trade-offs. Use before coding multi-file tasks.",
-  "hooks": "./hooks/hooks.json"
-}

@@ -1,6 +1,0 @@
-{
-  "name": "thinker",
-  "version": "1.0.0",
-  "description": "Deep reasoning agent for architectural decisions, multi-step hypothesis evaluation, and structured uncertainty analysis.",
-  "hooks": "./hooks/hooks.json"
-}

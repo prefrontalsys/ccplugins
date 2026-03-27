@@ -1,5 +1,0 @@
-{
-  "name": "prompter",
-  "version": "1.0.0",
-  "description": "Expert prompt engineer. Takes any topic or request and produces a detailed, effective prompt for another LLM to execute."
-}
