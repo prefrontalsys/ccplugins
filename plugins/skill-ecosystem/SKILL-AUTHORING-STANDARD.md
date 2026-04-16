@@ -78,13 +78,35 @@ Per cc-docs, **only `name` is required**. Everything else is optional metadata.
 | `outputStyles`| string                | no       | Path to styles dir.                                                                |
 | `lspServers`  | string                | no       | Path to `.lsp.json`.                                                               |
 
-### The `skills` field — common pitfall
+### The `skills` field
 
-**Do not set `"skills": "./"`**. CC's loader rejects this as a path escape. The documented value is a directory that contains `<name>/SKILL.md` subdirectories, not the plugin root itself.
+The spec default (when the field is omitted) is the `skills/` subdirectory at the plugin root. The spec also allows overriding that default with a relative path or an array of paths.
 
-For single-SKILL.md-at-root plugins (the common case in this repo): **omit the `skills` field entirely**. Default discovery finds the root `SKILL.md`.
+**Known loader pitfall**: `"skills": "./"` (string form pointing at plugin root) is rejected by the current CC loader as a path escape, even though the spec documents that `"skills": ["./"]` (array form pointing at plugin root) is a valid pattern for plugins whose root directory contains `SKILL.md` directly. This is a loader/spec inconsistency — use the array form OR one of the patterns below.
 
-For plugins with a sub-skills directory like `plugin/skills/variant-a/SKILL.md`, set `"skills": "./skills/"`.
+Three valid layouts:
+
+**Layout A — single SKILL.md at plugin root, no `skills/` subdir**
+- Either omit the `skills` field (CC will auto-discover the root `SKILL.md`), or
+- Set `"skills": ["./"]` (explicit array form — documented in spec, accepted by loader)
+
+**Layout B — sub-skills directory**
+```
+plugin/
+├── .claude-plugin/plugin.json
+└── skills/
+    ├── variant-a/SKILL.md
+    └── variant-b/SKILL.md
+```
+Either omit `skills` (default scan of `skills/`) or set `"skills": "./skills/"` explicitly.
+
+**Layout C — explicit multi-location array**
+```json
+"skills": ["./skills/", "./extras/"]
+```
+Use when skills live in multiple directories. Per spec: *"To keep the default directory and add more paths for skills, commands, agents, or output styles, include the default in your array."*
+
+**Repo convention**: Layout A (omit the field) is the common case; Layout B (`"./skills/"`) is used when a plugin has multiple variant skills. Neither string `"./"` nor array `["./"]` should be used in new plugins — they're ambiguous between "default location" and "root override" to readers.
 
 ---
 
@@ -124,7 +146,11 @@ allowed-tools: Read Grep Bash  (optional — restricts which tools the skill may
 | `when_to_use`              | no          | Extra triggers. Shown in listing alongside description.                                                              |
 | `argument-hint`            | no          | Autocomplete hint (e.g. `[issue-number]`).                                                                           |
 | `disable-model-invocation` | no          | If `true`, model cannot auto-invoke; only explicit `/skill-name`.                                                    |
-| `allowed-tools`            | no          | Space-separated tool names the skill may use.                                                                        |
+| `user-invocable`           | no          | Set to `false` to hide from the `/` menu. Use for background knowledge users shouldn't invoke directly. Default: `true`. |
+| `allowed-tools`            | no          | Tools Claude can use without asking permission while this skill is active. Accepts a space-separated string OR a YAML list. Does not restrict which tools are available; tools not listed still obey your permission settings. |
+| `model`                    | no          | Model to use while this skill is active.                                                                             |
+| `effort`                   | no          | Effort level while this skill is active. Overrides session effort. Options: `low`, `medium`, `high`, `max` (Opus 4.6 only). |
+| `context`                  | no          | Set to `fork` to run in a forked subagent context.                                                                   |
 
 ### Fields this repo does NOT use (not spec)
 
@@ -169,6 +195,17 @@ model: sonnet
 | `tools`           | no       | Comma-separated allow-list; inherits all if omitted.                                                                   |
 | `disallowedTools` | no       | Tools to deny from inherited set.                                                                                      |
 | `model`           | no       | `sonnet`, `opus`, `haiku`, specific model ID, or `inherit`. Defaults to `inherit`.                                     |
+| `permissionMode`  | no       | `default`, `acceptEdits`, `auto`, `dontAsk`, `bypassPermissions`, or `plan`.                                           |
+| `maxTurns`        | no       | Maximum agentic turns before the subagent stops.                                                                       |
+| `skills`          | no       | Skills to load into the subagent's context at startup. Full content is injected, not just made invocable.              |
+| `mcpServers`      | no       | MCP servers available to this subagent. Each entry is either a named reference or an inline server config.             |
+| `hooks`           | no       | Lifecycle hooks scoped to this subagent.                                                                               |
+| `memory`          | no       | Persistent memory scope: `user`, `project`, or `local`. Enables cross-session learning.                                |
+| `background`      | no       | `true` to always run as a background task. Default: `false`.                                                           |
+| `effort`          | no       | Effort level: `low`, `medium`, `high`, `max` (Opus 4.6 only). Overrides session effort.                                |
+| `isolation`       | no       | Set to `worktree` to run in a temporary git worktree. Auto-cleans up if the subagent makes no changes.                 |
+| `color`           | no       | Display color: `red`, `blue`, `green`, `yellow`, `purple`, `orange`, `pink`, `cyan`.                                   |
+| `initialPrompt`   | no       | Auto-submitted as the first user turn when this agent runs as the main session agent (via `--agent`).                  |
 
 ### Model selection — heuristic used in this repo
 
@@ -257,7 +294,17 @@ A plugin that passes JSON validation but fails step 3 is still broken. Always in
 
 ---
 
-## 9. What changed from the prior standard (2026-04-16 rewrite)
+## 9. What changed from the prior standard (2026-04-16 rewrite, r2)
+
+### r2 — after adversarial review
+
+A Gemini adversarial review flagged three real misses in the initial rewrite:
+
+- **`user-invocable` field** missing from the SKILL.md frontmatter table (§4). Added.
+- **Agent frontmatter table** (§5) was incomplete. The spec documents 15+ valid fields; the initial rewrite listed 5. Added all remaining fields (`permissionMode`, `maxTurns`, `skills`, `mcpServers`, `hooks`, `memory`, `background`, `effort`, `isolation`, `color`, `initialPrompt`).
+- **Skills-path guidance** (§3) claimed root SKILL.md was the canonical layout. Corrected to reflect that the spec default is `skills/` and that both layouts are valid; root-SKILL.md plugins should either omit the field or use the array form `["./"]` per spec.
+
+### r1 — initial rewrite
 
 The previous SKILL-AUTHORING-STANDARD.md was invented by upstream contributors without reference to cc-docs. It treated several fields as required that the spec does not require, and documented patterns (bundle plugins sharing a namespace via `/short:command` references) that are not possible in Claude Code.
 
