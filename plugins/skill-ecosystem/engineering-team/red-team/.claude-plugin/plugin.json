@@ -1,0 +1,6 @@
+{
+  "name": "red-team",
+  "description": "Use when planning or executing authorized red team engagements, attack path analysis, or offensive security simulations. Covers MITRE ATT&CK kill-chain planning, technique scoring, choke point identification, OPSEC risk assessment, and crown jewel targeting.",
+  "version": "1.0.0",
+  "license": "MIT"
+}

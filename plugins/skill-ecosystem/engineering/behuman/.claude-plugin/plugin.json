@@ -1,12 +1,6 @@
 {
   "name": "behuman",
-  "description": "Self-Mirror consciousness loop for human-like AI responses. Adds inner dialogue (Self \u2192 Mirror \u2192 Conscious Response) to make AI output feel authentic, not robotic. Zero dependencies \u2014 pure prompt technique.",
-  "version": "2.2.0",
-  "author": {
-    "name": "Alireza Rezvani",
-    "url": "https://alirezarezvani.com"
-  },
-  "homepage": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering/behuman",
-  "repository": "https://github.com/alirezarezvani/claude-skills",
+  "description": "Use when the user wants more human-like AI responses \u2014 less robotic, less listy, more authentic. Triggers: 'behuman', 'be real', 'like a human', 'more human', 'less AI', 'talk like a person', 'mirror mode', 'stop being so AI', or when conversations are emotionally charged (grief, job loss, relationship advice, fear). NOT for technical questions, code generation, or factual lookups.",
+  "version": "1.0.0",
   "license": "MIT"
 }

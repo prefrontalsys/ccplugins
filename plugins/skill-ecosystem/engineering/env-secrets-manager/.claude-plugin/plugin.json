@@ -1,0 +1,6 @@
+{
+  "name": "env-secrets-manager",
+  "description": "Env & Secrets Manager",
+  "version": "1.0.0",
+  "license": "MIT"
+}

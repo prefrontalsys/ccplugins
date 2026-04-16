@@ -1,0 +1,6 @@
+{
+  "name": "release-manager",
+  "description": "Use when the user asks to plan releases, manage changelogs, coordinate deployments, create release branches, or automate versioning.",
+  "version": "1.0.0",
+  "license": "MIT"
+}

@@ -8,287 +8,169 @@
   },
   "plugins": [
     {
-      "name": "holden",
-      "description": "Holden personality system \u2014 soul, constitution, epistemic hooks, and all agent definitions. Supersedes individual agent plugins.",
-      "version": "1.0.0",
-      "author": {
-        "name": "prefrontalsys",
-        "email": "sr4001@gmail.com"
-      },
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/prefrontalsys/holden.git",
-        "path": "plugin"
-      },
-      "category": "productivity"
-    },
-    {
-      "name": "thinking-partner",
-      "description": "Always-on thinking partner output style with Insight blocks and Notable blocks. Merges exploratory dialogue stance with educational code insights.",
-      "version": "1.0.0",
-      "author": {
-        "name": "prefrontalsys",
-        "email": "sr4001@gmail.com"
-      },
-      "source": "./plugins/thinking-partner",
-      "category": "productivity"
-    },
-    {
-      "name": "vault-aware-style",
-      "description": "Vault-aware output style: educational insights + automatic vault orchestration (finalize, memorize, recall, skill dispatch)",
-      "version": "1.0.0",
-      "author": {
-        "name": "prefrontalsys",
-        "email": "sr4001@gmail.com"
-      },
-      "source": "./plugins/vault-aware-style",
-      "category": "productivity"
-    },
-    {
-      "name": "prose-style",
-      "description": "Prose-first output style: longform writing, interlocutor mode, paragraph-first output, casual-authoritative voice (Ars Technica + Aeon).",
-      "version": "1.0.0",
-      "author": {
-        "name": "prefrontalsys",
-        "email": "sr4001@gmail.com"
-      },
-      "source": "./plugins/prose-style",
-      "category": "productivity"
-    },
-    {
-      "name": "marketing-skills",
-      "source": "./plugins/skill-ecosystem/marketing-skill",
-      "description": "44 marketing skills across 7 pods: Content, SEO, CRO, Channels, Growth, Intelligence, Sales enablement, and X/Twitter growth. 51 Python tools, 73 reference docs.",
+      "name": "a11y-audit",
+      "source": "./plugins/skill-ecosystem/engineering-team/a11y-audit",
+      "description": "WCAG 2.2 accessibility audit and fix for React, Next.js, Vue, Angular, Svelte, and HTML. Static scanner detecting 20+ violation types, contrast checker with suggest mode, framework-specific fix patterns, /a11y-audit slash command.",
       "version": "2.2.0",
       "author": {
         "name": "Alireza Rezvani"
       },
       "keywords": [
-        "marketing",
-        "content",
-        "seo",
-        "cro",
-        "growth",
-        "sales",
-        "copywriting",
-        "email",
-        "social-media",
-        "paid-ads",
-        "twitter",
-        "x-twitter"
-      ],
-      "category": "marketing"
-    },
-    {
-      "name": "c-level-skills",
-      "source": "./plugins/skill-ecosystem/c-level-advisor",
-      "description": "28 C-level advisory skills: virtual board of directors (CEO, CTO, COO, CPO, CMO, CFO, CRO, CISO, CHRO), executive mentor, founder coach, orchestration (Chief of Staff, board meetings, decision logger), strategic capabilities (board deck builder, scenario war room, competitive intel, M&A playbook), and culture frameworks.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "ceo",
-        "cto",
-        "cfo",
-        "executive",
-        "strategy",
-        "leadership",
-        "board",
-        "advisory"
-      ],
-      "category": "leadership"
-    },
-    {
-      "name": "engineering-advanced-skills",
-      "source": "./plugins/skill-ecosystem/engineering",
-      "description": "44 advanced engineering skills: agent designer, agent workflow designer, AgentHub, RAG architect, database designer, focused-fix, browser-automation, spec-driven-workflow, secrets-vault-manager, sql-database-assistant, migration architect, observability designer, dependency auditor, release manager, API reviewer, CI/CD pipeline builder, MCP server builder, skill security auditor, performance profiler, Helm chart builder, Terraform patterns, self-eval, llm-cost-optimizer, prompt-governance, behuman, code-tour, demo-video, data-quality-auditor, statistical-analyst, llm-wiki (second brain for Obsidian + Claude Code, Karpathy pattern), and more.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "agent-design",
-        "rag",
-        "database",
-        "migration",
-        "observability",
-        "dependency-audit",
-        "release",
-        "api-review",
-        "ci-cd",
-        "mcp",
-        "security-audit"
+        "accessibility",
+        "a11y",
+        "wcag",
+        "aria",
+        "screen-reader",
+        "contrast",
+        "keyboard-navigation"
       ],
       "category": "development"
     },
     {
-      "name": "engineering-skills",
-      "source": "./plugins/skill-ecosystem/engineering-team",
-      "description": "36 engineering skills: architecture, frontend, backend, fullstack, QA, DevOps, security, AI/ML, data engineering, Playwright (9 sub-skills), self-improving agent, Stripe integration, TDD guide, tech stack evaluator, Google Workspace CLI, a11y audit (WCAG 2.2), Azure cloud architect, GCP cloud architect, security pen testing, Snowflake development, adversarial-reviewer, ai-security, cloud-security, incident-response, red-team, threat-detection.",
+      "name": "ab-test-setup",
+      "source": "./plugins/skill-ecosystem/marketing-skill/ab-test-setup",
+      "description": "When the user wants to plan, design, or implement an A/B test or experiment. Also use when the user mentions \"A/B test,\" \"split test,\" \"experiment,\" \"test this change,\" \"variant copy,\" \"multivariate test,\" \"hypothesis,\" \"conversion experiment,\" \"stat",
+      "license": "MIT"
+    },
+    {
+      "name": "ad-creative",
+      "source": "./plugins/skill-ecosystem/marketing-skill/ad-creative",
+      "description": "When the user needs to generate, iterate, or scale ad creative for paid advertising. Use when they say 'write ad copy,' 'generate headlines,' 'create ad variations,' 'bulk creative,' 'iterate on ads,' 'ad copy validation,' 'RSA headlines,' 'Meta ad c",
+      "license": "MIT"
+    },
+    {
+      "name": "adversarial-reviewer",
+      "source": "./plugins/skill-ecosystem/engineering-team/adversarial-reviewer",
+      "description": "Adversarial code review that breaks the self-review monoculture. Use when you want a genuinely critical review of recent changes, before merging a PR, or when you suspect Claude is being too agreeable about code quality. Forces perspective shifts thr",
+      "license": "MIT"
+    },
+    {
+      "name": "agent-designer",
+      "source": "./plugins/skill-ecosystem/engineering/agent-designer",
+      "description": "Use when the user asks to design multi-agent systems, create agent architectures, define agent communication patterns, or build autonomous agent workflows.",
+      "license": "MIT"
+    },
+    {
+      "name": "agent-protocol",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/agent-protocol",
+      "description": "Inter-agent communication protocol for C-suite agent teams. Defines invocation syntax, loop prevention, isolation rules, and response formats. Use when C-suite agents need to query each other, coordinate cross-functional analysis, or run board meetin",
+      "license": "MIT"
+    },
+    {
+      "name": "agent-workflow-designer",
+      "source": "./plugins/skill-ecosystem/engineering/agent-workflow-designer",
+      "description": "Agent Workflow Designer",
+      "license": "MIT"
+    },
+    {
+      "name": "agenthub",
+      "source": "./plugins/skill-ecosystem/engineering/agenthub",
+      "description": "Multi-agent collaboration \u2014 spawn N parallel subagents that compete on code optimization, content drafts, research approaches, or any task that benefits from diverse solutions. 7 slash commands (/hub:init, /hub:spawn, /hub:status, /hub:eval, /hub:merge, /hub:board, /hub:run), agent templates, DAG-based orchestration, LLM judge mode, message board coordination.",
       "version": "2.2.0",
       "author": {
         "name": "Alireza Rezvani"
       },
       "keywords": [
-        "engineering",
-        "architecture",
-        "frontend",
-        "backend",
-        "devops",
-        "security",
-        "ai",
-        "ml",
-        "data",
-        "playwright",
-        "google-workspace",
-        "gws",
-        "gmail",
-        "google-drive",
-        "google-sheets"
+        "multi-agent",
+        "collaboration",
+        "parallel",
+        "git-dag",
+        "orchestration",
+        "competition",
+        "worktree",
+        "content-generation",
+        "research",
+        "optimization"
       ],
       "category": "development"
     },
     {
-      "name": "ra-qm-skills",
-      "source": "./plugins/skill-ecosystem/ra-qm-team",
-      "description": "13 regulatory affairs & quality management skills for HealthTech/MedTech: ISO 13485 QMS, MDR 2017/745, FDA 510(k)/PMA, GDPR/DSGVO, ISO 27001 ISMS, CAPA management, risk management, clinical evaluation, SOC 2 compliance.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "regulatory",
-        "quality",
-        "compliance",
-        "iso-13485",
-        "mdr",
-        "fda",
-        "gdpr",
-        "medtech"
-      ],
-      "category": "compliance"
-    },
-    {
-      "name": "product-skills",
-      "source": "./plugins/skill-ecosystem/product-team",
-      "description": "15 product skills with 17 Python tools: product manager toolkit (RICE, PRDs), agile product owner, product strategist, UX researcher, UI design system, competitive teardown, landing page generator, SaaS scaffolder, product analytics, experiment designer, product discovery, roadmap communicator, code-to-prd, research summarizer, apple-hig-expert.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "product",
-        "pm",
-        "agile",
-        "ux",
-        "design-system",
-        "competitive-analysis",
-        "landing-page",
-        "saas",
-        "analytics",
-        "experimentation",
-        "discovery",
-        "discovery",
-        "roadmap",
-        "apple-hig",
-        "design-guidelines"
-      ],
-      "category": "product"
-    },
-    {
-      "name": "pm-skills",
-      "source": "./plugins/skill-ecosystem/project-management",
-      "description": "6 project management skills with 12 Python tools: senior PM, scrum master, Jira expert, Confluence expert, Atlassian admin, template creator.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "project-management",
-        "scrum",
-        "agile",
-        "jira",
-        "confluence",
-        "atlassian"
-      ],
-      "category": "project-management"
-    },
-    {
-      "name": "business-growth-skills",
-      "source": "./plugins/skill-ecosystem/business-growth",
-      "description": "4 business & growth skills: customer success manager, sales engineer, revenue operations, contract & proposal writer.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "customer-success",
-        "sales-engineering",
-        "revenue-operations",
-        "business-growth",
-        "proposals"
-      ],
-      "category": "business-growth"
-    },
-    {
-      "name": "finance-skills",
-      "source": "./plugins/skill-ecosystem/finance",
-      "description": "3 finance skills: financial analyst (ratio analysis, DCF valuation, budgeting, forecasting), SaaS metrics coach (ARR, MRR, churn, CAC, LTV, NRR, Quick Ratio, projections), and business investment advisor. 7 Python automation tools.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "finance",
-        "dcf",
-        "valuation",
-        "budgeting",
-        "forecasting",
-        "saas",
-        "metrics",
-        "arr",
-        "mrr",
-        "churn",
-        "ltv",
-        "cac"
-      ],
-      "category": "finance"
-    },
-    {
-      "name": "pw",
-      "source": "./plugins/skill-ecosystem/engineering-team/playwright-pro",
-      "description": "Production-grade Playwright testing toolkit. 9 skills, 3 agents, 55 templates, TestRail + BrowserStack MCP integrations. Generate tests, fix flaky failures, migrate from Cypress/Selenium.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "playwright",
-        "testing",
-        "e2e",
-        "qa",
-        "test-automation",
-        "browserstack",
-        "testrail"
-      ],
-      "category": "development"
-    },
-    {
-      "name": "self-improving-agent",
-      "source": "./plugins/skill-ecosystem/engineering-team/self-improving-agent",
-      "description": "Curate auto-memory, promote learnings to CLAUDE.md and rules, extract patterns into skills. Ships 5 slash commands (/si:review, /si:promote, /si:extract, /si:status, /si:remember) and 2 sub-agents (memory-analyst, skill-extractor).",
+      "name": "agile-product-owner",
+      "source": "./plugins/skill-ecosystem/product-team/agile-product-owner",
+      "description": "Agile product ownership for backlog management and sprint execution. INVEST-compliant user story generation, acceptance criteria patterns (Given/When/Then, rule-based, checklist), epic breakdown with 5 split techniques, sprint planning with velocity-based capacity math, and weighted backlog prioritization. Includes user_story_generator Python tool and 2 reference guides.",
       "version": "2.3.0",
       "author": {
         "name": "Alireza Rezvani"
       },
       "keywords": [
-        "memory",
-        "auto-memory",
-        "self-improvement",
-        "learning"
+        "agile",
+        "scrum",
+        "product-owner",
+        "user-stories",
+        "sprint-planning",
+        "backlog",
+        "acceptance-criteria",
+        "epic-breakdown"
       ],
-      "category": "development"
+      "category": "product"
+    },
+    {
+      "name": "ai-security",
+      "source": "./plugins/skill-ecosystem/engineering-team/ai-security",
+      "description": "Use when assessing AI/ML systems for prompt injection, jailbreak vulnerabilities, model inversion risk, data poisoning exposure, or agent tool abuse. Covers MITRE ATLAS technique mapping, injection signature detection, and adversarial robustness scor",
+      "license": "MIT"
+    },
+    {
+      "name": "ai-seo",
+      "source": "./plugins/skill-ecosystem/marketing-skill/ai-seo",
+      "description": "Optimize content to get cited by AI search engines \u2014 ChatGPT, Perplexity, Google AI Overviews, Claude, Gemini, Copilot. Use when you want your content to appear in AI-generated answers, not just ranked in blue links. Triggers: 'optimize for AI search",
+      "license": "MIT"
+    },
+    {
+      "name": "analytics-tracking",
+      "source": "./plugins/skill-ecosystem/marketing-skill/analytics-tracking",
+      "description": "Set up, audit, and debug analytics tracking implementation \u2014 GA4, Google Tag Manager, event taxonomy, conversion tracking, and data quality. Use when building a tracking plan from scratch, auditing existing analytics for gaps or errors, debugging mis",
+      "license": "MIT"
+    },
+    {
+      "name": "api-design-reviewer",
+      "source": "./plugins/skill-ecosystem/engineering/api-design-reviewer",
+      "description": "API Design Reviewer",
+      "license": "MIT"
+    },
+    {
+      "name": "api-test-suite-builder",
+      "source": "./plugins/skill-ecosystem/engineering/api-test-suite-builder",
+      "description": "Use when the user asks to generate API tests, create integration test suites, test REST endpoints, or build contract tests.",
+      "license": "MIT"
+    },
+    {
+      "name": "app-store-optimization",
+      "source": "./plugins/skill-ecosystem/marketing-skill/app-store-optimization",
+      "description": "App Store Optimization (ASO) toolkit for researching keywords, analyzing competitor rankings, generating metadata suggestions, and improving app visibility on Apple App Store and Google Play Store. Use when the user asks about ASO, app store rankings",
+      "license": "MIT"
+    },
+    {
+      "name": "apple-hig-expert",
+      "source": "./plugins/skill-ecosystem/product-team/apple-hig-expert",
+      "description": "Master Apple's Human Interface Guidelines (HIG) with focus on 2026 Liquid Glass aesthetics. Design and audit iOS, macOS, and visionOS apps for full compliance and premium feel. Includes hig_checker Python tool for tap targets and contrast.",
+      "version": "2.3.0",
+      "author": {
+        "name": "Alireza Rezvani"
+      },
+      "keywords": [
+        "apple-hig",
+        "design-guidelines",
+        "ios-design",
+        "macos-design",
+        "visionos",
+        "liquid-glass",
+        "accessibility",
+        "ui-design"
+      ],
+      "category": "design"
+    },
+    {
+      "name": "atlassian-admin",
+      "source": "./plugins/skill-ecosystem/project-management/atlassian-admin",
+      "description": "Atlassian Administrator for managing and organizing Atlassian products (Jira, Confluence, Bitbucket, Trello), users, permissions, security, integrations, system configuration, and org-wide governance. Use when asked to add users to Jira, change Confl",
+      "license": "MIT"
+    },
+    {
+      "name": "atlassian-templates",
+      "source": "./plugins/skill-ecosystem/project-management/atlassian-templates",
+      "description": "Atlassian Template and Files Creator/Modifier expert for creating, modifying, and managing Jira and Confluence templates, blueprints, custom layouts, reusable components, and standardized content structures. Use when building org-wide templates, cust",
+      "license": "MIT"
     },
     {
       "name": "autoresearch-agent",
@@ -310,53 +192,6 @@
       "category": "development"
     },
     {
-      "name": "content-creator",
-      "source": "./plugins/skill-ecosystem/marketing-skill/content-creator",
-      "description": "SEO-optimized marketing content with brand voice analysis, content frameworks, and social media templates.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "content",
-        "marketing",
-        "seo",
-        "brand-voice"
-      ],
-      "category": "marketing"
-    },
-    {
-      "name": "demand-gen",
-      "source": "./plugins/skill-ecosystem/marketing-skill/marketing-demand-acquisition",
-      "description": "Multi-channel demand generation, paid media optimization, SEO strategy, and partnership programs.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "demand-gen",
-        "paid-media",
-        "acquisition"
-      ],
-      "category": "marketing"
-    },
-    {
-      "name": "fullstack-engineer",
-      "source": "./plugins/skill-ecosystem/engineering-team/senior-fullstack",
-      "description": "Full-stack engineering with React, Node, databases, and deployment.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "fullstack",
-        "react",
-        "node",
-        "engineering"
-      ],
-      "category": "development"
-    },
-    {
       "name": "aws-architect",
       "source": "./plugins/skill-ecosystem/engineering-team/aws-solution-architect",
       "description": "AWS serverless architecture design with IaC templates, cost optimization, and CI/CD pipelines.",
@@ -373,71 +208,130 @@
       "category": "development"
     },
     {
-      "name": "product-manager",
-      "source": "./plugins/skill-ecosystem/product-team/product-manager-toolkit",
-      "description": "Product management toolkit with RICE scoring, customer interview analysis, and PRD generation.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "product",
-        "prd",
-        "rice",
-        "prioritization"
-      ],
-      "category": "product"
+      "name": "azure-cloud-architect",
+      "source": "./plugins/skill-ecosystem/engineering-team/azure-cloud-architect",
+      "description": "Design Azure architectures for startups and enterprises. Use when asked to design Azure infrastructure, create Bicep/ARM templates, optimize Azure costs, set up Azure DevOps pipelines, or migrate to Azure. Covers AKS, App Service, Azure Functions, Co",
+      "license": "MIT"
     },
     {
-      "name": "scrum-master",
-      "source": "./plugins/skill-ecosystem/project-management/scrum-master",
-      "description": "Sprint health analysis, velocity tracking, and retrospective facilitation.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "scrum",
-        "agile",
-        "sprint",
-        "velocity"
-      ],
-      "category": "project-management"
+      "name": "behuman",
+      "source": "./plugins/skill-ecosystem/engineering/behuman",
+      "description": "Use when the user wants more human-like AI responses \u2014 less robotic, less listy, more authentic. Triggers: 'behuman', 'be real', 'like a human', 'more human', 'less AI', 'talk like a person', 'mirror mode', 'stop being so AI', or when conversations a",
+      "license": "MIT"
     },
     {
-      "name": "skill-security-auditor",
-      "source": "./plugins/skill-ecosystem/engineering/skill-security-auditor",
-      "description": "Security audit and vulnerability scanner for AI agent skills. Scans for malicious patterns, prompt injection, data exfiltration, and unsafe file operations.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "security",
-        "audit",
-        "vulnerability",
-        "scanner"
-      ],
-      "category": "development"
+      "name": "board-deck-builder",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/board-deck-builder",
+      "description": "Assembles comprehensive board and investor update decks by pulling perspectives from all C-suite roles. Use when preparing board meetings, investor updates, quarterly business reviews, or fundraising narratives. Covers structure, narrative framework,",
+      "license": "MIT"
     },
     {
-      "name": "google-workspace-cli",
-      "source": "./plugins/skill-ecosystem/engineering-team/google-workspace-cli",
-      "description": "Google Workspace administration via the gws CLI. Install, authenticate, and automate Gmail, Drive, Sheets, Calendar, Docs, Chat, and Tasks. 5 Python tools, 3 reference guides, 43 built-in recipes, 10 persona bundles.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "google-workspace",
-        "gws",
-        "gmail",
-        "google-drive",
-        "google-sheets",
-        "google-calendar",
-        "workspace-admin"
-      ],
-      "category": "development"
+      "name": "board-meeting",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/board-meeting",
+      "description": "Multi-agent board meeting protocol for strategic decisions. Runs a structured 6-phase deliberation: context loading, independent C-suite contributions (isolated, no cross-pollination), critic analysis, synthesis, founder review, and decision extracti",
+      "license": "MIT"
+    },
+    {
+      "name": "brand-guidelines",
+      "source": "./plugins/skill-ecosystem/marketing-skill/brand-guidelines",
+      "description": "When the user wants to apply, document, or enforce brand guidelines for any product or company. Also use when the user mentions 'brand guidelines,' 'brand colors,' 'typography,' 'logo usage,' 'brand voice,' 'visual identity,' 'tone of voice,' 'brand ",
+      "license": "MIT"
+    },
+    {
+      "name": "browser-automation",
+      "source": "./plugins/skill-ecosystem/engineering/browser-automation",
+      "description": "Use when the user asks to automate browser tasks, scrape websites, fill forms, capture screenshots, extract structured data from web pages, or build web automation workflows. NOT for testing \u2014 use playwright-pro for that.",
+      "license": "MIT"
+    },
+    {
+      "name": "business-investment-advisor",
+      "source": "./plugins/skill-ecosystem/finance/business-investment-advisor",
+      "description": "Business investment analysis and capital allocation advisor. Use when evaluating whether to invest in equipment, real estate, a new business, hiring, technology, or any capital expenditure. Also use for ROI calculations, IRR, NPV, payback period, bui",
+      "license": "MIT"
+    },
+    {
+      "name": "campaign-analytics",
+      "source": "./plugins/skill-ecosystem/marketing-skill/campaign-analytics",
+      "description": "Analyzes campaign performance with multi-touch attribution, funnel conversion analysis, and ROI calculation for marketing optimization. Use when analyzing marketing campaigns, ad performance, attribution models, conversion rates, or calculating marke",
+      "license": "MIT"
+    },
+    {
+      "name": "capa-officer",
+      "source": "./plugins/skill-ecosystem/ra-qm-team/capa-officer",
+      "description": "CAPA system management for medical device QMS. Covers root cause analysis, corrective action planning, effectiveness verification, and CAPA metrics. Use for CAPA investigations, 5-Why analysis, fishbone diagrams, root cause determination, corrective ",
+      "license": "MIT"
+    },
+    {
+      "name": "ceo-advisor",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/ceo-advisor",
+      "description": "Executive leadership guidance for strategic decision-making, organizational development, and stakeholder management. Use when planning strategy, preparing board presentations, managing investors, developing organizational culture, making executive de",
+      "license": "MIT"
+    },
+    {
+      "name": "cfo-advisor",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/cfo-advisor",
+      "description": "Financial leadership for startups and scaling companies. Financial modeling, unit economics, fundraising strategy, cash management, and board financial packages. Use when building financial models, analyzing unit economics, planning fundraising, mana",
+      "license": "MIT"
+    },
+    {
+      "name": "change-management",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/change-management",
+      "description": "Framework for rolling out organizational changes without chaos. Covers the ADKAR model adapted for startups, communication templates, resistance patterns, and change fatigue management. Handles process changes, org restructures, strategy pivots, and ",
+      "license": "MIT"
+    },
+    {
+      "name": "changelog-generator",
+      "source": "./plugins/skill-ecosystem/engineering/changelog-generator",
+      "description": "Changelog Generator",
+      "license": "MIT"
+    },
+    {
+      "name": "chief-of-staff",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/chief-of-staff",
+      "description": "C-suite orchestration layer. Routes founder questions to the right advisor role(s), triggers multi-role board meetings for complex decisions, synthesizes outputs, and tracks decisions. Every C-suite interaction starts here. Loads company context auto",
+      "license": "MIT"
+    },
+    {
+      "name": "chro-advisor",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/chro-advisor",
+      "description": "People leadership for scaling companies. Hiring strategy, compensation design, org structure, culture, and retention. Use when building hiring plans, designing comp frameworks, restructuring teams, managing performance, building culture, or when user",
+      "license": "MIT"
+    },
+    {
+      "name": "churn-prevention",
+      "source": "./plugins/skill-ecosystem/marketing-skill/churn-prevention",
+      "description": "Reduce voluntary and involuntary churn through cancel flow design, save offers, exit surveys, and dunning sequences. Use when designing or optimizing a cancel flow, building save offers, setting up dunning emails, or reducing failed-payment churn. Tr",
+      "license": "MIT"
+    },
+    {
+      "name": "ci-cd-pipeline-builder",
+      "source": "./plugins/skill-ecosystem/engineering/ci-cd-pipeline-builder",
+      "description": "CI/CD Pipeline Builder",
+      "license": "MIT"
+    },
+    {
+      "name": "ciso-advisor",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/ciso-advisor",
+      "description": "Security leadership for growth-stage companies. Risk quantification in dollars, compliance roadmap (SOC 2/ISO 27001/HIPAA/GDPR), security architecture strategy, incident response leadership, and board-level security reporting. Use when building secur",
+      "license": "MIT"
+    },
+    {
+      "name": "cloud-security",
+      "source": "./plugins/skill-ecosystem/engineering-team/cloud-security",
+      "description": "Use when assessing cloud infrastructure for security misconfigurations, IAM privilege escalation paths, S3 public exposure, open security group rules, or IaC security gaps. Covers AWS, Azure, and GCP posture assessment with MITRE ATT&CK mapping.",
+      "license": "MIT"
+    },
+    {
+      "name": "cmo-advisor",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/cmo-advisor",
+      "description": "Marketing leadership for scaling companies. Brand positioning, growth model design, marketing budget allocation, and marketing org design. Use when designing brand strategy, selecting growth models (PLG vs sales-led vs community-led), allocating mark",
+      "license": "MIT"
+    },
+    {
+      "name": "code-reviewer",
+      "source": "./plugins/skill-ecosystem/engineering-team/code-reviewer",
+      "description": "Code review automation for TypeScript, JavaScript, Python, Go, Swift, Kotlin. Analyzes PRs for complexity and risk, checks code quality for SOLID violations and code smells, generates review reports. Use when reviewing pull requests, analyzing code q",
+      "license": "MIT"
     },
     {
       "name": "code-to-prd",
@@ -467,45 +361,278 @@
       "category": "product"
     },
     {
-      "name": "agenthub",
-      "source": "./plugins/skill-ecosystem/engineering/agenthub",
-      "description": "Multi-agent collaboration \u2014 spawn N parallel subagents that compete on code optimization, content drafts, research approaches, or any task that benefits from diverse solutions. 7 slash commands (/hub:init, /hub:spawn, /hub:status, /hub:eval, /hub:merge, /hub:board, /hub:run), agent templates, DAG-based orchestration, LLM judge mode, message board coordination.",
+      "name": "code-tour",
+      "source": "./plugins/skill-ecosystem/engineering/code-tour",
+      "description": "Create CodeTour .tour files \u2014 persona-targeted, step-by-step walkthroughs that link to real files and line numbers. 10 developer personas, all CodeTour step types, SMIG description formula.",
       "version": "2.2.0",
       "author": {
         "name": "Alireza Rezvani"
       },
       "keywords": [
-        "multi-agent",
-        "collaboration",
-        "parallel",
-        "git-dag",
-        "orchestration",
-        "competition",
-        "worktree",
-        "content-generation",
-        "research",
-        "optimization"
+        "codetour",
+        "walkthrough",
+        "onboarding",
+        "code-review",
+        "documentation"
       ],
       "category": "development"
     },
     {
-      "name": "a11y-audit",
-      "source": "./plugins/skill-ecosystem/engineering-team/a11y-audit",
-      "description": "WCAG 2.2 accessibility audit and fix for React, Next.js, Vue, Angular, Svelte, and HTML. Static scanner detecting 20+ violation types, contrast checker with suggest mode, framework-specific fix patterns, /a11y-audit slash command.",
+      "name": "codebase-onboarding",
+      "source": "./plugins/skill-ecosystem/engineering/codebase-onboarding",
+      "description": "Codebase Onboarding",
+      "license": "MIT"
+    },
+    {
+      "name": "cold-email",
+      "source": "./plugins/skill-ecosystem/marketing-skill/cold-email",
+      "description": "When the user wants to write, improve, or build a sequence of B2B cold outreach emails to prospects who haven't asked to hear from them. Use when the user mentions 'cold email,' 'cold outreach,' 'prospecting emails,' 'SDR emails,' 'sales emails,' 'fi",
+      "license": "MIT"
+    },
+    {
+      "name": "company-os",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/company-os",
+      "description": "The meta-framework for how a company runs \u2014 the connective tissue between all C-suite roles. Covers operating system selection (EOS, Scaling Up, OKR-native, hybrid), accountability charts, scorecards, meeting pulse, issue resolution, and 90-day rocks",
+      "license": "MIT"
+    },
+    {
+      "name": "competitive-intel",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/competitive-intel",
+      "description": "Systematic competitor tracking that feeds CMO positioning, CRO battlecards, and CPO roadmap decisions. Use when analyzing competitors, building sales battlecards, tracking market moves, positioning against alternatives, or when user mentions competit",
+      "license": "MIT"
+    },
+    {
+      "name": "competitive-teardown",
+      "source": "./plugins/skill-ecosystem/product-team/competitive-teardown",
+      "description": "Analyzes competitor products and companies by synthesizing data from pricing pages, app store reviews, job postings, SEO signals, and social media into structured competitive intelligence. Produces feature comparison matrices scored across 12 dimensi",
+      "license": "MIT"
+    },
+    {
+      "name": "competitor-alternatives",
+      "source": "./plugins/skill-ecosystem/marketing-skill/competitor-alternatives",
+      "description": "When the user wants to create competitor comparison or alternative pages for SEO and sales enablement. Also use when the user mentions 'alternative page,' 'vs page,' 'competitor comparison,' 'comparison page,' '[Product] vs [Product],' '[Product] alt",
+      "license": "MIT"
+    },
+    {
+      "name": "confluence-expert",
+      "source": "./plugins/skill-ecosystem/project-management/confluence-expert",
+      "description": "Atlassian Confluence expert for creating and managing spaces, knowledge bases, and documentation. Configures space permissions and hierarchies, creates page templates with macros, sets up documentation taxonomies, designs page layouts, and manages co",
+      "license": "MIT"
+    },
+    {
+      "name": "content-creator",
+      "source": "./plugins/skill-ecosystem/marketing-skill/content-creator",
+      "description": "SEO-optimized marketing content with brand voice analysis, content frameworks, and social media templates.",
       "version": "2.2.0",
       "author": {
         "name": "Alireza Rezvani"
       },
       "keywords": [
-        "accessibility",
-        "a11y",
-        "wcag",
-        "aria",
-        "screen-reader",
-        "contrast",
-        "keyboard-navigation"
+        "content",
+        "marketing",
+        "seo",
+        "brand-voice"
+      ],
+      "category": "marketing"
+    },
+    {
+      "name": "content-humanizer",
+      "source": "./plugins/skill-ecosystem/marketing-skill/content-humanizer",
+      "description": "Makes AI-generated content sound genuinely human \u2014 not just cleaned up, but alive. Use when content feels robotic, uses too many AI clich\u00e9s, lacks personality, or reads like it was written by committee. Triggers: 'this sounds like AI', 'make it more ",
+      "license": "MIT"
+    },
+    {
+      "name": "content-production",
+      "source": "./plugins/skill-ecosystem/marketing-skill/content-production",
+      "description": "Full content production pipeline \u2014 takes a topic from blank page to published-ready piece. Use when you need to execute content: write a blog post, article, or guide end-to-end. Triggers: 'write a post about', 'draft an article', 'create content for'",
+      "license": "MIT"
+    },
+    {
+      "name": "content-strategy",
+      "source": "./plugins/skill-ecosystem/marketing-skill/content-strategy",
+      "description": "When the user wants to plan a content strategy, decide what content to create, or figure out what topics to cover. Also use when the user mentions \\\"content strategy,\\\" \\\"what should I write about,\\\" \\\"content ideas,\\\" \\\"blog strategy,\\\" \\\"topic clus",
+      "license": "MIT"
+    },
+    {
+      "name": "context-engine",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/context-engine",
+      "description": "Loads and manages company context for all C-suite advisor skills. Reads ~/.claude/company-context.md, detects stale context (>90 days), enriches context during conversations, and enforces privacy/anonymization rules before external API calls.",
+      "license": "MIT"
+    },
+    {
+      "name": "contract-and-proposal-writer",
+      "source": "./plugins/skill-ecosystem/business-growth/contract-and-proposal-writer",
+      "description": "Contract & Proposal Writer",
+      "license": "MIT"
+    },
+    {
+      "name": "coo-advisor",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/coo-advisor",
+      "description": "Operations leadership for scaling companies. Process design, OKR execution, operational cadence, and scaling playbooks. Use when designing operations, setting up OKRs, building processes, scaling teams, analyzing bottlenecks, planning operational cad",
+      "license": "MIT"
+    },
+    {
+      "name": "copy-editing",
+      "source": "./plugins/skill-ecosystem/marketing-skill/copy-editing",
+      "description": "When the user wants to edit, review, or improve existing marketing copy. Also use when the user mentions 'edit this copy,' 'review my copy,' 'copy feedback,' 'proofread,' 'polish this,' 'make this better,' or 'copy sweep.' This skill provides a syste",
+      "license": "MIT"
+    },
+    {
+      "name": "copywriting",
+      "source": "./plugins/skill-ecosystem/marketing-skill/copywriting",
+      "description": "When the user wants to write, rewrite, or improve marketing copy for any page \u2014 including homepage, landing pages, pricing pages, feature pages, about pages, or product pages. Also use when the user says \\\"write copy for,\\\" \\\"improve this copy,\\\" \\\"r",
+      "license": "MIT"
+    },
+    {
+      "name": "cpo-advisor",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/cpo-advisor",
+      "description": "Product leadership for scaling companies. Product vision, portfolio strategy, product-market fit, and product org design. Use when setting product vision, managing a product portfolio, measuring PMF, designing product teams, prioritizing at the portf",
+      "license": "MIT"
+    },
+    {
+      "name": "cro-advisor",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/cro-advisor",
+      "description": "Revenue leadership for B2B SaaS companies. Revenue forecasting, sales model design, pricing strategy, net revenue retention, and sales team scaling. Use when designing the revenue engine, setting quotas, modeling NRR, evaluating pricing, building boa",
+      "license": "MIT"
+    },
+    {
+      "name": "cs-onboard",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/cs-onboard",
+      "description": "Founder onboarding interview that captures company context across 7 dimensions. Invoke with /cs:setup for initial interview or /cs:update for quarterly refresh. Generates ~/.claude/company-context.md used by all C-suite advisor skills.",
+      "license": "MIT"
+    },
+    {
+      "name": "cto-advisor",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/cto-advisor",
+      "description": "Technical leadership guidance for engineering teams, architecture decisions, and technology strategy. Use when assessing technical debt, scaling engineering teams, evaluating technologies, making architecture decisions, establishing engineering metri",
+      "license": "MIT"
+    },
+    {
+      "name": "culture-architect",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/culture-architect",
+      "description": "Build, measure, and evolve company culture as operational behavior \u2014 not wall posters. Covers mission/vision/values workshops, values-to-behaviors translation, culture code creation, culture health assessment, and cultural rituals by stage. Use when ",
+      "license": "MIT"
+    },
+    {
+      "name": "customer-success-manager",
+      "source": "./plugins/skill-ecosystem/business-growth/customer-success-manager",
+      "description": "Monitors customer health, predicts churn risk, and identifies expansion opportunities using weighted scoring models for SaaS customer success. Use when analyzing customer accounts, reviewing retention metrics, scoring at-risk customers, or when the u",
+      "license": "MIT"
+    },
+    {
+      "name": "data-quality-auditor",
+      "source": "./plugins/skill-ecosystem/engineering/data-quality-auditor",
+      "description": "Audit datasets for completeness, consistency, accuracy, and validity. 3 stdlib-only Python tools: data profiler with DQS scoring, missing value analyzer with MCAR/MAR/MNAR classification, and multi-method outlier detector.",
+      "version": "2.2.0",
+      "author": {
+        "name": "Alireza Rezvani"
+      },
+      "keywords": [
+        "data-quality",
+        "profiling",
+        "outlier-detection",
+        "missing-values",
+        "data-audit"
       ],
       "category": "development"
+    },
+    {
+      "name": "database-designer",
+      "source": "./plugins/skill-ecosystem/engineering/database-designer",
+      "description": "Use when the user asks to design database schemas, plan data migrations, optimize queries, choose between SQL and NoSQL, or model data relationships.",
+      "license": "MIT"
+    },
+    {
+      "name": "database-schema-designer",
+      "source": "./plugins/skill-ecosystem/engineering/database-schema-designer",
+      "description": "Use when the user asks to create ERD diagrams, normalize database schemas, design table relationships, or plan schema migrations.",
+      "license": "MIT"
+    },
+    {
+      "name": "decision-logger",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/decision-logger",
+      "description": "Two-layer memory architecture for board meeting decisions. Manages raw transcripts (Layer 1) and approved decisions (Layer 2). Use when logging decisions after a board meeting, reviewing past decisions with /cs:decisions, or checking overdue action i",
+      "license": "MIT"
+    },
+    {
+      "name": "demand-gen",
+      "source": "./plugins/skill-ecosystem/marketing-skill/marketing-demand-acquisition",
+      "description": "Multi-channel demand generation, paid media optimization, SEO strategy, and partnership programs.",
+      "version": "2.2.0",
+      "author": {
+        "name": "Alireza Rezvani"
+      },
+      "keywords": [
+        "demand-gen",
+        "paid-media",
+        "acquisition"
+      ],
+      "category": "marketing"
+    },
+    {
+      "name": "demo-video",
+      "source": "./plugins/skill-ecosystem/engineering/demo-video",
+      "description": "Create polished demo videos from screenshots and scene descriptions. Orchestrates playwright, ffmpeg, and edge-tts with story structure, scene design system, and narration guidance.",
+      "version": "2.2.0",
+      "author": {
+        "name": "Alireza Rezvani"
+      },
+      "keywords": [
+        "video",
+        "demo",
+        "product-demo",
+        "walkthrough",
+        "ffmpeg",
+        "tts"
+      ],
+      "category": "development"
+    },
+    {
+      "name": "dependency-auditor",
+      "source": "./plugins/skill-ecosystem/engineering/dependency-auditor",
+      "description": "Dependency Auditor",
+      "license": "MIT"
+    },
+    {
+      "name": "docker-development",
+      "source": "./plugins/skill-ecosystem/engineering/docker-development",
+      "description": "Docker and container development \u2014 Dockerfile optimization, docker-compose orchestration, multi-stage builds, security hardening, and CI/CD container pipelines.",
+      "version": "2.2.0",
+      "author": {
+        "name": "Alireza Rezvani"
+      },
+      "keywords": [
+        "docker",
+        "container",
+        "dockerfile",
+        "docker-compose",
+        "devops"
+      ],
+      "category": "development"
+    },
+    {
+      "name": "email-sequence",
+      "source": "./plugins/skill-ecosystem/marketing-skill/email-sequence",
+      "description": "When the user wants to create or optimize an email sequence, drip campaign, automated email flow, or lifecycle email program. Also use when the user mentions \"email sequence,\" \"drip campaign,\" \"nurture sequence,\" \"onboarding emails,\" \"welcome sequenc",
+      "license": "MIT"
+    },
+    {
+      "name": "email-template-builder",
+      "source": "./plugins/skill-ecosystem/engineering-team/email-template-builder",
+      "description": "Email Template Builder",
+      "license": "MIT"
+    },
+    {
+      "name": "env-secrets-manager",
+      "source": "./plugins/skill-ecosystem/engineering/env-secrets-manager",
+      "description": "Env & Secrets Manager",
+      "license": "MIT"
+    },
+    {
+      "name": "epic-design",
+      "source": "./plugins/skill-ecosystem/engineering-team/epic-design",
+      "description": "Build immersive, cinematic 2.5D interactive websites using scroll storytelling, parallax depth, text animations, and premium scroll effects \u2014 no WebGL required. Use this skill for any web design task: landing pages, product sites, hero sections, scro",
+      "license": "MIT"
     },
     {
       "name": "executive-mentor",
@@ -526,19 +653,97 @@
       "category": "leadership"
     },
     {
-      "name": "docker-development",
-      "source": "./plugins/skill-ecosystem/engineering/docker-development",
-      "description": "Docker and container development \u2014 Dockerfile optimization, docker-compose orchestration, multi-stage builds, security hardening, and CI/CD container pipelines.",
+      "name": "experiment-designer",
+      "source": "./plugins/skill-ecosystem/product-team/experiment-designer",
+      "description": "Use when planning product experiments, writing testable hypotheses, estimating sample size, prioritizing tests, or interpreting A/B outcomes with practical statistical rigor.",
+      "license": "MIT"
+    },
+    {
+      "name": "fda-consultant-specialist",
+      "source": "./plugins/skill-ecosystem/ra-qm-team/fda-consultant-specialist",
+      "description": "FDA regulatory consultant for medical device companies. Provides 510(k)/PMA/De Novo pathway guidance, QSR (21 CFR 820) compliance, HIPAA assessments, and device cybersecurity. Use when user mentions FDA submission, 510(k), PMA, De Novo, QSR, premarke",
+      "license": "MIT"
+    },
+    {
+      "name": "financial-analyst",
+      "source": "./plugins/skill-ecosystem/finance/financial-analyst",
+      "description": "Performs financial ratio analysis, DCF valuation, budget variance analysis, and rolling forecast construction for strategic decision-making. Use when analyzing financial statements, building valuation models, assessing budget variances, or constructi",
+      "license": "MIT"
+    },
+    {
+      "name": "focused-fix",
+      "source": "./plugins/skill-ecosystem/engineering/focused-fix",
+      "description": "Use when the user asks to fix, debug, or make a specific feature/module/area work end-to-end. Triggers: 'make X work', 'fix the Y feature', 'the Z module is broken', 'focus on [area]'. Not for quick single-bug fixes \u2014 this is for systematic deep-dive",
+      "license": "MIT"
+    },
+    {
+      "name": "form-cro",
+      "source": "./plugins/skill-ecosystem/marketing-skill/form-cro",
+      "description": "When the user wants to optimize any form that is NOT signup/registration \u2014 including lead capture forms, contact forms, demo request forms, application forms, survey forms, or checkout forms. Also use when the user mentions \"form optimization,\" \"lead",
+      "license": "MIT"
+    },
+    {
+      "name": "founder-coach",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/founder-coach",
+      "description": "Personal leadership development for founders and first-time CEOs. Covers founder archetype identification, delegation frameworks, energy management, CEO calendar audits, leadership style evolution, blind spot identification, imposter syndrome, founde",
+      "license": "MIT"
+    },
+    {
+      "name": "free-tool-strategy",
+      "source": "./plugins/skill-ecosystem/marketing-skill/free-tool-strategy",
+      "description": "When the user wants to build a free tool for marketing \u2014 lead generation, SEO value, or brand awareness. Use when they mention 'engineering as marketing,' 'free tool,' 'calculator,' 'generator,' 'checker,' 'grader,' 'marketing tool,' 'lead gen tool,'",
+      "license": "MIT"
+    },
+    {
+      "name": "fullstack-engineer",
+      "source": "./plugins/skill-ecosystem/engineering-team/senior-fullstack",
+      "description": "Full-stack engineering with React, Node, databases, and deployment.",
       "version": "2.2.0",
       "author": {
         "name": "Alireza Rezvani"
       },
       "keywords": [
-        "docker",
-        "container",
-        "dockerfile",
-        "docker-compose",
-        "devops"
+        "fullstack",
+        "react",
+        "node",
+        "engineering"
+      ],
+      "category": "development"
+    },
+    {
+      "name": "gcp-cloud-architect",
+      "source": "./plugins/skill-ecosystem/engineering-team/gcp-cloud-architect",
+      "description": "Design GCP architectures for startups and enterprises. Use when asked to design Google Cloud infrastructure, deploy to GKE or Cloud Run, configure BigQuery pipelines, optimize GCP costs, or migrate to GCP. Covers Cloud Run, GKE, Cloud Functions, Clou",
+      "license": "MIT"
+    },
+    {
+      "name": "gdpr-dsgvo-expert",
+      "source": "./plugins/skill-ecosystem/ra-qm-team/gdpr-dsgvo-expert",
+      "description": "GDPR and German DSGVO compliance automation. Scans codebases for privacy risks, generates DPIA documentation, tracks data subject rights requests. Use for GDPR compliance assessments, privacy audits, data protection planning, DPIA generation, and dat",
+      "license": "MIT"
+    },
+    {
+      "name": "git-worktree-manager",
+      "source": "./plugins/skill-ecosystem/engineering/git-worktree-manager",
+      "description": "Git Worktree Manager",
+      "license": "MIT"
+    },
+    {
+      "name": "google-workspace-cli",
+      "source": "./plugins/skill-ecosystem/engineering-team/google-workspace-cli",
+      "description": "Google Workspace administration via the gws CLI. Install, authenticate, and automate Gmail, Drive, Sheets, Calendar, Docs, Chat, and Tasks. 5 Python tools, 3 reference guides, 43 built-in recipes, 10 persona bundles.",
+      "version": "2.2.0",
+      "author": {
+        "name": "Alireza Rezvani"
+      },
+      "keywords": [
+        "google-workspace",
+        "gws",
+        "gmail",
+        "google-drive",
+        "google-sheets",
+        "google-calendar",
+        "workspace-admin"
       ],
       "category": "development"
     },
@@ -560,127 +765,105 @@
       "category": "development"
     },
     {
-      "name": "terraform-patterns",
-      "source": "./plugins/skill-ecosystem/engineering/terraform-patterns",
-      "description": "Terraform infrastructure-as-code \u2014 module design patterns, state management, provider configuration, CI/CD integration, and multi-environment strategies.",
-      "version": "2.2.0",
+      "name": "holden",
+      "description": "Holden personality system \u2014 soul, constitution, epistemic hooks, and all agent definitions. Supersedes individual agent plugins.",
+      "version": "1.0.0",
       "author": {
-        "name": "Alireza Rezvani"
+        "name": "prefrontalsys",
+        "email": "sr4001@gmail.com"
       },
-      "keywords": [
-        "terraform",
-        "iac",
-        "infrastructure",
-        "devops",
-        "cloud"
-      ],
-      "category": "development"
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/prefrontalsys/holden.git",
+        "path": "plugin"
+      },
+      "category": "productivity"
     },
     {
-      "name": "research-summarizer",
-      "source": "./plugins/skill-ecosystem/product-team/research-summarizer",
-      "description": "Structured research summarization \u2014 summarize academic papers, market research, user interviews, and competitive analysis into actionable insights.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "research",
-        "summarization",
-        "analysis",
-        "insights",
-        "product"
-      ],
-      "category": "product"
+      "name": "incident-commander",
+      "source": "./plugins/skill-ecosystem/engineering-team/incident-commander",
+      "description": "Incident Commander Skill",
+      "license": "MIT"
     },
     {
-      "name": "code-tour",
-      "source": "./plugins/skill-ecosystem/engineering/code-tour",
-      "description": "Create CodeTour .tour files \u2014 persona-targeted, step-by-step walkthroughs that link to real files and line numbers. 10 developer personas, all CodeTour step types, SMIG description formula.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "codetour",
-        "walkthrough",
-        "onboarding",
-        "code-review",
-        "documentation"
-      ],
-      "category": "development"
+      "name": "incident-response",
+      "source": "./plugins/skill-ecosystem/engineering-team/incident-response",
+      "description": "Use when a security incident has been detected or declared and needs classification, triage, escalation path determination, and forensic evidence collection. Covers SEV1-SEV4 classification, false positive filtering, incident taxonomy, and NIST SP 80",
+      "license": "MIT"
     },
     {
-      "name": "demo-video",
-      "source": "./plugins/skill-ecosystem/engineering/demo-video",
-      "description": "Create polished demo videos from screenshots and scene descriptions. Orchestrates playwright, ffmpeg, and edge-tts with story structure, scene design system, and narration guidance.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "video",
-        "demo",
-        "product-demo",
-        "walkthrough",
-        "ffmpeg",
-        "tts"
-      ],
-      "category": "development"
+      "name": "information-security-manager-iso27001",
+      "source": "./plugins/skill-ecosystem/ra-qm-team/information-security-manager-iso27001",
+      "description": "ISO 27001 ISMS implementation and cybersecurity governance for HealthTech and MedTech companies. Use for ISMS design, security risk assessment, control implementation, ISO 27001 certification, security audits, incident response, and compliance verifi",
+      "license": "MIT"
     },
     {
-      "name": "data-quality-auditor",
-      "source": "./plugins/skill-ecosystem/engineering/data-quality-auditor",
-      "description": "Audit datasets for completeness, consistency, accuracy, and validity. 3 stdlib-only Python tools: data profiler with DQS scoring, missing value analyzer with MCAR/MAR/MNAR classification, and multi-method outlier detector.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "data-quality",
-        "profiling",
-        "outlier-detection",
-        "missing-values",
-        "data-audit"
-      ],
-      "category": "development"
+      "name": "internal-narrative",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/internal-narrative",
+      "description": "Build and maintain one coherent company story across all audiences \u2014 employees, investors, customers, candidates, and partners. Detects narrative contradictions and ensures the same truth is framed for each audience's needs. Use when preparing invest",
+      "license": "MIT"
     },
     {
-      "name": "statistical-analyst",
-      "source": "./plugins/skill-ecosystem/engineering/statistical-analyst",
-      "description": "Hypothesis testing, A/B experiment analysis, sample size calculation, and confidence intervals. 3 stdlib-only Python tools: Z-test/t-test/chi-square with effect sizes, sample size calculator with power tradeoffs, and Wilson score confidence intervals.",
-      "version": "2.2.0",
-      "author": {
-        "name": "Alireza Rezvani"
-      },
-      "keywords": [
-        "statistics",
-        "hypothesis-testing",
-        "ab-testing",
-        "sample-size",
-        "confidence-interval"
-      ],
-      "category": "development"
+      "name": "interview-system-designer",
+      "source": "./plugins/skill-ecosystem/engineering/interview-system-designer",
+      "description": "This skill should be used when the user asks to \"design interview processes\", \"create hiring pipelines\", \"calibrate interview loops\", \"generate interview questions\", \"design competency matrices\", \"analyze interviewer bias\", \"create scoring rubrics\", ",
+      "license": "MIT"
     },
     {
-      "name": "apple-hig-expert",
-      "source": "./plugins/skill-ecosystem/product-team/apple-hig-expert",
-      "description": "Master Apple's Human Interface Guidelines (HIG) with focus on 2026 Liquid Glass aesthetics. Design and audit iOS, macOS, and visionOS apps for full compliance and premium feel. Includes hig_checker Python tool for tap targets and contrast.",
+      "name": "intl-expansion",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/intl-expansion",
+      "description": "International market expansion strategy. Market selection, entry modes, localization, regulatory compliance, and go-to-market by region. Use when expanding to new countries, evaluating international markets, planning localization, or building regiona",
+      "license": "MIT"
+    },
+    {
+      "name": "isms-audit-expert",
+      "source": "./plugins/skill-ecosystem/ra-qm-team/isms-audit-expert",
+      "description": "Information Security Management System (ISMS) audit expert for ISO 27001 compliance verification, security control assessment, and certification support. Use when the user mentions ISO 27001, ISMS audit, Annex A controls, Statement of Applicability (",
+      "license": "MIT"
+    },
+    {
+      "name": "jira-expert",
+      "source": "./plugins/skill-ecosystem/project-management/jira-expert",
+      "description": "Atlassian Jira expert for creating and managing projects, planning, product discovery, JQL queries, workflows, custom fields, automation, reporting, and all Jira features. Use for Jira project setup, configuration, advanced search, dashboard creation",
+      "license": "MIT"
+    },
+    {
+      "name": "karpathy-coder",
+      "source": "./plugins/skill-ecosystem/engineering/karpathy-coder",
+      "description": "Active coding discipline enforcer based on Karpathy's 4 principles: surface assumptions, simplify, make surgical changes, define verifiable goals. Ships 4 Python tools (complexity_checker, diff_surgeon, assumption_linter, goal_verifier), a review agent, /karpathy-check command, and pre-commit hook. All stdlib-only.",
       "version": "2.3.0",
       "author": {
         "name": "Alireza Rezvani"
       },
       "keywords": [
-        "apple-hig",
-        "design-guidelines",
-        "ios-design",
-        "macos-design",
-        "visionos",
-        "liquid-glass",
-        "accessibility",
-        "ui-design"
+        "code-quality",
+        "karpathy",
+        "simplicity",
+        "surgical-changes",
+        "complexity",
+        "anti-patterns",
+        "review",
+        "discipline"
       ],
-      "category": "design"
+      "category": "development"
+    },
+    {
+      "name": "landing-page-generator",
+      "source": "./plugins/skill-ecosystem/product-team/landing-page-generator",
+      "description": "Generates high-converting landing pages as complete Next.js/React (TSX) components with Tailwind CSS. Creates hero sections, feature grids, pricing tables, FAQ accordions, testimonial blocks, and CTA sections using proven copy frameworks (PAS, AIDA, ",
+      "license": "MIT"
+    },
+    {
+      "name": "launch-strategy",
+      "source": "./plugins/skill-ecosystem/marketing-skill/launch-strategy",
+      "description": "When the user wants to plan a product launch, feature announcement, or release strategy. Also use when the user mentions 'launch,' 'Product Hunt,' 'feature release,' 'announcement,' 'go-to-market,' 'beta launch,' 'early access,' 'waitlist,' 'product ",
+      "license": "MIT"
+    },
+    {
+      "name": "llm-cost-optimizer",
+      "source": "./plugins/skill-ecosystem/engineering/llm-cost-optimizer",
+      "description": "Use when you need to reduce LLM API spend, control token usage, route between models by cost/quality, implement prompt caching, or build cost observability for AI features. Triggers: 'my AI costs are too high', 'optimize token usage', 'which model sh",
+      "license": "MIT"
     },
     {
       "name": "llm-wiki",
@@ -705,44 +888,687 @@
       "category": "knowledge"
     },
     {
-      "name": "karpathy-coder",
-      "source": "./plugins/skill-ecosystem/engineering/karpathy-coder",
-      "description": "Active coding discipline enforcer based on Karpathy's 4 principles: surface assumptions, simplify, make surgical changes, define verifiable goals. Ships 4 Python tools (complexity_checker, diff_surgeon, assumption_linter, goal_verifier), a review agent, /karpathy-check command, and pre-commit hook. All stdlib-only.",
-      "version": "2.3.0",
+      "name": "ma-playbook",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/ma-playbook",
+      "description": "M&A strategy for acquiring companies or being acquired. Due diligence, valuation, integration, and deal structure. Use when evaluating acquisitions, preparing for acquisition, M&A due diligence, integration planning, or deal negotiation.",
+      "license": "MIT"
+    },
+    {
+      "name": "marketing-context",
+      "source": "./plugins/skill-ecosystem/marketing-skill/marketing-context",
+      "description": "Create and maintain the marketing context document that all marketing skills read before starting. Use when the user mentions 'marketing context,' 'brand voice,' 'set up context,' 'target audience,' 'ICP,' 'style guide,' 'who is my customer,' 'positi",
+      "license": "MIT"
+    },
+    {
+      "name": "marketing-ideas",
+      "source": "./plugins/skill-ecosystem/marketing-skill/marketing-ideas",
+      "description": "When the user needs marketing ideas, inspiration, or strategies for their SaaS or software product. Also use when the user asks for 'marketing ideas,' 'growth ideas,' 'how to market,' 'marketing strategies,' 'marketing tactics,' 'ways to promote,' or",
+      "license": "MIT"
+    },
+    {
+      "name": "marketing-ops",
+      "source": "./plugins/skill-ecosystem/marketing-skill/marketing-ops",
+      "description": "Central router for the marketing skill ecosystem. Use when unsure which marketing skill to use, when orchestrating a multi-skill campaign, or when coordinating across content, SEO, CRO, channels, and analytics. Also use when the user mentions 'market",
+      "license": "MIT"
+    },
+    {
+      "name": "marketing-psychology",
+      "source": "./plugins/skill-ecosystem/marketing-skill/marketing-psychology",
+      "description": "When the user wants to apply psychological principles, mental models, or behavioral science to marketing. Also use when the user mentions 'psychology,' 'mental models,' 'cognitive bias,' 'persuasion,' 'behavioral science,' 'why people buy,' 'decision",
+      "license": "MIT"
+    },
+    {
+      "name": "marketing-strategy-pmm",
+      "source": "./plugins/skill-ecosystem/marketing-skill/marketing-strategy-pmm",
+      "description": "Product marketing skill for positioning, GTM strategy, competitive intelligence, and product launches. Use when the user asks about product positioning, go-to-market planning, competitive analysis, target audience definition, ICP definition, market r",
+      "license": "MIT"
+    },
+    {
+      "name": "mcp-server-builder",
+      "source": "./plugins/skill-ecosystem/engineering/mcp-server-builder",
+      "description": "MCP Server Builder",
+      "license": "MIT"
+    },
+    {
+      "name": "mdr-745-specialist",
+      "source": "./plugins/skill-ecosystem/ra-qm-team/mdr-745-specialist",
+      "description": "EU MDR 2017/745 compliance specialist for medical device classification, technical documentation, clinical evidence, and post-market surveillance. Covers Annex VIII classification rules, Annex II/III technical files, Annex XIV clinical evaluation, an",
+      "license": "MIT"
+    },
+    {
+      "name": "meeting-analyzer",
+      "source": "./plugins/skill-ecosystem/project-management/meeting-analyzer",
+      "description": "Analyzes meeting transcripts and recordings to surface behavioral patterns, communication anti-patterns, and actionable coaching feedback. Use this skill whenever the user uploads or points to meeting transcripts (.txt, .md, .vtt, .srt, .docx), asks ",
+      "license": "MIT"
+    },
+    {
+      "name": "migration-architect",
+      "source": "./plugins/skill-ecosystem/engineering/migration-architect",
+      "description": "Migration Architect",
+      "license": "MIT"
+    },
+    {
+      "name": "monorepo-navigator",
+      "source": "./plugins/skill-ecosystem/engineering/monorepo-navigator",
+      "description": "Monorepo Navigator",
+      "license": "MIT"
+    },
+    {
+      "name": "ms365-tenant-manager",
+      "source": "./plugins/skill-ecosystem/engineering-team/ms365-tenant-manager",
+      "description": "Microsoft 365 tenant administration for Global Administrators. Automate M365 tenant setup, Office 365 admin tasks, Azure AD user management, Exchange Online configuration, Teams administration, and security policies. Generate PowerShell scripts for b",
+      "license": "MIT"
+    },
+    {
+      "name": "observability-designer",
+      "source": "./plugins/skill-ecosystem/engineering/observability-designer",
+      "description": "Observability Designer (POWERFUL)",
+      "license": "MIT"
+    },
+    {
+      "name": "onboarding-cro",
+      "source": "./plugins/skill-ecosystem/marketing-skill/onboarding-cro",
+      "description": "When the user wants to optimize post-signup onboarding, user activation, first-run experience, or time-to-value. Also use when the user mentions \"onboarding flow,\" \"activation rate,\" \"user activation,\" \"first-run experience,\" \"empty states,\" \"onboard",
+      "license": "MIT"
+    },
+    {
+      "name": "org-health-diagnostic",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/org-health-diagnostic",
+      "description": "Cross-functional organizational health check combining signals from all C-suite roles. Scores 8 dimensions on a traffic-light scale with drill-down recommendations. Use when assessing overall company health, preparing for board reviews, identifying a",
+      "license": "MIT"
+    },
+    {
+      "name": "page-cro",
+      "source": "./plugins/skill-ecosystem/marketing-skill/page-cro",
+      "description": "When the user wants to optimize, improve, or increase conversions on any marketing page \u2014 including homepage, landing pages, pricing pages, feature pages, or blog posts. Also use when the user says \"CRO,\" \"conversion rate optimization,\" \"this page is",
+      "license": "MIT"
+    },
+    {
+      "name": "paid-ads",
+      "source": "./plugins/skill-ecosystem/marketing-skill/paid-ads",
+      "description": "When the user wants help with paid advertising campaigns on Google Ads, Meta (Facebook/Instagram), LinkedIn, Twitter/X, or other ad platforms. Also use when the user mentions 'PPC,' 'paid media,' 'ad copy,' 'ad creative,' 'ROAS,' 'CPA,' 'ad campaign,",
+      "license": "MIT"
+    },
+    {
+      "name": "paywall-upgrade-cro",
+      "source": "./plugins/skill-ecosystem/marketing-skill/paywall-upgrade-cro",
+      "description": "When the user wants to create or optimize in-app paywalls, upgrade screens, upsell modals, or feature gates. Also use when the user mentions \"paywall,\" \"upgrade screen,\" \"upgrade modal,\" \"upsell,\" \"feature gate,\" \"convert free to paid,\" \"freemium con",
+      "license": "MIT"
+    },
+    {
+      "name": "performance-profiler",
+      "source": "./plugins/skill-ecosystem/engineering/performance-profiler",
+      "description": "Performance Profiler",
+      "license": "MIT"
+    },
+    {
+      "name": "popup-cro",
+      "source": "./plugins/skill-ecosystem/marketing-skill/popup-cro",
+      "description": "When the user wants to create or optimize popups, modals, overlays, slide-ins, or banners for conversion purposes. Also use when the user mentions \"exit intent,\" \"popup conversions,\" \"modal optimization,\" \"lead capture popup,\" \"email popup,\" \"announc",
+      "license": "MIT"
+    },
+    {
+      "name": "pr-review-expert",
+      "source": "./plugins/skill-ecosystem/engineering/pr-review-expert",
+      "description": "Use when the user asks to review pull requests, analyze code changes, check for security issues in PRs, or assess code quality of diffs.",
+      "license": "MIT"
+    },
+    {
+      "name": "pricing-strategy",
+      "source": "./plugins/skill-ecosystem/marketing-skill/pricing-strategy",
+      "description": "Design, optimize, and communicate SaaS pricing \u2014 tier structure, value metrics, pricing pages, and price increase strategy. Use when building a pricing model from scratch, redesigning existing pricing, planning a price increase, or improving a pricin",
+      "license": "MIT"
+    },
+    {
+      "name": "product-analytics",
+      "source": "./plugins/skill-ecosystem/product-team/product-analytics",
+      "description": "Use when defining product KPIs, building metric dashboards, running cohort or retention analysis, or interpreting feature adoption trends across product stages.",
+      "license": "MIT"
+    },
+    {
+      "name": "product-discovery",
+      "source": "./plugins/skill-ecosystem/product-team/product-discovery",
+      "description": "Use when validating product opportunities, mapping assumptions, planning discovery sprints, or testing problem-solution fit before committing delivery resources.",
+      "license": "MIT"
+    },
+    {
+      "name": "product-manager",
+      "source": "./plugins/skill-ecosystem/product-team/product-manager-toolkit",
+      "description": "Product management toolkit with RICE scoring, customer interview analysis, and PRD generation.",
+      "version": "2.2.0",
       "author": {
         "name": "Alireza Rezvani"
       },
       "keywords": [
-        "code-quality",
-        "karpathy",
-        "simplicity",
-        "surgical-changes",
-        "complexity",
-        "anti-patterns",
-        "review",
-        "discipline"
+        "product",
+        "prd",
+        "rice",
+        "prioritization"
+      ],
+      "category": "product"
+    },
+    {
+      "name": "product-strategist",
+      "source": "./plugins/skill-ecosystem/product-team/product-strategist",
+      "description": "Strategic product leadership toolkit for Head of Product covering OKR cascade generation, quarterly planning, competitive landscape analysis, product vision documents, and team scaling proposals. Use when creating quarterly OKR documents, defining pr",
+      "license": "MIT"
+    },
+    {
+      "name": "programmatic-seo",
+      "source": "./plugins/skill-ecosystem/marketing-skill/programmatic-seo",
+      "description": "When the user wants to create SEO-driven pages at scale using templates and data. Also use when the user mentions \"programmatic SEO,\" \"template pages,\" \"pages at scale,\" \"directory pages,\" \"location pages,\" \"[keyword] + [city] pages,\" \"comparison pag",
+      "license": "MIT"
+    },
+    {
+      "name": "prompt-engineer-toolkit",
+      "source": "./plugins/skill-ecosystem/marketing-skill/prompt-engineer-toolkit",
+      "description": "Analyzes and rewrites prompts for better AI output, creates reusable prompt templates for marketing use cases (ad copy, email campaigns, social media), and structures end-to-end AI content workflows. Use when the user wants to improve prompts for AI-",
+      "license": "MIT"
+    },
+    {
+      "name": "prompt-governance",
+      "source": "./plugins/skill-ecosystem/engineering/prompt-governance",
+      "description": "Use when managing prompts in production at scale: versioning prompts, running A/B tests on prompts, building prompt registries, preventing prompt regressions, or creating eval pipelines for production AI features. Triggers: 'manage prompts in product",
+      "license": "MIT"
+    },
+    {
+      "name": "prose-style",
+      "description": "Prose-first output style: longform writing, interlocutor mode, paragraph-first output, casual-authoritative voice (Ars Technica + Aeon).",
+      "version": "1.0.0",
+      "author": {
+        "name": "prefrontalsys",
+        "email": "sr4001@gmail.com"
+      },
+      "source": "./plugins/prose-style",
+      "category": "productivity"
+    },
+    {
+      "name": "pw",
+      "source": "./plugins/skill-ecosystem/engineering-team/playwright-pro",
+      "description": "Production-grade Playwright testing toolkit. 9 skills, 3 agents, 55 templates, TestRail + BrowserStack MCP integrations. Generate tests, fix flaky failures, migrate from Cypress/Selenium.",
+      "version": "2.2.0",
+      "author": {
+        "name": "Alireza Rezvani"
+      },
+      "keywords": [
+        "playwright",
+        "testing",
+        "e2e",
+        "qa",
+        "test-automation",
+        "browserstack",
+        "testrail"
       ],
       "category": "development"
     },
     {
-      "name": "agile-product-owner",
-      "source": "./plugins/skill-ecosystem/product-team/agile-product-owner",
-      "description": "Agile product ownership for backlog management and sprint execution. INVEST-compliant user story generation, acceptance criteria patterns (Given/When/Then, rule-based, checklist), epic breakdown with 5 split techniques, sprint planning with velocity-based capacity math, and weighted backlog prioritization. Includes user_story_generator Python tool and 2 reference guides.",
+      "name": "qms-audit-expert",
+      "source": "./plugins/skill-ecosystem/ra-qm-team/qms-audit-expert",
+      "description": "ISO 13485 internal audit expertise for medical device QMS. Covers audit planning, execution, nonconformity classification, and CAPA verification. Use for internal audit planning, audit execution, finding classification, external audit preparation, or",
+      "license": "MIT"
+    },
+    {
+      "name": "quality-documentation-manager",
+      "source": "./plugins/skill-ecosystem/ra-qm-team/quality-documentation-manager",
+      "description": "Document control system management for medical device QMS. Covers document numbering, version control, change management, and 21 CFR Part 11 compliance. Use for document control procedures, change control workflow, document numbering, version managem",
+      "license": "MIT"
+    },
+    {
+      "name": "quality-manager-qmr",
+      "source": "./plugins/skill-ecosystem/ra-qm-team/quality-manager-qmr",
+      "description": "Senior Quality Manager Responsible Person (QMR) for HealthTech and MedTech companies. Provides quality system governance, management review leadership, regulatory compliance oversight, and quality performance monitoring per ISO 13485 Clause 5.5.2.",
+      "license": "MIT"
+    },
+    {
+      "name": "quality-manager-qms-iso13485",
+      "source": "./plugins/skill-ecosystem/ra-qm-team/quality-manager-qms-iso13485",
+      "description": "ISO 13485 Quality Management System implementation and maintenance for medical device organizations. Provides QMS design, documentation control, internal auditing, CAPA management, and certification support. Use when working with medical device quali",
+      "license": "MIT"
+    },
+    {
+      "name": "rag-architect",
+      "source": "./plugins/skill-ecosystem/engineering/rag-architect",
+      "description": "Use when the user asks to design RAG pipelines, optimize retrieval strategies, choose embedding models, implement vector search, or build knowledge retrieval systems.",
+      "license": "MIT"
+    },
+    {
+      "name": "red-team",
+      "source": "./plugins/skill-ecosystem/engineering-team/red-team",
+      "description": "Use when planning or executing authorized red team engagements, attack path analysis, or offensive security simulations. Covers MITRE ATT&CK kill-chain planning, technique scoring, choke point identification, OPSEC risk assessment, and crown jewel ta",
+      "license": "MIT"
+    },
+    {
+      "name": "referral-program",
+      "source": "./plugins/skill-ecosystem/marketing-skill/referral-program",
+      "description": "When the user wants to design, launch, or optimize a referral or affiliate program. Use when they mention 'referral program,' 'affiliate program,' 'word of mouth,' 'refer a friend,' 'incentive program,' 'customer referrals,' 'brand ambassador,' 'part",
+      "license": "MIT"
+    },
+    {
+      "name": "regulatory-affairs-head",
+      "source": "./plugins/skill-ecosystem/ra-qm-team/regulatory-affairs-head",
+      "description": "Senior Regulatory Affairs Manager for HealthTech and MedTech companies. Prepares FDA 510(k), De Novo, and PMA submission packages; analyzes regulatory pathways for new medical devices; drafts responses to FDA deficiency letters and Notified Body quer",
+      "license": "MIT"
+    },
+    {
+      "name": "release-manager",
+      "source": "./plugins/skill-ecosystem/engineering/release-manager",
+      "description": "Use when the user asks to plan releases, manage changelogs, coordinate deployments, create release branches, or automate versioning.",
+      "license": "MIT"
+    },
+    {
+      "name": "research-summarizer",
+      "source": "./plugins/skill-ecosystem/product-team/research-summarizer",
+      "description": "Structured research summarization \u2014 summarize academic papers, market research, user interviews, and competitive analysis into actionable insights.",
+      "version": "2.2.0",
+      "author": {
+        "name": "Alireza Rezvani"
+      },
+      "keywords": [
+        "research",
+        "summarization",
+        "analysis",
+        "insights",
+        "product"
+      ],
+      "category": "product"
+    },
+    {
+      "name": "revenue-operations",
+      "source": "./plugins/skill-ecosystem/business-growth/revenue-operations",
+      "description": "Analyzes sales pipeline health, revenue forecasting accuracy, and go-to-market efficiency metrics for SaaS revenue optimization. Use when analyzing sales pipeline coverage, forecasting revenue, evaluating go-to-market performance, reviewing sales met",
+      "license": "MIT"
+    },
+    {
+      "name": "risk-management-specialist",
+      "source": "./plugins/skill-ecosystem/ra-qm-team/risk-management-specialist",
+      "description": "Medical device risk management specialist implementing ISO 14971 throughout product lifecycle. Provides risk analysis, risk evaluation, risk control, and post-production information analysis. Use when user mentions risk management, ISO 14971, risk an",
+      "license": "MIT"
+    },
+    {
+      "name": "roadmap-communicator",
+      "source": "./plugins/skill-ecosystem/product-team/roadmap-communicator",
+      "description": "Use when preparing roadmap narratives, release notes, changelogs, or stakeholder updates tailored for executives, engineering teams, and customers.",
+      "license": "MIT"
+    },
+    {
+      "name": "runbook-generator",
+      "source": "./plugins/skill-ecosystem/engineering/runbook-generator",
+      "description": "Runbook Generator",
+      "license": "MIT"
+    },
+    {
+      "name": "saas-metrics-coach",
+      "source": "./plugins/skill-ecosystem/finance/saas-metrics-coach",
+      "description": "SaaS financial health advisor. Use when a user shares revenue or customer numbers, or mentions ARR, MRR, churn, LTV, CAC, NRR, or asks how their SaaS business is doing.",
+      "license": "MIT"
+    },
+    {
+      "name": "saas-scaffolder",
+      "source": "./plugins/skill-ecosystem/product-team/saas-scaffolder",
+      "description": "Generates complete, production-ready SaaS project boilerplate including authentication, database schemas, billing integration, API routes, and a working dashboard using Next.js 14+ App Router, TypeScript, Tailwind CSS, shadcn/ui, Drizzle ORM, and Str",
+      "license": "MIT"
+    },
+    {
+      "name": "sales-engineer",
+      "source": "./plugins/skill-ecosystem/business-growth/sales-engineer",
+      "description": "Analyzes RFP/RFI responses for coverage gaps, builds competitive feature comparison matrices, and plans proof-of-concept (POC) engagements for pre-sales engineering. Use when responding to RFPs, bids, or proposal requests; comparing product features ",
+      "license": "MIT"
+    },
+    {
+      "name": "scenario-war-room",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/scenario-war-room",
+      "description": "Cross-functional what-if modeling for cascading multi-variable scenarios. Unlike single-assumption stress testing, this models compound adversity across all business functions simultaneously. Use when facing complex risk scenarios, strategic decision",
+      "license": "MIT"
+    },
+    {
+      "name": "schema-markup",
+      "source": "./plugins/skill-ecosystem/marketing-skill/schema-markup",
+      "description": "When the user wants to implement, audit, or validate structured data (schema markup) on their website. Use when the user mentions 'structured data,' 'schema.org,' 'JSON-LD,' 'rich results,' 'rich snippets,' 'schema markup,' 'FAQ schema,' 'Product sch",
+      "license": "MIT"
+    },
+    {
+      "name": "scrum-master",
+      "source": "./plugins/skill-ecosystem/project-management/scrum-master",
+      "description": "Sprint health analysis, velocity tracking, and retrospective facilitation.",
+      "version": "2.2.0",
+      "author": {
+        "name": "Alireza Rezvani"
+      },
+      "keywords": [
+        "scrum",
+        "agile",
+        "sprint",
+        "velocity"
+      ],
+      "category": "project-management"
+    },
+    {
+      "name": "secrets-vault-manager",
+      "source": "./plugins/skill-ecosystem/engineering/secrets-vault-manager",
+      "description": "Use when the user asks to set up secret management infrastructure, integrate HashiCorp Vault, configure cloud secret stores (AWS Secrets Manager, Azure Key Vault, GCP Secret Manager), implement secret rotation, or audit secret access patterns.",
+      "license": "MIT"
+    },
+    {
+      "name": "security-pen-testing",
+      "source": "./plugins/skill-ecosystem/engineering-team/security-pen-testing",
+      "description": "Use when the user asks to perform security audits, penetration testing, vulnerability scanning, OWASP Top 10 checks, or offensive security assessments. Covers static analysis, dependency scanning, secret detection, API security testing, and pen test ",
+      "license": "MIT"
+    },
+    {
+      "name": "self-eval",
+      "source": "./plugins/skill-ecosystem/engineering/self-eval",
+      "description": "Honestly evaluate AI work quality using a two-axis scoring system. Use after completing a task, code review, or work session to get an unbiased assessment. Detects score inflation, forces devil's advocate reasoning, and persists scores across session",
+      "license": "MIT"
+    },
+    {
+      "name": "self-improving-agent",
+      "source": "./plugins/skill-ecosystem/engineering-team/self-improving-agent",
+      "description": "Curate auto-memory, promote learnings to CLAUDE.md and rules, extract patterns into skills. Ships 5 slash commands (/si:review, /si:promote, /si:extract, /si:status, /si:remember) and 2 sub-agents (memory-analyst, skill-extractor).",
       "version": "2.3.0",
       "author": {
         "name": "Alireza Rezvani"
       },
       "keywords": [
-        "agile",
-        "scrum",
-        "product-owner",
-        "user-stories",
-        "sprint-planning",
-        "backlog",
-        "acceptance-criteria",
-        "epic-breakdown"
+        "memory",
+        "auto-memory",
+        "self-improvement",
+        "learning"
       ],
-      "category": "product"
+      "category": "development"
+    },
+    {
+      "name": "senior-architect",
+      "source": "./plugins/skill-ecosystem/engineering-team/senior-architect",
+      "description": "This skill should be used when the user asks to \"design system architecture\", \"evaluate microservices vs monolith\", \"create architecture diagrams\", \"analyze dependencies\", \"choose a database\", \"plan for scalability\", \"make technical decisions\", or \"r",
+      "license": "MIT"
+    },
+    {
+      "name": "senior-backend",
+      "source": "./plugins/skill-ecosystem/engineering-team/senior-backend",
+      "description": "Designs and implements backend systems including REST APIs, microservices, database architectures, authentication flows, and security hardening. Use when the user asks to \"design REST APIs\", \"optimize database queries\", \"implement authentication\", \"b",
+      "license": "MIT"
+    },
+    {
+      "name": "senior-computer-vision",
+      "source": "./plugins/skill-ecosystem/engineering-team/senior-computer-vision",
+      "description": "Computer vision engineering skill for object detection, image segmentation, and visual AI systems. Covers CNN and Vision Transformer architectures, YOLO/Faster R-CNN/DETR detection, Mask R-CNN/SAM segmentation, and production deployment with ONNX/Ten",
+      "license": "MIT"
+    },
+    {
+      "name": "senior-data-engineer",
+      "source": "./plugins/skill-ecosystem/engineering-team/senior-data-engineer",
+      "description": "Data engineering skill for building scalable data pipelines, ETL/ELT systems, and data infrastructure. Expertise in Python, SQL, Spark, Airflow, dbt, Kafka, and modern data stack. Includes data modeling, pipeline orchestration, data quality, and Data",
+      "license": "MIT"
+    },
+    {
+      "name": "senior-data-scientist",
+      "source": "./plugins/skill-ecosystem/engineering-team/senior-data-scientist",
+      "description": "World-class senior data scientist skill specialising in statistical modeling, experiment design, causal inference, and predictive analytics. Covers A/B testing (sample sizing, two-proportion z-tests, Bonferroni correction), difference-in-differences,",
+      "license": "MIT"
+    },
+    {
+      "name": "senior-devops",
+      "source": "./plugins/skill-ecosystem/engineering-team/senior-devops",
+      "description": "Comprehensive DevOps skill for CI/CD, infrastructure automation, containerization, and cloud platforms (AWS, GCP, Azure). Includes pipeline setup, infrastructure as code, deployment automation, and monitoring. Use when setting up pipelines, deploying",
+      "license": "MIT"
+    },
+    {
+      "name": "senior-frontend",
+      "source": "./plugins/skill-ecosystem/engineering-team/senior-frontend",
+      "description": "Frontend development skill for React, Next.js, TypeScript, and Tailwind CSS applications. Use when building React components, optimizing Next.js performance, analyzing bundle sizes, scaffolding frontend projects, implementing accessibility, or review",
+      "license": "MIT"
+    },
+    {
+      "name": "senior-ml-engineer",
+      "source": "./plugins/skill-ecosystem/engineering-team/senior-ml-engineer",
+      "description": "ML engineering skill for productionizing models, building MLOps pipelines, and integrating LLMs. Covers model deployment, feature stores, drift monitoring, RAG systems, and cost optimization. Use when the user asks about deploying ML models to produc",
+      "license": "MIT"
+    },
+    {
+      "name": "senior-pm",
+      "source": "./plugins/skill-ecosystem/project-management/senior-pm",
+      "description": "Senior Project Manager for enterprise software, SaaS, and digital transformation projects. Specializes in portfolio management, quantitative risk analysis, resource optimization, stakeholder alignment, and executive reporting. Uses advanced methodolo",
+      "license": "MIT"
+    },
+    {
+      "name": "senior-prompt-engineer",
+      "source": "./plugins/skill-ecosystem/engineering-team/senior-prompt-engineer",
+      "description": "This skill should be used when the user asks to \"optimize prompts\", \"design prompt templates\", \"evaluate LLM outputs\", \"build agentic systems\", \"implement RAG\", \"create few-shot examples\", \"analyze token usage\", or \"design AI workflows\". Use for prom",
+      "license": "MIT"
+    },
+    {
+      "name": "senior-qa",
+      "source": "./plugins/skill-ecosystem/engineering-team/senior-qa",
+      "description": "Generates unit tests, integration tests, and E2E tests for React/Next.js applications. Scans components to create Jest + React Testing Library test stubs, analyzes Istanbul/LCOV coverage reports to surface gaps, scaffolds Playwright test files from N",
+      "license": "MIT"
+    },
+    {
+      "name": "senior-secops",
+      "source": "./plugins/skill-ecosystem/engineering-team/senior-secops",
+      "description": "Senior SecOps engineer skill for application security, vulnerability management, compliance verification, and secure development practices. Runs SAST/DAST scans, generates CVE remediation plans, checks dependency vulnerabilities, creates security pol",
+      "license": "MIT"
+    },
+    {
+      "name": "senior-security",
+      "source": "./plugins/skill-ecosystem/engineering-team/senior-security",
+      "description": "Security engineering toolkit for threat modeling, vulnerability analysis, secure architecture, and penetration testing. Includes STRIDE analysis, OWASP guidance, cryptography patterns, and security scanning tools. Use when the user asks about securit",
+      "license": "MIT"
+    },
+    {
+      "name": "seo-audit",
+      "source": "./plugins/skill-ecosystem/marketing-skill/seo-audit",
+      "description": "When the user wants to audit, review, or diagnose SEO issues on their site. Also use when the user mentions \"SEO audit,\" \"technical SEO,\" \"why am I not ranking,\" \"SEO issues,\" \"on-page SEO,\" \"meta tags review,\" or \"SEO health check.\" For building pag",
+      "license": "MIT"
+    },
+    {
+      "name": "signup-flow-cro",
+      "source": "./plugins/skill-ecosystem/marketing-skill/signup-flow-cro",
+      "description": "When the user wants to optimize signup, registration, account creation, or trial activation flows. Also use when the user mentions \"signup conversions,\" \"registration friction,\" \"signup form optimization,\" \"free trial signup,\" \"reduce signup dropoff,",
+      "license": "MIT"
+    },
+    {
+      "name": "site-architecture",
+      "source": "./plugins/skill-ecosystem/marketing-skill/site-architecture",
+      "description": "When the user wants to audit, redesign, or plan their website's structure, URL hierarchy, navigation design, or internal linking strategy. Use when the user mentions 'site architecture,' 'URL structure,' 'internal links,' 'site navigation,' 'breadcru",
+      "license": "MIT"
+    },
+    {
+      "name": "skill-security-auditor",
+      "source": "./plugins/skill-ecosystem/engineering/skill-security-auditor",
+      "description": "Security audit and vulnerability scanner for AI agent skills. Scans for malicious patterns, prompt injection, data exfiltration, and unsafe file operations.",
+      "version": "2.2.0",
+      "author": {
+        "name": "Alireza Rezvani"
+      },
+      "keywords": [
+        "security",
+        "audit",
+        "vulnerability",
+        "scanner"
+      ],
+      "category": "development"
+    },
+    {
+      "name": "skill-tester",
+      "source": "./plugins/skill-ecosystem/engineering/skill-tester",
+      "description": "Skill Tester",
+      "license": "MIT"
+    },
+    {
+      "name": "snowflake-development",
+      "source": "./plugins/skill-ecosystem/engineering-team/snowflake-development",
+      "description": "Use when writing Snowflake SQL, building data pipelines with Dynamic Tables or Streams/Tasks, using Cortex AI functions, creating Cortex Agents, writing Snowpark Python, configuring dbt for Snowflake, or troubleshooting Snowflake errors.",
+      "license": "MIT"
+    },
+    {
+      "name": "soc2-compliance",
+      "source": "./plugins/skill-ecosystem/ra-qm-team/soc2-compliance",
+      "description": "Use when the user asks to prepare for SOC 2 audits, map Trust Service Criteria, build control matrices, collect audit evidence, perform gap analysis, or assess SOC 2 Type I vs Type II readiness.",
+      "license": "MIT"
+    },
+    {
+      "name": "social-content",
+      "source": "./plugins/skill-ecosystem/marketing-skill/social-content",
+      "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content ca",
+      "license": "MIT"
+    },
+    {
+      "name": "social-media-analyzer",
+      "source": "./plugins/skill-ecosystem/marketing-skill/social-media-analyzer",
+      "description": "Social media campaign analysis and performance tracking. Calculates engagement rates, ROI, and benchmarks across platforms. Use for analyzing social media performance, calculating engagement rate, measuring campaign ROI, comparing platform metrics, o",
+      "license": "MIT"
+    },
+    {
+      "name": "social-media-manager",
+      "source": "./plugins/skill-ecosystem/marketing-skill/social-media-manager",
+      "description": "When the user wants to develop social media strategy, plan content calendars, manage community engagement, or grow their social presence across platforms. Also use when the user mentions 'social media strategy,' 'social calendar,' 'community manageme",
+      "license": "MIT"
+    },
+    {
+      "name": "spec-driven-workflow",
+      "source": "./plugins/skill-ecosystem/engineering/spec-driven-workflow",
+      "description": "Use when the user asks to write specs before code, define acceptance criteria, plan features before implementation, generate tests from specifications, or follow spec-first development practices.",
+      "license": "MIT"
+    },
+    {
+      "name": "spec-to-repo",
+      "source": "./plugins/skill-ecosystem/product-team/spec-to-repo",
+      "description": "Use when the user says 'build me an app', 'create a project from this spec', 'scaffold a new repo', 'generate a starter', 'turn this idea into code', 'bootstrap a project', 'I have requirements and need a codebase', or provides a natural-language pro",
+      "license": "MIT"
+    },
+    {
+      "name": "sql-database-assistant",
+      "source": "./plugins/skill-ecosystem/engineering/sql-database-assistant",
+      "description": "Use when the user asks to write SQL queries, optimize database performance, generate migrations, explore database schemas, or work with ORMs like Prisma, Drizzle, TypeORM, or SQLAlchemy.",
+      "license": "MIT"
+    },
+    {
+      "name": "statistical-analyst",
+      "source": "./plugins/skill-ecosystem/engineering/statistical-analyst",
+      "description": "Hypothesis testing, A/B experiment analysis, sample size calculation, and confidence intervals. 3 stdlib-only Python tools: Z-test/t-test/chi-square with effect sizes, sample size calculator with power tradeoffs, and Wilson score confidence intervals.",
+      "version": "2.2.0",
+      "author": {
+        "name": "Alireza Rezvani"
+      },
+      "keywords": [
+        "statistics",
+        "hypothesis-testing",
+        "ab-testing",
+        "sample-size",
+        "confidence-interval"
+      ],
+      "category": "development"
+    },
+    {
+      "name": "strategic-alignment",
+      "source": "./plugins/skill-ecosystem/c-level-advisor/strategic-alignment",
+      "description": "Cascades strategy from boardroom to individual contributor. Detects and fixes misalignment between company goals and team execution. Covers strategy articulation, cascade mapping, orphan goal detection, silo identification, communication gap analysis",
+      "license": "MIT"
+    },
+    {
+      "name": "stripe-integration-expert",
+      "source": "./plugins/skill-ecosystem/engineering-team/stripe-integration-expert",
+      "description": "Stripe Integration Expert",
+      "license": "MIT"
+    },
+    {
+      "name": "tc-tracker",
+      "source": "./plugins/skill-ecosystem/engineering/tc-tracker",
+      "description": "Use when the user asks to track technical changes, create change records, manage TC lifecycles, or hand off work between AI sessions. Covers init/create/update/status/resume/close/export workflows for structured code change documentation.",
+      "license": "MIT"
+    },
+    {
+      "name": "tdd-guide",
+      "source": "./plugins/skill-ecosystem/engineering-team/tdd-guide",
+      "description": "Test-driven development skill for writing unit tests, generating test fixtures and mocks, analyzing coverage gaps, and guiding red-green-refactor workflows across Jest, Pytest, JUnit, Vitest, and Mocha. Use when the user asks to write tests, improve ",
+      "license": "MIT"
+    },
+    {
+      "name": "team-communications",
+      "source": "./plugins/skill-ecosystem/project-management/team-communications",
+      "description": "Write internal company communications \u2014 3P updates (Progress/Plans/Problems), company-wide newsletters, FAQ roundups, incident reports, leadership updates, status reports, project updates, and general internal comms. Use this skill any time the user ",
+      "license": "MIT"
+    },
+    {
+      "name": "tech-debt-tracker",
+      "source": "./plugins/skill-ecosystem/engineering/tech-debt-tracker",
+      "description": "Scan codebases for technical debt, score severity, track trends, and generate prioritized remediation plans. Use when users mention tech debt, code quality, refactoring priority, debt scoring, cleanup sprints, or code health assessment. Also use for ",
+      "license": "MIT"
+    },
+    {
+      "name": "tech-stack-evaluator",
+      "source": "./plugins/skill-ecosystem/engineering-team/tech-stack-evaluator",
+      "description": "Technology stack evaluation and comparison with TCO analysis, security assessment, and ecosystem health scoring. Use when comparing frameworks, evaluating technology stacks, calculating total cost of ownership, assessing migration paths, or analyzing",
+      "license": "MIT"
+    },
+    {
+      "name": "terraform-patterns",
+      "source": "./plugins/skill-ecosystem/engineering/terraform-patterns",
+      "description": "Terraform infrastructure-as-code \u2014 module design patterns, state management, provider configuration, CI/CD integration, and multi-environment strategies.",
+      "version": "2.2.0",
+      "author": {
+        "name": "Alireza Rezvani"
+      },
+      "keywords": [
+        "terraform",
+        "iac",
+        "infrastructure",
+        "devops",
+        "cloud"
+      ],
+      "category": "development"
+    },
+    {
+      "name": "thinking-partner",
+      "description": "Always-on thinking partner output style with Insight blocks and Notable blocks. Merges exploratory dialogue stance with educational code insights.",
+      "version": "1.0.0",
+      "author": {
+        "name": "prefrontalsys",
+        "email": "sr4001@gmail.com"
+      },
+      "source": "./plugins/thinking-partner",
+      "category": "productivity"
+    },
+    {
+      "name": "threat-detection",
+      "source": "./plugins/skill-ecosystem/engineering-team/threat-detection",
+      "description": "Use when hunting for threats in an environment, analyzing IOCs, or detecting behavioral anomalies in telemetry. Covers hypothesis-driven threat hunting, IOC sweep generation, z-score anomaly detection, and MITRE ATT&CK-mapped signal prioritization.",
+      "license": "MIT"
+    },
+    {
+      "name": "ui-design-system",
+      "source": "./plugins/skill-ecosystem/product-team/ui-design-system",
+      "description": "UI design system toolkit for Senior UI Designer including design token generation, component documentation, responsive design calculations, and developer handoff tools. Use for creating design systems, maintaining visual consistency, and facilitating",
+      "license": "MIT"
+    },
+    {
+      "name": "ux-researcher-designer",
+      "source": "./plugins/skill-ecosystem/product-team/ux-researcher-designer",
+      "description": "UX research and design toolkit for Senior UX Designer/Researcher including data-driven persona generation, journey mapping, usability testing frameworks, and research synthesis. Use for user research, persona creation, journey mapping, and design val",
+      "license": "MIT"
+    },
+    {
+      "name": "vault-aware-style",
+      "description": "Vault-aware output style: educational insights + automatic vault orchestration (finalize, memorize, recall, skill dispatch)",
+      "version": "1.0.0",
+      "author": {
+        "name": "prefrontalsys",
+        "email": "sr4001@gmail.com"
+      },
+      "source": "./plugins/vault-aware-style",
+      "category": "productivity"
+    },
+    {
+      "name": "video-content-strategist",
+      "source": "./plugins/skill-ecosystem/marketing-skill/video-content-strategist",
+      "description": "Use when planning video content strategy, writing video scripts, optimizing YouTube channels, building short-form video pipelines (Reels, TikTok, Shorts), or repurposing long-form content into video. Triggers: 'start a YouTube channel', 'video conten",
+      "license": "MIT"
+    },
+    {
+      "name": "x-twitter-growth",
+      "source": "./plugins/skill-ecosystem/marketing-skill/x-twitter-growth",
+      "description": "X/Twitter growth engine for building audience, crafting viral content, and analyzing engagement. Use when the user wants to grow on X/Twitter, write tweets or threads, analyze their X profile, research competitors on X, plan a posting strategy, or op",
+      "license": "MIT"
     }
   ]
 }

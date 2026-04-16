@@ -1,0 +1,6 @@
+{
+  "name": "agent-designer",
+  "description": "Use when the user asks to design multi-agent systems, create agent architectures, define agent communication patterns, or build autonomous agent workflows.",
+  "version": "1.0.0",
+  "license": "MIT"
+}
