@@ -29,7 +29,7 @@ python scripts/health_scorer.py --json # Output raw JSON for integration
 Or describe your metrics:
 ```
 /health [paste your key metrics or answer prompts]
-/health:dimension [financial|revenue|product|engineering|people|ops|security|market]
+/org-health-diagnostic:dimension [financial|revenue|product|engineering|people|ops|security|market]
 ```
 
 ## The 8 Dimensions
@@ -183,3 +183,7 @@ You don't need all metrics to run a diagnostic. The tool handles partial data:
 ## References
 - `references/health-benchmarks.md` — benchmarks by stage (Seed, A, B, C)
 - `scripts/health_scorer.py` — CLI scoring tool with traffic light output
+
+---
+
+*Note: This plugin documents `/org-health-diagnostic:*` commands but does not yet include the corresponding command files in `commands/`. The slash commands listed above describe intended behaviour — invoke the plugin by its name or dispatch the skill directly via CC skill selection.*

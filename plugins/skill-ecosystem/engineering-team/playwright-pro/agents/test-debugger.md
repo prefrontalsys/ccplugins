@@ -10,6 +10,7 @@ allowed-tools:
   - Glob
   - LS
   - Bash
+model: sonnet
 ---
 
 # Test Debugger Agent

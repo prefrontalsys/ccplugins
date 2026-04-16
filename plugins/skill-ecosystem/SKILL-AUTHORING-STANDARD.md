@@ -1,459 +1,278 @@
-# Skill Authoring Standard
+# Plugin & Skill Authoring Standard
 
-The DNA of every skill in this repository. Follow this standard when creating new skills or upgrading existing ones.
+**Normative source:** https://code.claude.com/docs/en/plugins-reference.md
+**Last verified against cc-docs:** 2026-04-16
+
+This standard describes how plugins in this repository are structured. It is grounded in the Claude Code plugin specification, not in conventions invented by prior contributors. Where this document disagrees with cc-docs, cc-docs wins — please update this file.
 
 ---
 
-## SKILL.md Template
+## 1. Core principle: one skill, one plugin
+
+Every skill in this repository is a standalone plugin with its own `.claude-plugin/plugin.json` manifest. There are **no bundle plugins** — a plugin never groups unrelated sub-skills under a shared namespace, because CC has no mechanism for plugins to share a command namespace.
+
+A plugin's namespace for commands, agents, and skill invocation is exactly its `plugin.json` `name` field. That name is also the `plugin-name:*` prefix users see.
+
+---
+
+## 2. File layout
+
+```
+plugin-root/
+├── .claude-plugin/
+│   └── plugin.json            # required manifest (see §3)
+├── SKILL.md                   # the skill itself (see §4)
+├── agents/                    # optional: sub-agents (see §5)
+│   └── <agent-name>.md
+├── commands/                  # optional: slash commands (see §6)
+│   └── <command-name>.md
+├── scripts/                   # optional: Python/shell helpers called by the skill
+├── references/                # optional: prompt templates, domain docs
+└── README.md                  # optional but recommended
+```
+
+CC auto-discovers `SKILL.md` at the plugin root, `agents/*.md`, and `commands/*.md`. You do not need to set `skills`, `agents`, or `commands` fields in `plugin.json` unless you relocate those directories.
+
+---
+
+## 3. `plugin.json`
+
+Per cc-docs, **only `name` is required**. Everything else is optional metadata.
+
+### Minimum valid manifest
+
+```json
+{
+  "name": "my-plugin"
+}
+```
+
+### Recommended manifest (what every plugin in this repo uses)
+
+```json
+{
+  "name": "my-plugin",
+  "description": "One-sentence statement of what this plugin does and when to use it.",
+  "version": "1.0.0",
+  "license": "MIT"
+}
+```
+
+### Full schema
+
+| Field         | Type                  | Required | Notes                                                                              |
+|:--------------|:----------------------|:---------|:-----------------------------------------------------------------------------------|
+| `name`        | string                | yes      | kebab-case, no spaces. Becomes the command namespace prefix.                       |
+| `version`     | string                | no       | SemVer. Authoritative if also set in marketplace entry.                            |
+| `description` | string                | no       | Discovery hint. Keep it short; SKILL.md description is what CC uses at runtime.    |
+| `author`      | object                | no       | `{name, email?, url?}`                                                             |
+| `homepage`    | string                | no       | Docs URL.                                                                          |
+| `repository`  | string                | no       | Source URL.                                                                        |
+| `license`     | string                | no       | SPDX identifier.                                                                   |
+| `keywords`    | array of strings      | no       | Discovery tags.                                                                    |
+| `skills`      | string \| array       | no       | Override default `SKILL.md`/`skills/` discovery. Rarely needed.                    |
+| `commands`    | string \| array       | no       | Override default `commands/` discovery.                                            |
+| `agents`      | string \| array       | no       | Override default `agents/` discovery.                                              |
+| `hooks`       | string \| array \| object | no   | Hook config path, or inline.                                                       |
+| `mcpServers`  | string                | no       | Path to `.mcp.json`, or inline.                                                    |
+| `outputStyles`| string                | no       | Path to styles dir.                                                                |
+| `lspServers`  | string                | no       | Path to `.lsp.json`.                                                               |
+
+### The `skills` field — common pitfall
+
+**Do not set `"skills": "./"`**. CC's loader rejects this as a path escape. The documented value is a directory that contains `<name>/SKILL.md` subdirectories, not the plugin root itself.
+
+For single-SKILL.md-at-root plugins (the common case in this repo): **omit the `skills` field entirely**. Default discovery finds the root `SKILL.md`.
+
+For plugins with a sub-skills directory like `plugin/skills/variant-a/SKILL.md`, set `"skills": "./skills/"`.
+
+---
+
+## 4. `SKILL.md`
+
+Per cc-docs, **only `description` is recommended** in frontmatter; nothing is strictly required (name defaults to directory name).
+
+### Minimum valid SKILL.md
 
 ```markdown
 ---
-name: skill-name
-description: "When to use this skill. Include trigger keywords and phrases users might say. Mention related skills for disambiguation."
-license: MIT
-metadata:
-  version: 1.0.0
-  author: Alireza Rezvani
-  category: domain-name
-  updated: YYYY-MM-DD
+description: What this skill does and when to invoke it.
 ---
 
 # Skill Name
 
-You are an expert in [domain]. Your goal is [specific outcome for the user].
-
-## Before Starting
-
-**Check for context first:**
-If `[domain]-context.md` exists, read it before asking questions. Use that context and only ask for information not already covered or specific to this task.
-
-Gather this context (ask if not provided):
-
-### 1. Current State
-- What exists today?
-- What's working / not working?
-
-### 2. Goals
-- What outcome do they want?
-- What constraints exist?
-
-### 3. [Domain-Specific Context]
-- [Questions specific to this skill]
-
-## How This Skill Works
-
-This skill supports [N] modes:
-
-### Mode 1: Build from Scratch
-When starting fresh — no existing [artifact] to work with.
-
-### Mode 2: Optimize Existing
-When improving something that already exists. Analyze what's working, identify gaps, recommend changes.
-
-### Mode 3: [Situation-Specific]
-When [specific scenario that needs a different approach].
-
-## [Core Content Sections]
-
-[Action-oriented workflow. Not a textbook — a practitioner guiding you through it.]
-
-[Tables for structured information. Checklists for processes. Examples for clarity.]
-
-## Proactive Triggers
-
-Surface these issues WITHOUT being asked when you notice them in context:
-
-- [Trigger 1: specific condition → what to flag]
-- [Trigger 2: specific condition → what to flag]
-- [Trigger 3: specific condition → what to flag]
-
-## Output Artifacts
-
-| When you ask for... | You get... |
-|---------------------|------------|
-| [Common request 1] | [Specific deliverable with format] |
-| [Common request 2] | [Specific deliverable with format] |
-| [Common request 3] | [Specific deliverable with format] |
-
-## Communication
-
-All output follows the structured communication standard:
-- **Bottom line first** — answer before explanation
-- **What + Why + How** — every finding has all three
-- **Actions have owners and deadlines** — no "we should consider"
-- **Confidence tagging** — 🟢 verified / 🟡 medium / 🔴 assumed
-
-## Related Skills
-
-- **skill-name**: Use when [specific scenario]. NOT for [disambiguation].
-- **skill-name**: Use when [specific scenario]. NOT for [disambiguation].
-- **skill-name**: Use when [specific scenario]. NOT for [disambiguation].
+Instructions for the model go here.
 ```
 
----
+### Recommended frontmatter
 
-## The 10 Patterns
-
-### Pattern 1: Context-First
-
-Every skill checks for domain context before asking questions. Only ask for what's missing.
-
-**Implementation:**
 ```markdown
-## Before Starting
-
-**Check for context first:**
-If `marketing-context.md` exists, read it before asking questions.
-Use that context and only ask for information not already covered.
+---
+name: skill-name
+description: What this skill does. Front-load the key trigger phrases — CC truncates at 1,536 characters combined with when_to_use in the skill listing.
+when_to_use: Additional trigger phrases and example invocations. (optional)
+allowed-tools: Read Grep Bash  (optional — restricts which tools the skill may use)
+---
 ```
 
-**Domain context files:**
+### Valid frontmatter fields
 
-| Domain | Context File | Created By |
-|--------|-------------|-----------|
-| C-Suite | `company-context.md` | `/cs:setup` (cs-onboard skill) |
-| Marketing | `marketing-context.md` | marketing-context skill |
-| Engineering | `project-context.md` | codebase-onboarding skill |
-| Product | `product-context.md` | product-strategist skill |
-| RA/QM | `regulatory-context.md` | regulatory-affairs-head skill |
+| Field                      | Required    | Notes                                                                                                                |
+|:---------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------|
+| `name`                     | no          | lowercase, digits, hyphens. Max 64 chars. Defaults to directory name.                                                |
+| `description`              | recommended | Truncated at 1,536 chars combined with `when_to_use`. Put the load-bearing phrase first.                             |
+| `when_to_use`              | no          | Extra triggers. Shown in listing alongside description.                                                              |
+| `argument-hint`            | no          | Autocomplete hint (e.g. `[issue-number]`).                                                                           |
+| `disable-model-invocation` | no          | If `true`, model cannot auto-invoke; only explicit `/skill-name`.                                                    |
+| `allowed-tools`            | no          | Space-separated tool names the skill may use.                                                                        |
 
-**Rules:**
-- If context exists → read it, use it, only ask for gaps
-- If context doesn't exist → offer to create it (auto-draft from available info)
-- Never dump all questions at once — conversational, one section at a time
-- Push for verbatim language — exact customer/user phrases beat polished descriptions
+### Fields this repo does NOT use (not spec)
+
+- `license` — belongs in `plugin.json`, not `SKILL.md`
+- `metadata` block with `version`/`author`/etc. — not a spec field
+- Multiline block scalar (`description: |`) — spec expects a one-line string
 
 ---
 
-### Pattern 2: Practitioner Voice
+## 5. Agents (`agents/<name>.md`)
 
-Every skill opens with an expert persona and clear goal. Not a textbook — a senior practitioner coaching you.
+Per cc-docs, agents **require `name` and `description`** in frontmatter.
 
-**Implementation:**
+### Minimum valid agent file
+
 ```markdown
-You are an expert in [domain]. Your goal is [outcome].
-```
-
-**Rules:**
-- Write as someone who has done this 100 times
-- Use contractions, direct language
-- If something sounds like a Wikipedia article, rewrite it
-- Opinionated > neutral. State what works and what doesn't.
-- "Do X" beats "You might consider X"
-- Industry jargon is fine when talking to practitioners — explain when talking to founders
-
-**Anti-patterns:**
-- ❌ "This skill provides comprehensive coverage of..."
-- ❌ "The following section outlines the various approaches to..."
-- ❌ "It is recommended that one should consider..."
-- ✅ "You are an expert in SaaS pricing. Your goal is to help design pricing that captures value."
-- ✅ "Lead with their world, not yours."
-- ✅ "If it sounds like marketing copy, rewrite it."
-
+---
+name: my-agent
+description: When Claude should delegate to this subagent.
 ---
 
-### Pattern 3: Multi-Mode Workflows
+You are a <role>. Your job is to <task>. ...
+```
 
-Most skills have 2-3 natural entry points. Design for all of them.
+### Recommended agent frontmatter
 
-**Implementation:**
 ```markdown
-## How This Skill Works
-
-### Mode 1: Build from Scratch
-When starting fresh — [describe the greenfield scenario].
-
-### Mode 2: Optimize Existing  
-When [artifact] exists but isn't performing. Analyze → identify gaps → recommend.
-
-### Mode 3: [Situation-Specific]
-When [edge case or specific scenario that needs a different approach].
+---
+name: my-agent
+description: Concrete delegation trigger, e.g. "Spawn when the user asks to review a PR or says 'audit this diff'."
+tools: Read, Bash, Grep, Glob
+model: sonnet
+---
 ```
 
-**Common mode pairs:**
+### Valid fields
 
-| Skill Type | Mode 1 | Mode 2 | Mode 3 |
-|-----------|--------|--------|--------|
-| CRO skills | Audit a page | Redesign flow | A/B test specific element |
-| Content skills | Write new | Rewrite/optimize | Repurpose for channel |
-| SEO skills | Full audit | Fix specific issue | Competitive gap analysis |
-| Strategy skills | Create plan | Review/critique plan | Pivot existing plan |
-| Analytics skills | Set up tracking | Debug tracking | Analyze data |
+| Field             | Required | Notes                                                                                                                  |
+|:------------------|:---------|:-----------------------------------------------------------------------------------------------------------------------|
+| `name`            | yes      | kebab-case unique identifier.                                                                                          |
+| `description`     | yes      | When CC should delegate to this agent.                                                                                 |
+| `tools`           | no       | Comma-separated allow-list; inherits all if omitted.                                                                   |
+| `disallowedTools` | no       | Tools to deny from inherited set.                                                                                      |
+| `model`           | no       | `sonnet`, `opus`, `haiku`, specific model ID, or `inherit`. Defaults to `inherit`.                                     |
 
-**Rules:**
-- Mode 2 (optimize) should ask for current performance data
-- If user has performance data → use it to inform recommendations
-- Each mode should be self-contained (don't assume they read the other modes)
+### Model selection — heuristic used in this repo
+
+| Agent role                                                 | Model        |
+|:-----------------------------------------------------------|:-------------|
+| Deep reasoning, architecture, adversarial analysis         | `opus`       |
+| Planning, orchestration, strategy                          | `opus`       |
+| Code review, test design, writing, editing                 | `sonnet`     |
+| Routine tool orchestration, search, synthesis              | `sonnet`     |
+| Debugging (declarative, with evidence)                     | `sonnet`     |
+| Mechanical transforms, formatting, simple lookups          | `haiku`      |
+
+Pick the cheapest tier that reliably does the job. Spec allows `inherit` as a fallback when the parent session's model is appropriate.
+
+### Fields this repo does NOT use (not spec)
+
+- `role` — free-text role descriptions belong in the body, not frontmatter
+- `constraints` — same; put in the body
 
 ---
 
-### Pattern 4: Related Skills Navigation
+## 6. Commands (`commands/<name>.md`)
 
-Every skill ends with a curated list of related skills. Not just links — **when to use each and when NOT to.**
+Per cc-docs, commands are discovered in a plugin's `commands/` directory. Each command file is invoked as `/<plugin-name>:<command-name>`.
 
-**Implementation:**
+### Minimum valid command file
+
 ```markdown
-## Related Skills
+---
+description: What this command does.
+---
 
-- **copywriting**: For landing page and web copy. NOT for email sequences or ad copy.
-- **page-cro**: For optimizing any marketing page. NOT for signup flows (use signup-flow-cro).
-- **email-sequence**: For lifecycle/nurture emails. NOT for cold outreach (use cold-email).
+Instructions for Claude when this command is invoked. Use $ARGUMENTS to
+reference the user's arguments.
 ```
 
-**Rules:**
-- Include 3-7 related skills (not all of them — curate)
-- Each entry: skill name + WHEN to use + WHEN NOT TO (disambiguation)
-- Cross-references must be bidirectional (A mentions B, B mentions A)
-- Include cross-domain references when relevant (e.g., marketing skill → business-growth skill)
-- Group by relationship type if >5: "Works with", "Instead of", "After this"
+### Valid fields
+
+| Field                      | Required | Notes                                                   |
+|:---------------------------|:---------|:--------------------------------------------------------|
+| `name`                     | no       | Defaults to filename. Kebab-case.                       |
+| `description`              | yes      | Shown in autocomplete.                                  |
+| `argument-hint`            | no       | e.g. `[issue-number]` or `[file] [format]`.             |
+| `disable-model-invocation` | no       | `true` = slash only, model cannot auto-invoke.          |
+| `allowed-tools`            | no       | Restrict tools for this command.                        |
+
+### Documentation rule
+
+Never document a command in `SKILL.md` or `README.md` without a corresponding `commands/<name>.md` file. CC has no way to satisfy a documented `/plugin:cmd` invocation if the file does not exist — users will type the command and see no effect.
+
+If you list example commands in prose, use the real namespace: `/<your-plugin-name>:<command-name>`. Do not use short prefixes that do not match the plugin's `name`.
 
 ---
 
-### Pattern 5: Reference Separation
+## 7. Marketplace registration
 
-SKILL.md is the workflow. Reference docs are the knowledge base. Keep them separate.
+A plugin only appears in `/plugin install` if registered in `.claude-plugin/marketplace.json` at repo root:
 
-**Implementation:**
-```
-skill-name/
-├── SKILL.md              # ≤10KB — what to do, how to decide, when to act
-├── references/
-│   ├── frameworks.md      # Deep framework catalog
-│   ├── benchmarks.md      # Industry data and benchmarks
-│   ├── platform-specs.md  # Platform-specific details
-│   └── examples.md        # Real-world examples
-├── templates/
-│   └── template.md        # User-fillable templates
-└── scripts/
-    └── tool.py            # Python automation
+```json
+{
+  "plugins": [
+    {
+      "name": "my-plugin",
+      "source": "./plugins/skill-ecosystem/domain/my-plugin",
+      "description": "One-line summary for the marketplace listing.",
+      "license": "MIT"
+    }
+  ]
+}
 ```
 
-**Rules:**
-- SKILL.md ≤10KB — if it's longer, move content to references
-- SKILL.md links to references inline: `See [references/frameworks.md](references/frameworks.md) for the full catalog.`
-- References are loaded on demand — zero startup cost
-- Each reference doc is self-contained (can be read independently)
-- Templates are user-fillable files with clear placeholder markers
+The marketplace `name` can differ from the `plugin.json` `name`. Users install by marketplace name; commands use the plugin.json name. This split is intentional — it lets install identifiers be user-friendly (`my-plugin@ccplugins`) while command namespaces stay short (`/mp:*`).
 
 ---
 
-### Pattern 6: Proactive Triggers
+## 8. Testing before commit
 
-Skills surface issues without being asked when they detect patterns in context.
+Before committing any new or changed plugin:
 
-**Implementation:**
-```markdown
-## Proactive Triggers
+1. **Valid JSON.** `python3 -m json.tool < .claude-plugin/plugin.json`
+2. **Frontmatter parses.** `python3 -c "import yaml,pathlib; yaml.safe_load(pathlib.Path('SKILL.md').read_text().split('---',2)[1])"`
+3. **Install locally.** `/plugin install <name>@<marketplace>` in a CC session, then `/reload-plugins`. Verify the plugin appears in `/plugin` and its commands register under the expected namespace.
+4. **Agent delegation works.** If the plugin defines agents, trigger one and confirm the described model and tools are active.
 
-Surface these without being asked:
-
-- **[Condition]** → [What to flag and why]
-- **[Condition]** → [What to flag and why]
-```
-
-**Rules:**
-- 4-6 triggers per skill
-- Each trigger: specific condition + business consequence
-- Triggers should be things the user wouldn't think to ask about
-- Format: condition → flag → recommended action
-- Don't trigger on obvious things — trigger on hidden risks
-
-**Examples:**
-- SEO: "Keyword cannibalization detected — two pages targeting the same term" → flag
-- Pricing: "Conversion rate >40% — likely underpriced" → flag
-- Content: "No content updated in 6+ months" → flag
-- CRO: "Form has >7 fields with no multi-step" → flag
+A plugin that passes JSON validation but fails step 3 is still broken. Always install-test.
 
 ---
 
-### Pattern 7: Output Artifacts
+## 9. What changed from the prior standard (2026-04-16 rewrite)
 
-Map common requests to specific, concrete deliverables.
+The previous SKILL-AUTHORING-STANDARD.md was invented by upstream contributors without reference to cc-docs. It treated several fields as required that the spec does not require, and documented patterns (bundle plugins sharing a namespace via `/short:command` references) that are not possible in Claude Code.
 
-**Implementation:**
-```markdown
-## Output Artifacts
+Removed as non-spec:
 
-| When you ask for... | You get... |
-|---------------------|------------|
-| "Help with pricing" | Pricing recommendation with tier structure, value metrics, and competitive positioning |
-| "Audit my SEO" | SEO scorecard (0-100) with prioritized fixes and quick wins |
-```
+- Required `license` field in SKILL.md frontmatter
+- Required `metadata.version` sub-block in SKILL.md frontmatter
+- Required `role` and `constraints` fields in agent frontmatter
+- Bundle-plugin pattern (`skills: "./"` with domain-level plugin.json)
+- Shared short-prefix namespaces (`/cs:*`, `/ci:*` across multiple plugins)
 
-**Rules:**
-- 4-6 artifacts per skill
-- Each artifact has a specific format (scorecard, matrix, plan, audit, template)
-- Artifacts are actionable — not just analysis, but recommendations with next steps
-- Include what the output looks like (table? checklist? narrative?)
+Added as spec:
 
----
-
-### Pattern 8: Quality Loop
-
-Skills self-verify before presenting findings.
-
-**Implementation:**
-```markdown
-## Communication
-
-All output passes quality verification:
-- Self-verify: source attribution, assumption audit, confidence scoring
-- Peer-verify: cross-functional claims validated by the owning skill
-- Output format: Bottom Line → What (with confidence) → Why → How to Act → Your Decision
-- Results only. Every finding tagged: 🟢 verified, 🟡 medium, 🔴 assumed.
-```
-
-**Rules:**
-- Every finding tagged with confidence level
-- Assumptions explicitly marked as assumptions
-- "I don't know" > fake confidence
-- Cross-functional claims reference the relevant skill
-- High-stakes recommendations get extra scrutiny
-
----
-
-### Pattern 9: Communication Standard
-
-Structured output format for all skill output.
-
-**Standard output:**
-```
-BOTTOM LINE: [One sentence answer]
-
-WHAT:
-• [Finding 1] — 🟢/🟡/🔴
-• [Finding 2] — 🟢/🟡/🔴
-
-WHY THIS MATTERS: [Business impact]
-
-HOW TO ACT:
-1. [Action] → [Owner] → [Deadline]
-
-YOUR DECISION (if needed):
-Option A: [Description] — [Trade-off]
-Option B: [Description] — [Trade-off]
-```
-
-**Rules:**
-- Bottom line first — always
-- Max 5 bullets per section
-- Actions have owners and deadlines
-- Decisions framed as options with trade-offs
-- No process narration ("First I analyzed...") — results only
-
----
-
-### Pattern 10: Python Tools
-
-Stdlib-only automation that provides quantitative analysis.
-
-**Implementation:**
-```python
-#!/usr/bin/env python3
-"""Tool description — what it does in one line."""
-
-import json
-import sys
-from collections import Counter
-
-def main():
-    # Accept input from file arg or stdin
-    # Process with stdlib only
-    # Output JSON for programmatic use
-    # Also print human-readable summary
-    pass
-
-if __name__ == "__main__":
-    main()
-```
-
-**Rules:**
-- **stdlib-only** — zero external dependencies (no pip install)
-- **CLI-first** — run from command line with file args or stdin
-- **JSON output** — structured output for integration
-- **Sample data embedded** — runs with zero config for demo/testing
-- **One tool, one job** — focused, not Swiss Army knife
-- **Scoring tools output 0-100** — consistent scale across all tools
-
-**Naming convention:** `snake_case_verb_noun.py` (e.g., `seo_checker.py`, `headline_scorer.py`, `churn_risk_scorer.py`)
-
----
-
-## File Structure Standard
-
-```
-skill-name/
-├── SKILL.md                    # ≤10KB — workflow, decisions, actions
-├── references/                  # Deep knowledge (loaded on demand)
-│   ├── [topic]-guide.md        # Comprehensive guide
-│   ├── [topic]-benchmarks.md   # Industry data
-│   └── [topic]-examples.md    # Real-world examples
-├── templates/                   # User-fillable templates
-│   └── [artifact]-template.md  # With placeholder markers
-└── scripts/                     # Python automation
-    └── [verb]_[noun].py        # Stdlib-only, CLI-first
-```
-
-**Naming rules:**
-- Skill folder: `kebab-case`
-- Python scripts: `snake_case.py`
-- Reference docs: `kebab-case.md`
-- Templates: `kebab-case-template.md`
-
----
-
-## Quality Checklist
-
-Before a skill is considered done:
-
-### Structure
-- [ ] YAML frontmatter with name, description (trigger keywords), version
-- [ ] Practitioner voice — "You are an expert in X. Your goal is Y."
-- [ ] Context-first — checks domain context before asking questions
-- [ ] Multi-mode — at least 2 workflows (build/optimize)
-- [ ] SKILL.md ≤10KB — heavy content in references/
-
-### Content
-- [ ] Action-oriented — tells you what to do, not just what exists
-- [ ] Opinionated — states what works, not just options
-- [ ] Tables for structured comparisons
-- [ ] Checklists for processes
-- [ ] Examples for clarity
-
-### Integration
-- [ ] Related Skills section with WHEN/NOT disambiguation
-- [ ] Cross-references are bidirectional
-- [ ] Listed in domain CLAUDE.md
-- [ ] Listed in `.codex/skills-index.json`
-- [ ] Listed in `.claude-plugin/marketplace.json`
-- [ ] Listed in `.gemini/skills-index.json` (run `./scripts/gemini-install.sh`)
-
-### Quality Standard
-- [ ] Proactive Triggers (4-6 per skill)
-- [ ] Output Artifacts table (4-6 per skill)
-- [ ] Communication standard reference
-- [ ] Confidence tagging on findings
-
-### Automation (if applicable)
-- [ ] Python tool(s) — stdlib-only, CLI-first, JSON output
-- [ ] Sample data embedded — runs with zero config
-- [ ] Scoring uses 0-100 scale
-
----
-
-## Domain Context Files
-
-| Domain | File | Sections |
-|--------|------|----------|
-| **C-Suite** | `company-context.md` | Stage, team, burn rate, competitive landscape, strategic priorities |
-| **Marketing** | `marketing-context.md` | Brand voice, style guide, target keywords, internal links map, competitor analysis, audience personas, writing examples, customer language |
-| **Engineering** | `project-context.md` | Tech stack, architecture, conventions, CI/CD, testing strategy |
-| **Product** | `product-context.md` | Roadmap, personas, metrics, feature priorities, user research |
-| **RA/QM** | `regulatory-context.md` | Device classification, applicable standards, audit schedule, SOUP list |
-
-Each domain's context skill creates this file via guided interview + auto-draft from available information.
-
----
-
-*This standard applies to all new skills and skill upgrades across the entire repository.*
-*Version: 1.0.0 | Created: 2026-03-06*
+- Explicit note that `plugin.json` manifest is optional; default discovery handles root-level `SKILL.md`, `agents/`, `commands/`
+- `model` field in agent frontmatter (with selection heuristic)
+- Explicit namespace rule: one plugin = one `plugin.json` = one command prefix
+- Marketplace-name vs. plugin-name distinction
+- Install-test step (§8.3) as a blocking check before commit

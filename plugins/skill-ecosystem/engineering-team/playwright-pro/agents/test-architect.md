@@ -9,6 +9,7 @@ allowed-tools:
   - Grep
   - Glob
   - LS
+model: opus
 ---
 
 # Test Architect Agent

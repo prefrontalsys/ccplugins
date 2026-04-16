@@ -34,7 +34,7 @@ Or describe the scenario:
 
 ## What This Is Not
 
-- **Not** a single-assumption stress test (that's `/em:stress-test`)
+- **Not** a single-assumption stress test (that's `/scenario-war-room:stress-test`)
 - **Not** financial modeling only — every function gets modeled
 - **Not** worst-case-only — models 3 severity levels
 - **Not** paralysis by analysis — outputs concrete hedges and triggers
@@ -222,3 +222,7 @@ RECOMMENDED DECISION
 ## References
 - `references/scenario-planning.md` — Shell methodology, pre-mortem, Monte Carlo, cascade frameworks
 - `scripts/scenario_modeler.py` — CLI tool for structured scenario modeling
+
+---
+
+*Note: This plugin documents `/scenario-war-room:*` commands but does not yet include the corresponding command files in `commands/`. The slash commands listed above describe intended behaviour — invoke the plugin by its name or dispatch the skill directly via CC skill selection.*

@@ -1,6 +1,6 @@
 ---
 name: "board-meeting"
-description: "Multi-agent board meeting protocol for strategic decisions. Runs a structured 6-phase deliberation: context loading, independent C-suite contributions (isolated, no cross-pollination), critic analysis, synthesis, founder review, and decision extraction. Use when the user invokes /cs:board, calls a board meeting, or wants structured multi-perspective executive deliberation on a strategic question."
+description: "Multi-agent board meeting protocol for strategic decisions. Runs a structured 6-phase deliberation: context loading, independent C-suite contributions (isolated, no cross-pollination), critic analysis, synthesis, founder review, and decision extraction. Use when the user invokes /board-meeting:board, calls a board meeting, or wants structured multi-perspective executive deliberation on a strategic question."
 license: MIT
 metadata:
   version: 1.0.0
@@ -16,10 +16,10 @@ metadata:
 Structured multi-agent deliberation that prevents groupthink, captures minority views, and produces clean, actionable decisions.
 
 ## Keywords
-board meeting, executive deliberation, strategic decision, C-suite, multi-agent, /cs:board, founder review, decision extraction, independent perspectives
+board meeting, executive deliberation, strategic decision, C-suite, multi-agent, /board-meeting:board, founder review, decision extraction, independent perspectives
 
 ## Invoke
-`/cs:board [topic]` — e.g. `/cs:board Should we expand to Spain in Q3?`
+`/board-meeting:board [topic]` — e.g. `/board-meeting:board Should we expand to Spain in Q3?`
 
 ---
 
@@ -104,7 +104,7 @@ Options: ✅ Approve | ✏️ Modify | ❌ Reject | ❓ Ask follow-up
 **Rules:**
 - User corrections OVERRIDE agent proposals. No pushback. No "but the CFO said..."
 - 30-min inactivity → auto-close as "pending review"
-- Reopen any time with `/cs:board resume`
+- Reopen any time with `/board-meeting:board resume`
 
 ---
 
@@ -144,3 +144,7 @@ memory/board-meetings/
 - `templates/meeting-agenda.md` — agenda format
 - `templates/meeting-minutes.md` — final output format
 - `references/meeting-facilitation.md` — conflict handling, timing, failure modes
+
+---
+
+*Note: This plugin documents `/board-meeting:*` commands but does not yet include the corresponding command files in `commands/`. The slash commands listed above describe intended behaviour — invoke the plugin by its name or dispatch the skill directly via CC skill selection.*

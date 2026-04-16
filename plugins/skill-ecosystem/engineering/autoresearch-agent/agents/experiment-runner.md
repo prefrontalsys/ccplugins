@@ -1,6 +1,7 @@
 ---
 name: experiment-runner
 description: Autonomous experimenter that optimizes a target file by a measurable metric, one change at a time. Use when running autoresearch iterations.
+model: sonnet
 ---
 
 # Experiment Runner Agent

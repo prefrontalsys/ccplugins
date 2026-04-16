@@ -21,11 +21,11 @@ competitive intelligence, competitor analysis, battlecard, win/loss analysis, co
 ## Quick Start
 
 ```
-/ci:landscape         — Map your competitive space (direct, indirect, future)
-/ci:battlecard [name] — Build a sales battlecard for a specific competitor
-/ci:winloss           — Analyze recent wins and losses by reason
-/ci:update [name]     — Track what a competitor did recently
-/ci:map               — Build competitive positioning map
+/competitive-intel:landscape         — Map your competitive space (direct, indirect, future)
+/competitive-intel:battlecard [name] — Build a sales battlecard for a specific competitor
+/competitive-intel:winloss           — Analyze recent wins and losses by reason
+/competitive-intel:update [name]     — Track what a competitor did recently
+/competitive-intel:map               — Build competitive positioning map
 ```
 
 ## Framework: 5-Layer Intelligence System
@@ -201,3 +201,7 @@ This is the highest-signal competitive data you have. Most companies do it too r
 ## References
 - `references/ci-playbook.md` — OSINT sources, win/loss framework, positioning map construction
 - `templates/battlecard-template.md` — sales battlecard template
+
+---
+
+*Note: This plugin documents `/competitive-intel:*` commands but does not yet include the corresponding command files in `commands/`. The slash commands listed above describe intended behaviour — invoke the plugin by its name or dispatch the skill directly via CC skill selection.*

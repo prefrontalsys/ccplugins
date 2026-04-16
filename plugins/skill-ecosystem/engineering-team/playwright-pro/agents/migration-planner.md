@@ -8,6 +8,7 @@ allowed-tools:
   - Grep
   - Glob
   - LS
+model: opus
 ---
 
 # Migration Planner Agent

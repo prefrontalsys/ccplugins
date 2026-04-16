@@ -23,9 +23,9 @@ Not a generic "summarize this" — a repeatable framework that extracts what mat
 
 | Command | What it does |
 |---------|-------------|
-| `/research:summarize` | Summarize a single source into a structured brief |
-| `/research:compare` | Compare 2-5 sources side-by-side with synthesis |
-| `/research:cite` | Extract and format all citations from a document |
+| `/research-summarizer:summarize` | Summarize a single source into a structured brief |
+| `/research-summarizer:compare` | Compare 2-5 sources side-by-side with synthesis |
+| `/research-summarizer:cite` | Extract and format all citations from a document |
 
 ---
 
@@ -47,7 +47,7 @@ If the user has a document and wants structured understanding → this skill app
 
 ## Workflow
 
-### `/research:summarize` — Single Source Summary
+### `/research-summarizer:summarize` — Single Source Summary
 
 1. **Identify source type**
    - Academic paper → use IMRAD structure (Introduction, Methods, Results, Analysis, Discussion)
@@ -89,7 +89,7 @@ If the user has a document and wants structured understanding → this skill app
    - Recency (when published, still relevant?)
    - Bias indicators (funding source, author affiliation, methodology gaps)
 
-### `/research:compare` — Multi-Source Comparison
+### `/research-summarizer:compare` — Multi-Source Comparison
 
 1. **Collect sources** (2-5 documents)
 2. **Summarize each** using the single-source workflow above
@@ -126,7 +126,7 @@ If the user has a document and wants structured understanding → this skill app
    [Based on weight of evidence, what should the reader believe/do?]
    ```
 
-### `/research:cite` — Citation Extraction
+### `/research-summarizer:cite` — Citation Extraction
 
 1. **Scan document** for all references, footnotes, in-text citations
 2. **Extract and format** using the requested style (APA 7 default)
@@ -272,3 +272,7 @@ clawhub install cs-research-summarizer
 - **competitive-teardown** — Competitive research. Complementary — use research-summarizer for individual source analysis, competitive-teardown for market landscape.
 - **content-production** — Content writing. Research-summarizer feeds content-production — summarize sources first, then write.
 - **product-discovery** — Discovery frameworks. Complementary — research-summarizer for desk research, product-discovery for user research.
+
+---
+
+*Note: This plugin documents `/research-summarizer:*` commands but does not yet include the corresponding command files in `commands/`. The slash commands listed above describe intended behaviour — invoke the plugin by its name or dispatch the skill directly via CC skill selection.*

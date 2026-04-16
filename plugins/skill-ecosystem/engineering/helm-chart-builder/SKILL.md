@@ -23,9 +23,9 @@ Not a Helm tutorial — a set of concrete decisions about how to build charts th
 
 | Command | What it does |
 |---------|-------------|
-| `/helm:create` | Scaffold a production-ready Helm chart with best-practice structure |
-| `/helm:review` | Analyze an existing chart for issues — missing labels, hardcoded values, template anti-patterns |
-| `/helm:security` | Audit chart for security issues — RBAC, network policies, pod security, secrets handling |
+| `/helm-chart-builder:create` | Scaffold a production-ready Helm chart with best-practice structure |
+| `/helm-chart-builder:review` | Analyze an existing chart for issues — missing labels, hardcoded values, template anti-patterns |
+| `/helm-chart-builder:security` | Audit chart for security issues — RBAC, network policies, pod security, secrets handling |
 
 ---
 
@@ -48,7 +48,7 @@ If the user has a Helm chart or wants to package Kubernetes resources → this s
 
 ## Workflow
 
-### `/helm:create` — Chart Scaffolding
+### `/helm-chart-builder:create` — Chart Scaffolding
 
 1. **Identify workload type**
    - Web service (Deployment + Service + Ingress)
@@ -113,7 +113,7 @@ If the user has a Helm chart or wants to package Kubernetes resources → this s
    helm template mychart/ --debug
    ```
 
-### `/helm:review` — Chart Analysis
+### `/helm-chart-builder:review` — Chart Analysis
 
 1. **Check chart structure**
 
@@ -155,7 +155,7 @@ If the user has a Helm chart or wants to package Kubernetes resources → this s
    [Detailed findings with fix recommendations]
    ```
 
-### `/helm:security` — Security Audit
+### `/helm-chart-builder:security` — Security Audit
 
 1. **Pod security audit**
 
@@ -447,3 +447,7 @@ clawhub install cs-helm-chart-builder
 - **docker-development** — Container building. Complementary — docker-development builds the images, helm-chart-builder deploys them to Kubernetes.
 - **ci-cd-pipeline-builder** — Pipeline construction. Complementary — helm-chart-builder defines the deployment artifact, ci-cd-pipeline-builder automates its delivery.
 - **senior-security** — Application security. Complementary — helm-chart-builder covers Kubernetes-level security (RBAC, pod security), senior-security covers application-level threats.
+
+---
+
+*Note: This plugin documents `/helm-chart-builder:*` commands but does not yet include the corresponding command files in `commands/`. The slash commands listed above describe intended behaviour — invoke the plugin by its name or dispatch the skill directly via CC skill selection.*

@@ -1,6 +1,7 @@
 ---
 name: devils-advocate
 description: Adversarial thinker that finds what's wrong before others do. Challenges assumptions, surfaces risks, red-teams proposals. Use when user wants critique or pre-mortem analysis.
+model: opus
 ---
 
 # Devil's Advocate Agent
