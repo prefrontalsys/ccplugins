@@ -144,7 +144,3 @@ memory/board-meetings/
 - `templates/meeting-agenda.md` — agenda format
 - `templates/meeting-minutes.md` — final output format
 - `references/meeting-facilitation.md` — conflict handling, timing, failure modes
-
----
-
-*Note: This plugin documents `/board-meeting:*` commands but does not yet include the corresponding command files in `commands/`. The slash commands listed above describe intended behaviour — invoke the plugin by its name or dispatch the skill directly via CC skill selection.*

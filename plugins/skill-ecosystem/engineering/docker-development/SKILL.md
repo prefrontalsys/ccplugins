@@ -364,7 +364,3 @@ clawhub install cs-docker-development
 - **senior-security** — Application security. Complementary — docker-development covers container security, senior-security covers application-level threats.
 - **autoresearch-agent** — Can optimize Docker build times or image sizes as measurable experiments.
 - **ci-cd-pipeline-builder** — Pipeline construction. Complementary — docker-development builds the containers, ci-cd-pipeline-builder deploys them.
-
----
-
-*Note: This plugin documents `/docker-development:*` commands but does not yet include the corresponding command files in `commands/`. The slash commands listed above describe intended behaviour — invoke the plugin by its name or dispatch the skill directly via CC skill selection.*

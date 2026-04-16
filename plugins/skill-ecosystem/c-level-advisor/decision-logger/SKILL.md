@@ -147,7 +147,3 @@ memory/board-meetings/
 ## References
 - `templates/decision-entry.md` — single entry template with field rules
 - `scripts/decision_tracker.py` — CLI parser, overdue tracker, conflict detector
-
----
-
-*Note: This plugin documents `/decision-logger:*` commands but does not yet include the corresponding command files in `commands/`. The slash commands listed above describe intended behaviour — invoke the plugin by its name or dispatch the skill directly via CC skill selection.*

@@ -272,7 +272,3 @@ clawhub install cs-research-summarizer
 - **competitive-teardown** — Competitive research. Complementary — use research-summarizer for individual source analysis, competitive-teardown for market landscape.
 - **content-production** — Content writing. Research-summarizer feeds content-production — summarize sources first, then write.
 - **product-discovery** — Discovery frameworks. Complementary — research-summarizer for desk research, product-discovery for user research.
-
----
-
-*Note: This plugin documents `/research-summarizer:*` commands but does not yet include the corresponding command files in `commands/`. The slash commands listed above describe intended behaviour — invoke the plugin by its name or dispatch the skill directly via CC skill selection.*
