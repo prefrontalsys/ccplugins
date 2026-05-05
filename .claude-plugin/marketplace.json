@@ -766,8 +766,8 @@
     },
     {
       "name": "holden",
-      "description": "Holden personality system \u2014 soul, constitution, epistemic hooks, and all agent definitions. Supersedes individual agent plugins.",
-      "version": "1.0.0",
+      "description": "Holden personality system \u2014 soul, constitution, epistemic hooks, dream consolidation, and all agent definitions. Supersedes individual agent plugins.",
+      "version": "1.1.0",
       "author": {
         "name": "prefrontalsys",
         "email": "sr4001@gmail.com"
