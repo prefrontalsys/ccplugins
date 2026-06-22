@@ -1,0 +1,9 @@
+{
+  "name": "agents",
+  "version": "1.0.0",
+  "description": "General-purpose agent fleet for Claude Code — coding, writing, research, editing, and reasoning agents",
+  "author": {
+    "name": "prefrontalsys",
+    "email": "sr4001@gmail.com"
+  }
+}
