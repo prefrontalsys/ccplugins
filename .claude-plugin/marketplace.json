@@ -766,8 +766,8 @@
     },
     {
       "name": "holden",
-      "description": "Holden personality system \u2014 soul, constitution, epistemic hooks, dream consolidation, and all agent definitions. Supersedes individual agent plugins.",
-      "version": "1.3.0",
+      "description": "Holden personality system \u2014 soul, constitution, epistemic hooks, and dream consolidation. Agent definitions moved to the agents plugin.",
+      "version": "1.4.0",
       "author": {
         "name": "prefrontalsys",
         "email": "sr4001@gmail.com"
@@ -1569,6 +1569,21 @@
       "source": "./plugins/skill-ecosystem/marketing-skill/x-twitter-growth",
       "description": "X/Twitter growth engine for building audience, crafting viral content, and analyzing engagement. Use when the user wants to grow on X/Twitter, write tweets or threads, analyze their X profile, research competitors on X, plan a posting strategy, or op",
       "license": "MIT"
+    },
+    {
+      "name": "agents",
+      "description": "General-purpose agent fleet \u2014 worker, doer, thinker, planner, engineer, prompter, sherlock, searcher, skiller, writer, editor, knowledge-guide. Standalone; no personality system dependency.",
+      "version": "1.0.0",
+      "author": {
+        "name": "prefrontalsys",
+        "email": "sr4001@gmail.com"
+      },
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/prefrontalsys/ccplugins.git",
+        "path": "plugins/agents"
+      },
+      "category": "productivity"
     }
   ]
 }
