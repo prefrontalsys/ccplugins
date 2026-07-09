@@ -1,0 +1,9 @@
+{
+  "name": "deep-insights",
+  "description": "Retro analysis of Claude Code sessions over arbitrary windows (bypasses /insights' 200-session cap via chunking)",
+  "version": "1.0.0",
+  "author": {
+    "name": "prefrontalsys",
+    "email": "sr4001@gmail.com"
+  }
+}

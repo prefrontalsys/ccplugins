@@ -1,0 +1,226 @@
+#!/usr/bin/env python3
+"""session-scanner — ranks and extracts Claude Code session transcripts.
+
+Two modes:
+  rank      session-scanner --days N --top M [--project NAME]
+            Ranks .jsonl sessions in ~/.claude/projects/ by discussion density
+            (user_messages / max(tool_calls, 1)). Writes one session ID per line.
+  extract   session-scanner --transcript ID --outfile PATH
+            Dumps a session's messages as readable markdown.
+
+JSONL note: messages use `type` field, not `role`. Types observed:
+  user, assistant, progress, queue-operation, last-prompt, summary
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+import time
+from pathlib import Path
+
+PROJECTS_DIR = Path.home() / ".claude" / "projects"
+
+
+def iter_messages(jsonl_path: Path):
+    try:
+        with jsonl_path.open("r", encoding="utf-8", errors="replace") as fh:
+            for line in fh:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    yield json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+    except OSError:
+        return
+
+
+def score_session(jsonl_path: Path) -> tuple[int, int, int]:
+    """Return (user_msgs, tool_calls, total_msgs) for discussion-density scoring."""
+    user_msgs = 0
+    tool_calls = 0
+    total_msgs = 0
+    for msg in iter_messages(jsonl_path):
+        total_msgs += 1
+        mtype = msg.get("type")
+        if mtype == "user":
+            content = msg.get("message", {}).get("content")
+            is_tool_result = False
+            if isinstance(content, list):
+                for block in content:
+                    if isinstance(block, dict) and block.get("type") == "tool_result":
+                        is_tool_result = True
+                        break
+            if not is_tool_result:
+                user_msgs += 1
+        elif mtype == "assistant":
+            content = msg.get("message", {}).get("content")
+            if isinstance(content, list):
+                for block in content:
+                    if isinstance(block, dict) and block.get("type") == "tool_use":
+                        tool_calls += 1
+    return user_msgs, tool_calls, total_msgs
+
+
+def list_sessions(days: int, project: str | None = None) -> list[Path]:
+    cutoff = time.time() - days * 86400
+    paths: list[Path] = []
+    if project:
+        roots = [PROJECTS_DIR / project]
+    else:
+        roots = [p for p in PROJECTS_DIR.iterdir() if p.is_dir()] if PROJECTS_DIR.exists() else []
+    for root in roots:
+        if not root.exists():
+            continue
+        for p in root.glob("*.jsonl"):
+            try:
+                if p.stat().st_mtime >= cutoff:
+                    paths.append(p)
+            except OSError:
+                continue
+    return paths
+
+
+EXCLUDE_PROJECT_SUFFIXES = ("-claude-mem-observer-sessions",)
+
+
+def cmd_rank(args: argparse.Namespace) -> int:
+    sessions = list_sessions(days=args.days, project=args.project)
+    scored: list[tuple[float, int, int, int, Path]] = []
+    for p in sessions:
+        if not args.include_automation and p.parent.name.endswith(EXCLUDE_PROJECT_SUFFIXES):
+            continue
+        user_msgs, tool_calls, total = score_session(p)
+        if user_msgs < 3:
+            continue
+        if tool_calls == 0 and not args.include_automation:
+            continue
+        density = user_msgs / max(tool_calls, 1)
+        scored.append((density, user_msgs, tool_calls, total, p))
+    scored.sort(key=lambda t: (t[1], t[0]), reverse=True)
+    for density, user_msgs, tool_calls, total, p in scored[: args.top]:
+        sid = p.stem
+        project_name = p.parent.name
+        if args.verbose:
+            print(f"{sid}\t{project_name}\tu={user_msgs}\tt={tool_calls}\ttot={total}\td={density:.3f}")
+        else:
+            print(sid)
+    return 0
+
+
+def find_session(session_id: str) -> Path | None:
+    if not PROJECTS_DIR.exists():
+        return None
+    for project_dir in PROJECTS_DIR.iterdir():
+        if not project_dir.is_dir():
+            continue
+        candidate = project_dir / f"{session_id}.jsonl"
+        if candidate.exists():
+            return candidate
+        for p in project_dir.glob(f"{session_id}*.jsonl"):
+            return p
+    return None
+
+
+def render_block(block) -> str:
+    if isinstance(block, str):
+        return block
+    if not isinstance(block, dict):
+        return str(block)
+    btype = block.get("type")
+    if btype == "text":
+        return block.get("text", "")
+    if btype == "tool_use":
+        name = block.get("name", "?")
+        inp = block.get("input", {})
+        try:
+            inp_s = json.dumps(inp, indent=2)[:2000]
+        except (TypeError, ValueError):
+            inp_s = str(inp)[:2000]
+        return f"\n**[tool_use: {name}]**\n```json\n{inp_s}\n```\n"
+    if btype == "tool_result":
+        content = block.get("content", "")
+        if isinstance(content, list):
+            parts = []
+            for c in content:
+                if isinstance(c, dict) and c.get("type") == "text":
+                    parts.append(c.get("text", ""))
+                else:
+                    parts.append(str(c))
+            content_s = "\n".join(parts)
+        else:
+            content_s = str(content)
+        truncated = content_s[:2000]
+        if len(content_s) > 2000:
+            truncated += f"\n... [{len(content_s) - 2000} more chars]"
+        return f"\n**[tool_result]**\n```\n{truncated}\n```\n"
+    if btype == "thinking":
+        return f"\n**[thinking]**\n{block.get('thinking', '')}\n"
+    return f"[{btype}]"
+
+
+def cmd_transcript(args: argparse.Namespace) -> int:
+    path = find_session(args.transcript)
+    if path is None:
+        print(f"session-scanner: no JSONL found for session id {args.transcript!r}", file=sys.stderr)
+        return 2
+    out_lines: list[str] = []
+    out_lines.append(f"# Transcript — {path.stem}\n")
+    out_lines.append(f"_Project_: `{path.parent.name}`  _Path_: `{path}`\n")
+    for msg in iter_messages(path):
+        mtype = msg.get("type")
+        if mtype == "user":
+            content = msg.get("message", {}).get("content")
+            if isinstance(content, str):
+                out_lines.append(f"\n## User\n\n{content}\n")
+            elif isinstance(content, list):
+                rendered = "".join(render_block(b) for b in content)
+                if rendered.strip():
+                    out_lines.append(f"\n## User\n\n{rendered}\n")
+        elif mtype == "assistant":
+            content = msg.get("message", {}).get("content")
+            if isinstance(content, str):
+                out_lines.append(f"\n## Assistant\n\n{content}\n")
+            elif isinstance(content, list):
+                rendered = "".join(render_block(b) for b in content)
+                if rendered.strip():
+                    out_lines.append(f"\n## Assistant\n\n{rendered}\n")
+        elif mtype == "summary":
+            summary = msg.get("summary", "")
+            if summary:
+                out_lines.append(f"\n## Summary\n\n{summary}\n")
+    output = "".join(out_lines)
+    if args.outfile:
+        out_path = Path(args.outfile).expanduser()
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(output, encoding="utf-8")
+        print(f"wrote {len(output)} bytes to {out_path}")
+    else:
+        sys.stdout.write(output)
+    return 0
+
+
+def main(argv: list[str]) -> int:
+    parser = argparse.ArgumentParser(prog="session-scanner")
+    parser.add_argument("--days", type=int, help="window in days for rank mode")
+    parser.add_argument("--top", type=int, default=200, help="max sessions to emit in rank mode")
+    parser.add_argument("--project", help="restrict to one project dir name")
+    parser.add_argument("--transcript", help="session id for transcript mode")
+    parser.add_argument("--outfile", help="output path for transcript mode")
+    parser.add_argument("--verbose", "-v", action="store_true", help="rank mode: include scores")
+    parser.add_argument("--include-automation", action="store_true", help="include observer/automation sessions")
+    args = parser.parse_args(argv)
+
+    if args.transcript:
+        return cmd_transcript(args)
+    if args.days is not None:
+        return cmd_rank(args)
+    parser.error("must supply --days (rank mode) or --transcript (extract mode)")
+    return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

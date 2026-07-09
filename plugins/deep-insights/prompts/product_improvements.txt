@@ -1,0 +1,13 @@
+# source: insights.ts line 1274
+# purpose: Claude Code product suggestions
+
+Analyze this Claude Code usage data and suggest product improvements for the CC team.
+
+RESPOND WITH ONLY A VALID JSON OBJECT:
+{
+  "improvements": [
+    {"title": "Product/tooling improvement", "detail": "3-4 sentences describing the improvement", "evidence": "3-4 sentences with specific session examples"}
+  ]
+}
+
+Include 2-3 improvements based on friction patterns observed.

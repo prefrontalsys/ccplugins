@@ -555,6 +555,17 @@
       "license": "MIT"
     },
     {
+      "name": "deep-insights",
+      "description": "Retro analysis of Claude Code sessions over arbitrary windows (bypasses /insights' 200-session cap via chunking). Ships a bundled session-ranking script and prompt pack; dispatches worker/thinker agents from the agents plugin.",
+      "version": "1.0.0",
+      "author": {
+        "name": "prefrontalsys",
+        "email": "sr4001@gmail.com"
+      },
+      "source": "./plugins/deep-insights",
+      "category": "productivity"
+    },
+    {
       "name": "demand-gen",
       "source": "./plugins/skill-ecosystem/marketing-skill/marketing-demand-acquisition",
       "description": "Multi-channel demand generation, paid media optimization, SEO strategy, and partnership programs.",

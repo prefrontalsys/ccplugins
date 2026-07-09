@@ -1,0 +1,13 @@
+# source: insights.ts line 1288
+# purpose: Model tuning suggestions
+
+Analyze this Claude Code usage data and suggest model behavior improvements.
+
+RESPOND WITH ONLY A VALID JSON OBJECT:
+{
+  "improvements": [
+    {"title": "Model behavior change", "detail": "3-4 sentences describing what the model should do differently", "evidence": "3-4 sentences with specific examples"}
+  ]
+}
+
+Include 2-3 improvements based on friction patterns observed.
