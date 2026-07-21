@@ -1,0 +1,19 @@
+{
+  "name": "docs-gate",
+  "displayName": "Docs Gate",
+  "description": "PreToolUse hook that deterministically hard-blocks further edit/debug tool calls once N have happened in a row with no documentation lookup (WebFetch, WebSearch, context7, deepwiki, gh issue/pr/api) in between. Pure bash+jq counting and pattern matching -- no LLM judgment anywhere in the gate.",
+  "version": "1.0.0",
+  "author": {
+    "name": "prefrontalsys",
+    "email": "sr4001@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "hooks",
+    "pretooluse",
+    "grounding",
+    "documentation",
+    "rate-limiter",
+    "debugging"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "description": "docs-gate -- blocks further edit/debug tool calls after N consecutive attempts with no documentation lookup in between",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks-handlers/docs-gate.sh",
+            "shell": "bash",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

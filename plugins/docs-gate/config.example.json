@@ -1,0 +1,42 @@
+{
+  "_comment": "Copy to ~/.claude/state/docs-gate/config.json (or set DOCS_GATE_CONFIG) to override. Any key you omit falls back to the script's built-in default -- this file does not need to be complete.",
+
+  "threshold": 3,
+
+  "risky_tools": ["Edit", "MultiEdit", "Write"],
+
+  "_risky_bash_patterns_comment": "Boundaries require start/whitespace/shell-operator on both sides (not a bare word-boundary), so a path like docs-gate.test.sh does not match 'test' -- only the invoked command does.",
+
+  "risky_bash_patterns": [
+    "(^|[[:space:];&|(])test([[:space:];&|)]|$)",
+    "(^|[[:space:];&|(])pytest([[:space:];&|)]|$)",
+    "(^|[[:space:];&|(])npm[[:space:]]+(run|test)([[:space:];&|)]|$)",
+    "(^|[[:space:];&|(])yarn[[:space:]]+(run|test)([[:space:];&|)]|$)",
+    "(^|[[:space:];&|(])pnpm[[:space:]]+(run|test)([[:space:];&|)]|$)",
+    "(^|[[:space:];&|(])go[[:space:]]+(run|test|build)([[:space:];&|)]|$)",
+    "(^|[[:space:];&|(])python[0-9.]*([[:space:];&|)]|$)",
+    "(^|[[:space:];&|(])node([[:space:];&|)]|$)",
+    "(^|[[:space:];&|(])make([[:space:];&|)]|$)",
+    "(^|[[:space:];&|(])cargo[[:space:]]+(run|test|build)([[:space:];&|)]|$)",
+    "(^|[[:space:];&|(])debugger?([[:space:];&|)]|$)",
+    "(^|[[:space:];&|(])docker[[:space:]]+(run|build|compose)([[:space:];&|)]|$)",
+    "(^|[[:space:];&|(])traceback([[:space:];&|)]|$)",
+    "(^|[[:space:];&|(])error([[:space:];&|)]|$)"
+  ],
+
+  "grounding_tool_patterns": [
+    "^WebFetch$",
+    "^WebSearch$",
+    "context7",
+    "deepwiki"
+  ],
+
+  "grounding_bash_patterns": [
+    "\\bgh\\b.*\\bissue\\b",
+    "\\bgh\\b.*\\bpr\\b.*\\bview\\b",
+    "\\bgh\\b.*\\bapi\\b",
+    "curl.*docs\\.",
+    "curl.*readthedocs",
+    "curl.*api\\.github\\.com"
+  ]
+}
