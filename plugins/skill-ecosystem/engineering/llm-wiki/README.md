@@ -1,114 +1,119 @@
 # llm-wiki
 
-> **A second brain for Claude Code + Obsidian.**
-> Inspired by [Andrej Karpathy's LLM Wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
+> Persistent, compounding knowledge for Obsidian and agent workflows.
 
-Turn any LLM CLI into a disciplined wiki maintainer. You curate sources and ask questions. The LLM reads, files, cross-references, flags contradictions, and keeps a living synthesis current. Knowledge **compounds** instead of being re-derived by RAG on every query.
+Inspired by [Andrej Karpathy's LLM Wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f), this plugin turns an agent into a disciplined knowledge-base maintainer. Sources are integrated into durable notes, cross-references, contradictions, and synthesis instead of being rediscovered from scratch on every query.
 
-## The idea in one paragraph
+## Operating modes
 
-Most LLM+docs workflows are RAG: retrieve fragments at query time, synthesize from scratch, forget. The wiki is **compounding**. The LLM reads each source once and integrates it into a persistent, interlinked Obsidian vault — updating entity pages, revising concept pages, flagging contradictions, and strengthening the synthesis. The wiki is the compiled artifact; RAG is the just-in-time retrieval. This plugin gives the LLM the discipline (SKILL.md), the delegation (sub-agents), the triggers (slash commands), and the bookkeeping (Python tools) to do the job.
+llm-wiki supports two modes.
 
-## What's in the box
+### Governed existing vault
 
-| Piece | What it does |
+If the target already has a knowledge architecture or governance policy, **the vault's local rules are authoritative**. The skill inspects the current structure, searches for existing notes, and routes new knowledge into the established destinations. It does not create `raw/`, `wiki/`, `index.md`, or `log.md` merely because the standalone templates use them.
+
+For `prefrontalsys/vault`, the maintained secondary-knowledge structure is:
+
+```text
+knowledge/
+├── knowledge.md
+├── concepts/<domain>/
+├── references/
+├── research/<topic>/
+├── hubs/
+└── projects/
+inbox/
+_meta/
+```
+
+The profile is documented in `references/prefrontalsys-vault-profile.md`. It also preserves the vault's protected canonical domains, provenance rules, vault-root-relative Markdown links, and GitHub validation controls.
+
+### Standalone llm-wiki vault
+
+For a newly initialized research vault, the original plugin structure remains supported:
+
+```text
+<vault>/
+├── raw/                    # immutable source files
+├── wiki/                   # maintained knowledge base
+│   ├── index.md
+│   ├── log.md
+│   ├── entities/
+│   ├── concepts/
+│   ├── sources/
+│   ├── comparisons/
+│   └── synthesis/
+├── CLAUDE.md
+└── AGENTS.md
+```
+
+The bundled Python scripts and starter templates primarily target this standalone layout.
+
+## Core operations
+
+**Ingest** reads a URL or file, deduplicates it, creates or updates a source/reference note, integrates only durable knowledge, preserves contradictions and provenance, and touches only necessary files.
+
+**Query** uses the target vault's current navigation and search facilities, reads the smallest relevant evidence set, and synthesizes an answer without inventing missing knowledge. Durable answers can be filed back into the existing structure.
+
+**Lint** uses native repository validation and governance first. Standalone lint and graph scripts remain available for standalone vaults.
+
+## Commands
+
+| Command | Purpose |
 |---|---|
-| **SKILL.md** | Master skill doc — architecture, workflows, iron rules, cross-tool compat. Has `context: fork` so other skills can chain into it. |
-| **3 sub-agents** | `wiki-ingestor`, `wiki-librarian`, `wiki-linter` |
-| **5 slash commands** | `/wiki-init`, `/wiki-ingest`, `/wiki-query`, `/wiki-lint`, `/wiki-log` |
-| **8 Python tools** | Standard library only: `init_vault`, `ingest_source`, `update_index`, `append_log`, `wiki_search` (BM25), `lint_wiki`, `graph_analyzer`, `export_marp` |
-| **8 reference docs** | Schema, page formats, ingest/query/lint workflows, Obsidian setup, cross-tool setup, Memex principles |
-| **Vault templates** | `CLAUDE.md`, `AGENTS.md`, `.cursorrules`, `index.md`, `log.md`, plus 5 page templates (entity, concept, source, comparison, synthesis) |
-| **Example vault** | A small worked example on "LLM interpretability" |
+| `/wiki-init` | Bootstrap a new standalone llm-wiki vault |
+| `/wiki-ingest <source>` | Ingest a file or URL using target-vault governance |
+| `/wiki-query <question>` | Query maintained knowledge using current navigation |
+| `/wiki-lint` | Run layout-appropriate health checks |
+| `/wiki-log` | Show a log only when the target layout defines one |
 
-## Quick start
+## Sub-agents
+
+- `wiki-ingestor` integrates one source using the current vault layout.
+- `wiki-librarian` answers questions from maintained knowledge.
+- `wiki-linter` runs a non-destructive health review.
+
+## Standalone quick start
 
 ```bash
-# 1. Initialize a vault
 python scripts/init_vault.py --path ~/vaults/research --topic "LLM interpretability" --tool all
-
-# 2. Open in Obsidian
 open -a Obsidian ~/vaults/research
-
-# 3. Drop a source into raw/ and ingest
 cp ~/Downloads/paper.pdf ~/vaults/research/raw/papers/
 cd ~/vaults/research
-# in Claude Code:
-> /wiki-ingest raw/papers/paper.pdf
-
-# 4. Ask questions
-> /wiki-query "what does the paper say about sparse features?"
-
-# 5. Health check
-> /wiki-lint
+# then in the agent CLI:
+# /wiki-ingest raw/papers/paper.pdf
 ```
+
+Do not run this initialization workflow inside an existing governed vault.
+
+## Design rules
+
+- Local governance overrides plugin defaults.
+- Search before creating a note.
+- Use the smallest useful write set. There is no minimum page-touch count.
+- Preserve source provenance and conflicting claims.
+- Do not copy copyrighted web publications into the vault in full.
+- Do not rewrite frontmatter or links merely to normalize them to a generic llm-wiki schema.
+- Do not modify protected canonical knowledge as an incidental ingest or lint side effect.
 
 ## Cross-tool compatibility
 
-The scripts are pure Python stdlib — they run anywhere. Only the **schema loader** changes per tool:
+The standalone scripts are Python standard-library tools. Loader files differ by environment (`CLAUDE.md`, `AGENTS.md`, or `.cursorrules`). In governed-vault mode, repository-local instructions remain authoritative regardless of the agent loader.
 
-| Tool | Loader file |
-|---|---|
-| Claude Code | `CLAUDE.md` |
-| Codex CLI (OpenAI) | `AGENTS.md` |
-| Cursor (modern) | `AGENTS.md` |
-| Cursor (legacy) | `.cursorrules` |
-| Antigravity (Google) | `AGENTS.md` |
-| OpenCode / Pi | `AGENTS.md` |
-| Gemini CLI | `AGENTS.md` |
+## Key references
 
-`init_vault.py --tool all` installs all three. You can run multiple CLIs against the same vault.
-
-See `references/cross-tool-setup.md` for per-tool instructions.
-
-## Architecture
-
-```
-<vault>/
-├── raw/                    # IMMUTABLE sources (you own)
-├── wiki/                   # LLM-owned knowledge base
-│   ├── index.md            # content catalog
-│   ├── log.md              # append-only timeline
-│   ├── entities/           # people, orgs, places, products
-│   ├── concepts/           # ideas, theories, frameworks
-│   ├── sources/            # one summary per ingested source
-│   ├── comparisons/        # cross-source analyses
-│   └── synthesis/          # high-level overviews and theses
-├── CLAUDE.md               # schema for Claude Code
-├── AGENTS.md               # schema for Codex/Cursor/Antigravity
-└── .cursorrules            # (optional) legacy Cursor
-```
-
-**Iron rule:** The LLM never edits `raw/`. All writes go to `wiki/`.
-
-## Three operations
-
-- **Ingest** — Read a source, discuss with user, write summary page, update 5-15 cross-referenced pages, update index, log it
-- **Query** — Read index first, drill into 3-10 pages, synthesize answer with inline citations, offer to file back as a new page
-- **Lint** — Mechanical + semantic health check; surface contradictions, orphans, stale claims, cross-reference gaps
-
-## Why not just RAG?
-
-| Plain RAG | LLM Wiki |
-|---|---|
-| Rediscover knowledge each query | Knowledge accumulates |
-| Cross-references re-computed every time | Cross-references pre-written and maintained |
-| Contradictions surface only if you ask | Contradictions flagged during ingest |
-| Exploration disappears into chat history | Good answers re-filed as new pages |
-| Scales by embeddings infrastructure | Scales by markdown + `index.md` + optional local search |
-
-The wiki and RAG aren't opposites — RAG can sit on top of the wiki once you outgrow index-first search.
+- `SKILL.md` — master behavior and precedence rules
+- `references/prefrontalsys-vault-profile.md` — governed profile for `prefrontalsys/vault`
+- `references/wiki-schema.md` — governed and standalone layouts
+- `references/page-formats.md` — note patterns
+- `references/ingest-workflow.md` — ingestion workflow
+- `references/query-workflow.md` — query workflow
+- `references/lint-workflow.md` — health-check workflow
 
 ## Status
 
-**v1.0.0** — initial release. SKILL + 3 agents + 5 commands + 8 scripts + 8 references + full vault templates + example vault.
+**v1.1.0** — adds governed-vault mode and an explicit `prefrontalsys/vault` profile while retaining standalone `raw/` + `wiki/` compatibility.
 
 ## License
 
 MIT.
-
-## Related
-
-- [Karpathy's original gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — the pattern this plugin implements
-- Vannevar Bush, "As We May Think" (1945) — the Memex
-- [qmd](https://github.com/tobi/qmd) — local hybrid search over markdown (pair with this when the wiki outgrows `index.md`)
