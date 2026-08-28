@@ -1,98 +1,112 @@
 # Wiki Schema
 
-The vault has three layers. The LLM must respect the boundaries.
+llm-wiki supports two layouts. The target vault decides which one applies.
 
-## Layout
+## Precedence
 
-```
+For an existing vault, local governance and established structure are authoritative. Inspect the repository before writing. Do not create the standalone llm-wiki hierarchy inside a governed vault merely because this plugin ships templates for it.
+
+When the target is `prefrontalsys/vault`, use `references/prefrontalsys-vault-profile.md`.
+
+## Governed layout: prefrontalsys/vault
+
+```text
 <vault>/
-├── raw/                        # IMMUTABLE sources (you own)
-│   ├── articles/*.md           # Obsidian Web Clipper output
+├── knowledge/
+│   ├── knowledge.md
+│   ├── concepts/<domain>/
+│   ├── references/
+│   ├── research/<topic>/
+│   ├── hubs/
+│   └── projects/
+├── inbox/
+├── _meta/
+├── retirement_planning_hub/
+├── career-work_knowledge_base/
+└── personal_health_record/
+```
+
+### Routing
+
+- `knowledge/references/` stores durable source and reference notes.
+- `knowledge/concepts/<domain>/` stores reusable ideas, methods, frameworks, and design principles.
+- `knowledge/research/<topic>/` stores multi-source research and evolving synthesis.
+- `knowledge/hubs/` stores navigation and topic hubs.
+- `knowledge/projects/` stores project-scoped durable knowledge.
+- `inbox/` is temporary intake when a destination cannot be resolved safely.
+
+Do not introduce `raw/`, `wiki/`, `_inbox/`, `_agents/`, or `_archive/` into this vault unless current local governance explicitly defines them.
+
+### Frontmatter
+
+Follow adjacent files. Do not perform broad schema normalization during an ingest.
+
+New substantive concept notes must include a non-empty `type` field to satisfy vault CI. Preserve the destination family’s existing `status`, `lifecycle`, `tags`, `sources`, provenance, confidence, and date conventions where applicable.
+
+### Linking
+
+Use vault-root-relative Markdown links, for example:
+
+```markdown
+[Structural Guardrails](knowledge/concepts/ai-systems/structural-guardrails.md)
+```
+
+Do not convert existing links to Obsidian wikilinks as a side effect of ingestion.
+
+### Authority and protected content
+
+Local governance defines authority. A new external source may add evidence or expose a conflict but must not silently overwrite a higher-authority claim.
+
+The following roots are protected and require the review controls in `_meta/knowledge-governance.md`:
+
+- `retirement_planning_hub/**`
+- `career-work_knowledge_base/**`
+- `personal_health_record/**`
+
+Ordinary source ingestion should not modify these directories.
+
+## Standalone llm-wiki layout
+
+Use this layout only for a newly initialized llm-wiki vault or an existing vault that already follows it.
+
+```text
+<vault>/
+├── raw/                        # immutable source files
+│   ├── articles/*.md
 │   ├── papers/*.pdf
-│   ├── notes/*.md              # your own notes, journal entries
-│   └── assets/                 # images downloaded by Obsidian
-├── wiki/                       # LLM-owned knowledge base
-│   ├── index.md                # content catalog — updated every ingest
-│   ├── log.md                  # append-only timeline
-│   ├── entities/               # people, orgs, places, products
-│   ├── concepts/               # ideas, theories, frameworks, methods
-│   ├── sources/                # one summary page per ingested source
-│   ├── comparisons/            # cross-source analysis / contrasts
-│   ├── synthesis/              # high-level theses, overviews
-│   └── .templates/             # page templates (reference only, not indexed)
-├── CLAUDE.md                   # schema file for Claude Code
-├── AGENTS.md                   # same schema for Codex/Cursor/Antigravity
-└── .cursorrules                # (optional) Cursor legacy
+│   ├── notes/*.md
+│   └── assets/
+├── wiki/
+│   ├── index.md
+│   ├── log.md
+│   ├── entities/
+│   ├── concepts/
+│   ├── sources/
+│   ├── comparisons/
+│   ├── synthesis/
+│   └── .templates/
+├── CLAUDE.md
+├── AGENTS.md
+└── .cursorrules
 ```
 
-## Iron rules
+For this standalone layout only:
 
-1. **`raw/` is immutable.** The LLM reads from `raw/` but never writes to it. Never rename, never delete, never edit. If a source is wrong, the user edits it.
-2. **All LLM writes go to `wiki/`.** No exceptions.
-3. **Every ingest updates 5 files minimum:** the new source summary, the relevant entity/concept pages, `index.md`, `log.md`. A rich ingest touches 10-15.
-4. **Every wiki page carries YAML frontmatter.** Without frontmatter, `update_index.py` and `lint_wiki.py` can't see it.
+1. `raw/` is immutable.
+2. Maintained knowledge is written under `wiki/`.
+3. Pages use YAML frontmatter expected by the bundled indexing and lint scripts.
+4. `wiki/index.md` and `wiki/log.md` are maintained by the standalone workflow.
 
-## Required page frontmatter
+The bundled Python scripts target this layout unless their implementation explicitly says otherwise.
 
-```yaml
----
-title: Mechanistic Interpretability
-category: concept            # entity | concept | source | comparison | synthesis
-summary: Reverse-engineering neural networks into human-understandable circuits
-tags: [interpretability, circuits, anthropic]
-sources: 3                   # optional — number of sources touching this page
-updated: 2026-04-10          # LLM updates this on every edit
----
-```
+## General rules
 
-Allowed `category` values: `entity`, `concept`, `source`, `comparison`, `synthesis`.
+Regardless of layout:
 
-## Naming conventions
-
-- **Filenames:** `kebab-case.md` — lowercase, hyphens, no spaces
-- **Entities:** `entities/<kebab-case-name>.md` — e.g. `entities/chris-olah.md`
-- **Concepts:** `concepts/<kebab-case-name>.md` — e.g. `concepts/sparse-autoencoder.md`
-- **Sources:** `sources/<short-slug>.md` — e.g. `sources/monosemanticity.md`
-- **Comparisons:** `comparisons/<topic-a>-vs-<topic-b>.md`
-- **Synthesis:** `synthesis/<topic>-overview.md` or `synthesis/<topic>-thesis.md`
-
-## Linking
-
-Use Obsidian wikilinks. Three forms:
-
-```
-[[concepts/sparse-autoencoder]]                           # full path
-[[concepts/sparse-autoencoder|sparse autoencoders]]       # custom display text
-[[sparse-autoencoder]]                                    # stem — resolves if unique
-```
-
-The linter resolves stem links by matching against filenames. Prefer full paths when ambiguous.
-
-## Cross-reference rules
-
-- **Every entity mentioned in a concept/source page must be a wikilink.** If the entity page doesn't exist yet, create it.
-- **Every concept mentioned in a source summary must be a wikilink.** Same rule.
-- **Contradictions get flagged inline** with a `> ⚠️ Contradiction:` callout, and the source pages that disagree are linked from the callout.
-- **Synthesis pages link back to every concept and source they draw on.**
-
-## Index discipline
-
-`wiki/index.md` is regenerated, not hand-edited. Either:
-
-- Run `python scripts/update_index.py --vault .` after every ingest, OR
-- Have the LLM rewrite the relevant section inline.
-
-The index groups pages by `category`, alphabetized by title. Each entry is one line with a wikilink, summary, and optional metadata.
-
-## Log discipline
-
-`wiki/log.md` is append-only. Every entry starts with a standardized header so `grep "^## \[" log.md | tail -5` returns the last 5 entries.
-
-```
-## [2026-04-10] ingest | Anthropic Monosemanticity
-Added sources/monosemanticity.md. Updated concepts/sparse-autoencoder,
-concepts/polysemanticity, entities/anthropic-interpretability-team. Flagged
-contradiction with sources/distributed-representations on feature basis claim.
-```
-
-Valid ops: `ingest`, `query`, `lint`, `create`, `update`, `delete`, `note`.
+- Search for duplicates before creating a page.
+- Preserve source provenance.
+- Use the smallest useful write set. There is no universal minimum file-touch count.
+- Preserve contradictions rather than silently resolving them.
+- Do not copy copyrighted web publications into the vault in full. Prefer a source/reference note with a concise summary and source pointer.
+- Touch navigation only when a new note materially improves discoverability.
+- Let local governance define link syntax, frontmatter, status, lifecycle, and review gates.
