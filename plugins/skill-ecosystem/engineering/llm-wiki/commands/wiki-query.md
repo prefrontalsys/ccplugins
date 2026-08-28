@@ -1,58 +1,46 @@
 ---
 name: wiki-query
-description: Query the LLM Wiki — reads index.md first, drills into 3-10 relevant pages, synthesizes an answer with inline [[wikilink]] citations, and offers to file the answer back as a new comparison or synthesis page. Usage /wiki-query "<question>"
+description: Query the maintained knowledge vault using its current governance and navigation. Read the smallest relevant evidence set, synthesize with provenance, and file back only durable knowledge when appropriate. Usage /wiki-query "<question>"
 ---
 
 # /wiki-query
 
-Ask the wiki a question. The librarian reads `index.md` first, picks relevant pages across categories, synthesizes an answer with citations, and offers to file the answer back into the wiki so your explorations compound.
+Ask the maintained knowledge base a question without assuming a particular filesystem layout.
 
 ## Usage
 
-```
+```text
 /wiki-query "<your question>"
-/wiki-query "what does the wiki say about sparse autoencoders?"
-/wiki-query "compare monosemanticity and polysemanticity across my sources"
-/wiki-query "which sources disagree on scaling laws?"
-/wiki-query "give me a comparison table of SAE vs linear probing"
 ```
 
 ## What happens
 
-1. **Index-first read** — reads `wiki/index.md` to find relevant pages
-2. **Drill-in** — reads 3-10 pages in full (synthesis + concepts + sources + entities)
-3. **Follow links** — opportunistically follows wikilinks between pages
-4. **Fallback search** — if the index isn't enough, runs `scripts/wiki_search.py` (BM25)
-5. **Synthesize** — composes a direct answer + supporting detail + inline `[[sources/xxx]]` citations + "Related pages" section
-6. **Offer to file back** — asks whether to save this as a new wiki page (usually in `comparisons/` or `synthesis/`)
+1. **Resolve layout** — read the llm-wiki skill and target-vault governance.
+2. **Navigate** — use the vault's current knowledge root and hubs before broader search.
+3. **Read evidence** — inspect the smallest set of relevant concept, research, project, reference, or canonical notes.
+4. **Synthesize** — answer directly while preserving provenance, qualifiers, and authority.
+5. **Persist selectively** — write back only durable knowledge and route it using the target vault's existing structure.
 
-## Output formats
+## prefrontalsys/vault
 
-The answer's format follows the question:
+Start from `knowledge/knowledge.md`, then the relevant file under `knowledge/hubs/`. Follow vault-root-relative Markdown links and search targeted paths when navigation is insufficient.
 
-| Question shape | Output |
-|---|---|
-| "What is X?" | Markdown explanation with citations |
-| "A vs B" | Comparison table |
-| "Give me a slide deck on X" | Markdown synthesis → `/wiki-marp` to render |
-| "Chart the trend in X" | Python script + saved chart in `wiki/assets/charts/` |
+Do not expect `wiki/index.md`, `wiki/log.md`, or wikilink-only citations. Do not create `wiki/comparisons/` or `wiki/synthesis/` to save an answer.
+
+If persistence is appropriate, route the result according to `references/prefrontalsys-vault-profile.md` and search for an existing destination first.
+
+Protected canonical roots retain the authority and review controls defined by `_meta/knowledge-governance.md`.
+
+## Standalone compatibility
+
+For a standalone llm-wiki vault that already uses `wiki/index.md`, the bundled index-first search, wikilink citations, comparison/synthesis folders, and log workflow remain valid.
 
 ## Sub-agent
 
-This command dispatches the `wiki-librarian` sub-agent. See `agents/wiki-librarian.md`.
+This command may dispatch `wiki-librarian`. The sub-agent must follow the same target-vault precedence rules.
 
-## Scripts
+## Skill references
 
-- `engineering/llm-wiki/scripts/wiki_search.py` — BM25 fallback search
-- `engineering/llm-wiki/scripts/append_log.py` — log filed answers
-
-## Rules
-
-- **Read the index first.** No grep-everything.
-- **Every claim cites a page** with a `[[wikilink]]`.
-- **Offer to file the answer back** — but only for substantive answers worth keeping.
-
-## Skill Reference
-
-→ `engineering/llm-wiki/SKILL.md`
-→ `engineering/llm-wiki/references/query-workflow.md`
+- `engineering/llm-wiki/SKILL.md`
+- `engineering/llm-wiki/references/query-workflow.md`
+- `engineering/llm-wiki/references/prefrontalsys-vault-profile.md`
