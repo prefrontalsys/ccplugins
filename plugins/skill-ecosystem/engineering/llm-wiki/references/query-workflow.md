@@ -1,76 +1,53 @@
 # Query Workflow
 
-The flow the LLM follows when the user runs `/wiki-query <question>` or dispatches the `wiki-librarian` sub-agent.
+Use this flow when the user runs `/wiki-query <question>` or asks a question that should be answered from the maintained vault.
 
-## Core principle
+## 1. Resolve the target layout
 
-**Read `index.md` first, then drill in.** Do NOT grep the entire wiki on every query — the index is there precisely so you don't have to.
+Local vault governance and navigation take precedence over llm-wiki defaults.
 
-## Step-by-step
+For `prefrontalsys/vault`, begin with `knowledge/knowledge.md`, then read the relevant hub under `knowledge/hubs/` and the most relevant concept, research, project, or reference notes. Do not expect `wiki/index.md` to exist.
 
-### 1. Read `index.md`
+For a standalone llm-wiki vault that already uses `wiki/index.md`, the original index-first workflow remains valid.
 
-The index is the catalog. Scan it and pick the 3-10 pages most likely to contain the answer. Pick across categories: a good query usually pulls from `synthesis/` for the big picture, `concepts/` for definitions, `sources/` for evidence, and `entities/` for context.
+## 2. Find the smallest relevant evidence set
 
-### 2. Read the picked pages
+Use existing navigation first. Follow root-relative Markdown links when they clearly lead to relevant evidence. Search the vault when navigation is insufficient or the topic is narrow.
 
-Read them in full. These are short, curated, and already cross-referenced. The wiki has done the hard work for you.
+Do not read the entire vault by default. Do not assume the bundled `wiki_search.py` script is compatible with a governed layout; use the search facilities available in the current environment unless the script has been verified for that vault.
 
-### 3. Follow wikilinks opportunistically
+## 3. Read evidence in context
 
-If a read page points to another page that's clearly relevant, follow it. Don't follow blindly — stop when you have enough.
+Read enough of each selected note to preserve qualifiers, provenance, status, and authority. When a source/reference note points to an original source, distinguish what the vault states from what would require checking the source again.
 
-### 4. Fall back to search if needed
+Protected canonical domains remain higher-authority according to local governance.
 
-If the index doesn't surface the right page, use:
+## 4. Synthesize
 
-```bash
-python scripts/wiki_search.py --vault . --query "<terms>" --limit 5
-```
+Answer the user's question directly. Cite or link the vault notes that support material claims using the vault's current link convention.
 
-BM25 search over wiki pages. Standard library only. Use when:
-- The index is stale (flag this to the user — it means lint time)
-- The user asks about something niche that doesn't have its own page yet
-- You're doing a sweeping search across many pages
+For `prefrontalsys/vault`, preserve vault-root-relative Markdown links when creating durable notes. In chat, identify the supporting note paths or connector citations as appropriate to the environment.
 
-### 5. Synthesize the answer
+Do not invent knowledge that is absent from the vault. If the question requires current external verification, retrieve that evidence explicitly rather than silently filling a gap.
 
-Compose the answer as:
-- A direct answer in 1-3 sentences
-- Supporting detail, organized thematically
-- **Inline citations** using wikilinks to source pages: `[[sources/monosemanticity]]`
-- **A "Related pages" section** at the end with 3-5 wikilinks
+## 5. File back only durable knowledge
 
-### 6. Offer to re-file
+Do not automatically create a page for every query. File an answer back only when the user requests persistence or when the result is clearly durable and the workflow permits the write.
 
-**Every good answer is a candidate wiki page.** At the end of the answer, ask:
+For `prefrontalsys/vault`, route durable output according to `references/prefrontalsys-vault-profile.md`:
 
-> _Should I file this as a new page in the wiki? Suggested location:
-> `wiki/comparisons/sae-vs-probing.md` — or I can append it to an existing page._
+- reusable concept → `knowledge/concepts/<domain>/`
+- multi-source research/synthesis → `knowledge/research/<topic>/`
+- project-scoped knowledge → `knowledge/projects/`
+- navigation → `knowledge/hubs/`
+- unresolved intake → `inbox/`
 
-If the user says yes:
-- Pick the right category (most often `comparisons/` or `synthesis/`)
-- Use the appropriate template
-- Add frontmatter with `category`, `summary`, `sources` (count of cited sources), `updated`
-- Update `index.md`
-- Append to `log.md` with `op: create` and the question as the title
+Search for an existing destination before creating a new note. Touch only necessary files. Do not create `wiki/comparisons/`, `wiki/synthesis/`, `index.md`, or `log.md` in a governed vault merely to record a query.
 
-This is how the wiki compounds — explorations don't disappear into chat history.
+## 6. Preserve authority and contradictions
 
-## Output formats
+If the query surfaces a contradiction, report it without silently changing either claim. Any write to a protected canonical domain must follow local review controls.
 
-Not every query wants a markdown answer. Offer the user:
+## Standalone compatibility
 
-- **Markdown page** (default) — filed back as a wiki page
-- **Comparison table** — for "A vs B" questions
-- **Marp slide deck** — via `python scripts/export_marp.py` on the synthesis page
-- **Chart (matplotlib)** — for data-driven questions; save to `wiki/assets/charts/`
-- **Obsidian Canvas** — for visual exploration (JSON format, stored at `wiki/canvases/`)
-
-## Anti-patterns
-
-- ❌ Read every page in the wiki on every query → use the index
-- ❌ Answer without citations → every claim must link to a page
-- ❌ Create a new page for a one-off trivial question → only file back answers worth keeping
-- ❌ Invent content not in the wiki → if you don't know, say so and suggest a new source to ingest
-- ❌ Skip the `log.md` entry when filing an answer back
+For standalone llm-wiki vaults, `wiki/index.md`, wikilink citations, `wiki_search.py`, comparison/synthesis pages, and `wiki/log.md` remain supported. Those conventions are not universal requirements for governed vaults.
