@@ -1,83 +1,44 @@
 ---
 name: wiki-lint
-description: Run a health check on the LLM Wiki vault — mechanical checks (orphans, broken links, stale pages, missing frontmatter, log gap, duplicates) plus semantic checks (contradictions, cross-reference gaps, concepts missing their own page). Outputs a markdown report with suggested actions. Usage /wiki-lint [--stale-days N] [--log-gap-days N]
+description: Run a non-destructive health review using the target vault's own governance, CI, link style, frontmatter rules, authority model, and protected-domain controls. Usage /wiki-lint
 ---
 
 # /wiki-lint
 
-Health-check the wiki. Surfaces orphan pages, broken wikilinks, stale claims, missing frontmatter, contradictions, and structural drift. **Reports, doesn't silently fix** — you decide what to change.
-
-Run this weekly, after batch ingests, and always before sharing the wiki.
-
-## Usage
-
-```
-/wiki-lint
-/wiki-lint --stale-days 60
-/wiki-lint --log-gap-days 7
-```
+Review the maintained knowledge base for structural and semantic problems without assuming the standalone llm-wiki layout.
 
 ## What happens
 
-### Pass 1 — Mechanical (scripts)
+1. **Resolve layout** — read the llm-wiki skill and target-vault governance.
+2. **Use native checks** — prefer repository CI and maintenance controls defined by the vault.
+3. **Review semantics** — look for contradictions, stale time-sensitive claims, duplicate concepts, provenance gaps, broken links, and navigation gaps.
+4. **Respect authority** — do not rewrite protected or higher-authority knowledge automatically.
+5. **Report** — return a compact review queue with affected paths and smallest recommended actions.
 
-- `scripts/lint_wiki.py` — orphans, broken links, stale pages, missing frontmatter, duplicate titles, log gap
-- `scripts/graph_analyzer.py` — hubs, sinks, connected components, graph stats
+## prefrontalsys/vault
 
-### Pass 2 — Semantic (LLM reads and thinks)
+Read `_meta/knowledge-governance.md` first. Validate the current conventions, including vault-root-relative Markdown links and required `type` on new substantive concept notes.
 
-- Contradictions between recently-updated pages
-- Stale claims superseded by newer sources
-- Concepts mentioned in plain text across 3+ pages without their own page
-- Cross-reference gaps (entities mentioned but not wikilinked)
-- Index drift (index.md out of sync with wiki/)
+Do not assume `wiki/index.md`, `wiki/log.md`, universal `category` frontmatter, or wikilinks. Do not run standalone lint scripts against this vault unless compatibility has been verified.
 
-### Pass 3 — Report
+Protected roots are:
 
-A markdown report grouped by severity:
+- `retirement_planning_hub/**`
+- `career-work_knowledge_base/**`
+- `personal_health_record/**`
 
-```markdown
-# Wiki lint — <date>
+Linting is non-destructive by default. Repairs require authorization and must follow local review controls.
 
-**Total pages:** N  **Components:** N  **Last log:** <date>
+## Standalone compatibility
 
-## Found
-- ⚠️ <N> contradictions (list)
-- <N> orphans
-- <N> broken links
-- <N> stale pages
-- ...
-
-## Suggested actions
-1. Investigate contradiction between [[sources/a]] and [[sources/b]]
-2. Create concept page for "<name>"
-3. Fix broken link in [[concepts/x]]
-4. Re-ingest [[sources/c]] — stale + contradicted
-5. ...
-```
-
-Then appends a `lint` entry to `log.md`.
+For a standalone llm-wiki vault that already uses `raw/` + `wiki/`, the bundled `lint_wiki.py` and `graph_analyzer.py` helpers remain valid.
 
 ## Sub-agent
 
-Dispatches the `wiki-linter` sub-agent. See `agents/wiki-linter.md`.
+This command may dispatch `wiki-linter`. The sub-agent must follow the same target-vault precedence rules.
 
-## Scripts
+## Skill references
 
-- `engineering/llm-wiki/scripts/lint_wiki.py`
-- `engineering/llm-wiki/scripts/graph_analyzer.py`
-- `engineering/llm-wiki/scripts/append_log.py`
-
-## Frequency
-
-| Trigger | Pass |
-|---|---|
-| Weekly | Mechanical only — fast |
-| After batch ingest | Full (mechanical + semantic) |
-| Monthly | Full + structural review |
-| Before sharing | Full + extra review |
-
-## Skill Reference
-
-→ `engineering/llm-wiki/SKILL.md`
-→ `engineering/llm-wiki/references/lint-workflow.md`
+- `engineering/llm-wiki/SKILL.md`
+- `engineering/llm-wiki/references/lint-workflow.md`
+- `engineering/llm-wiki/references/prefrontalsys-vault-profile.md`
