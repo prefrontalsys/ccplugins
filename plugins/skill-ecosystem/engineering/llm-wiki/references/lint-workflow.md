@@ -1,91 +1,80 @@
 # Lint Workflow
 
-Periodic health-check the LLM runs when the user runs `/wiki-lint` or dispatches the `wiki-linter` sub-agent. Run this at least weekly, and always after a batch ingest.
+Use this workflow for non-destructive knowledge-base health checks. The target vault's own validation and governance controls take precedence over the bundled standalone llm-wiki scripts.
 
-## Goal
+## 1. Resolve the target layout
 
-Keep the wiki healthy as it grows. Surface problems for the user to review.
+For `prefrontalsys/vault`, read `_meta/knowledge-governance.md` before running or proposing changes. Repository CI and the weekly health workflow already define important structural checks and review boundaries.
 
-## Pass 1 — mechanical checks (script)
+Do not assume the vault has `wiki/index.md`, `wiki/log.md`, `category` frontmatter on every note, or Obsidian wikilinks.
 
-Run `python scripts/lint_wiki.py --vault .` to get a report on:
+For a standalone llm-wiki vault that already uses `raw/` + `wiki/`, the bundled lint and graph scripts remain appropriate.
 
-- **Orphans** — pages with zero inbound `[[wikilinks]]`
-- **Broken links** — wikilinks pointing to non-existent pages
-- **Stale pages** — pages whose `updated:` frontmatter is older than 90 days (tune via `--stale-days`)
-- **Missing frontmatter** — pages lacking `title`, `category`, or `summary`
-- **Duplicate titles** — two or more pages sharing the same title
-- **Log gap** — no log entry in the last 14 days (tune via `--log-gap-days`)
+## 2. Mechanical checks
 
-Run `python scripts/graph_analyzer.py --vault .` for structural stats:
+For a governed vault, prefer the repository's native validation. Check the concerns that local policy defines, including:
 
-- Hubs (inbound/outbound) — likely well-placed
-- Sinks — pages that don't link out; may need cross-referencing
-- Connected components — if > 1, parts of the wiki are disconnected islands
+- parseable YAML frontmatter where frontmatter is expected;
+- required `type` on new substantive concept notes;
+- broken local Markdown links;
+- duplicate or conflicting durable notes;
+- high-confidence secret patterns and sensitive-data warnings;
+- protected-domain changes that lack the required review controls;
+- draft and inbox queues where local maintenance tracks them.
 
-## Pass 2 — semantic checks (LLM)
+Do not automatically rewrite notes to make them conform to a generic llm-wiki schema.
 
-The script can't catch these. The LLM must read and think.
+## 3. Semantic checks
 
-### A. Contradictions
+Review targeted knowledge for:
 
-Scan pages whose `updated:` is recent. For each, check whether it contradicts any existing page. If so:
-- Add a `> ⚠️ Contradiction:` callout to both pages
-- Log with `op: note`
-- Surface to user: "I found a potential contradiction between X and Y. Want me to investigate?"
+### Contradictions
 
-### B. Stale claims
+When two notes or sources materially disagree, preserve both claims and provenance. Report the conflict. Do not choose a side or rewrite higher-authority content without sufficient evidence and the required approval.
 
-For each flagged stale page, ask:
-- Does a newer source now contradict this?
-- Is a "Key facts" bullet likely to be outdated (person changed role, company pivoted, etc.)?
-- If yes, suggest to user: "Page X says Y. This may be outdated — do you want me to search for newer sources?"
+### Stale claims
 
-### C. Concepts mentioned but without their own page
+Distinguish a genuinely time-sensitive claim from an older but still valid conceptual note. Suggest verification when freshness matters. Do not change a claim solely because its `updated` date is old.
 
-Grep for common patterns: `[[concept:xxx]]`, phrases like "see also", concept-shaped nouns mentioned across 3+ pages but with no dedicated page.
+### Duplicate concepts
 
-Suggest new pages to create.
+Identify near-duplicate concepts, references, or research notes before creating new ones. Recommend merge or consolidation only when authority and provenance can be preserved.
 
-### D. Cross-reference gaps
+### Link gaps
 
-For each page, check: do all entities and concepts mentioned have wikilinks? If a concept is referenced as plain text in 3+ places, promote it to a wikilink (and create a stub page if needed).
+Use the vault's actual link convention. In `prefrontalsys/vault`, validate vault-root-relative Markdown links. Do not convert files to wikilinks as a lint side effect.
 
-### E. Index drift
+### Navigation gaps
 
-Compare `index.md` against actual `wiki/` contents. If out of sync, either regenerate (`update_index.py`) or patch inline.
+Check whether durable notes are reachable from an appropriate hub when navigation would materially benefit. Do not add every note to every hub.
 
-## Pass 3 — report
+### Provenance gaps
 
-Present findings to the user as a single markdown report:
+Flag durable claims whose source cannot be recovered or whose extracted versus inferred status is materially unclear.
 
-```markdown
-# Wiki lint — 2026-04-10
+## 4. Protected domains
 
-**Total pages:** 87  **Components:** 1  **Last log:** 2026-04-09
+For `prefrontalsys/vault`, do not automatically modify:
 
-## Found
-- ⚠️ 3 contradictions (wiki/concepts/x, wiki/sources/y, wiki/sources/z)
-- 12 orphan pages (mostly new entities)
-- 2 broken links (wiki/concepts/x → [[foo-bar]] no such page)
-- 4 stale pages (>90 days, no re-ingest)
-- 5 concepts mentioned across 3+ pages without their own page
+- `retirement_planning_hub/**`
+- `career-work_knowledge_base/**`
+- `personal_health_record/**`
 
-## Suggested actions
-1. Investigate contradiction between [[sources/a]] and [[sources/b]]
-2. Create concept page for "attention masking" (mentioned in 4 sources)
-3. Re-ingest [[sources/c]] — stale and contradicted by newer sources
-4. Fix broken link in [[concepts/x]]
-5. Cross-reference the 12 orphans (most belong under [[synthesis/overview]])
+Follow the approval controls in `_meta/knowledge-governance.md` for any legitimate protected-domain change.
 
-Want me to run these in order, or pick specific ones?
+## 5. Report
+
+Return a compact review queue containing the issue, affected path, severity or consequence, and the smallest recommended action. Separate findings from changes actually applied.
+
+A lint run is non-destructive by default. Apply repairs only when authorized and when local governance permits them.
+
+## Standalone compatibility
+
+For standalone llm-wiki vaults, the original helpers remain supported:
+
+```text
+python scripts/lint_wiki.py --vault .
+python scripts/graph_analyzer.py --vault .
 ```
 
-Append a `lint` entry to `log.md` summarizing what was found and what was fixed.
-
-## Frequency
-
-- **Weekly** — light pass, script-only (`lint_wiki.py` + quick review)
-- **After batch ingests** — always
-- **Monthly** — full pass including semantic checks
-- **Before sharing the wiki** — full pass plus an extra review
+Those scripts may check standalone-specific concepts such as `wiki/index.md`, `wiki/log.md`, wikilinks, `category` frontmatter, and graph components. Do not run them against a governed vault until compatibility has been verified.
