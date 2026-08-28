@@ -1,64 +1,26 @@
 ---
 name: wiki-log
-description: Show recent entries from the LLM Wiki log (wiki/log.md). Uses the standardized ## [YYYY-MM-DD] header format so grep + tail works. Usage /wiki-log [--last N] [--op ingest|query|lint|...]
+description: Show the llm-wiki operation log when the target vault defines one. Standalone llm-wiki vaults use wiki/log.md; governed vaults use their own repository history and maintenance controls instead of creating a synthetic log. Usage /wiki-log
 ---
 
 # /wiki-log
 
-Show recent entries from `wiki/log.md`. Every LLM operation on the wiki leaves a standardized entry:
+Show recent llm-wiki activity using the logging mechanism defined by the target vault.
 
-```
-## [YYYY-MM-DD] <op> | <title>
-<optional detail>
-```
+## Governed vaults
 
-## Usage
+Do not create `wiki/log.md` solely to support this command.
 
-```
-/wiki-log                            # last 10 entries
-/wiki-log --last 20
-/wiki-log --op ingest --last 10      # only ingest entries
-/wiki-log --op lint                  # recent lint passes
-/wiki-log --since 2026-04-01
-```
+For `prefrontalsys/vault`, Git history, pull requests, issues, and the maintenance controls described in `_meta/knowledge-governance.md` are the authoritative operational record. If the user asks for recent knowledge changes, inspect those sources or the relevant file history rather than introducing a parallel append-only log.
 
-## What it does
+## Standalone llm-wiki vaults
 
-Parses `wiki/log.md` and prints matching entries. No LLM involvement needed — this is essentially:
+If the target already uses the standalone `raw/` + `wiki/` layout, `wiki/log.md` remains supported. Show recent standardized entries from that file and use the bundled append-log helper when the standalone workflow calls for it.
 
-```bash
-grep "^## \[" wiki/log.md | tail -N
-```
+## Rule
 
-…plus optional filters for op type and date range.
+Logging follows local governance. A helper command must not create a new source of operational truth in an existing governed vault.
 
-## Valid ops
+## Skill reference
 
-- `ingest` — a source was read and integrated
-- `query` — a question was answered (when filed back)
-- `lint` — a health check ran
-- `create` — a new page was created outside an ingest
-- `update` — a page was updated outside an ingest
-- `delete` — a page was removed
-- `note` — freeform note (contradictions flagged, thesis revisions, etc.)
-
-## Example output
-
-```
-## [2026-04-11] lint | weekly health check
-3 contradictions, 12 orphans, 2 broken links. Fixed broken links; left contradictions for next session.
-
-## [2026-04-10] ingest | Anthropic Monosemanticity
-Added sources/monosemanticity.md. Updated concepts/sparse-autoencoder, concepts/polysemanticity, entities/anthropic.
-
-## [2026-04-09] query | SAE vs probing
-Filed back to comparisons/sae-vs-probing.md.
-```
-
-## Scripts
-
-- Uses `grep` + `tail` directly on `wiki/log.md`. No dedicated script needed; that's the point of the standardized header format.
-
-## Skill Reference
-
-→ `engineering/llm-wiki/SKILL.md`
+- `engineering/llm-wiki/SKILL.md`
